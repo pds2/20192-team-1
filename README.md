@@ -30,7 +30,7 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 
 ## Cartões CRC
 
-//Podia ter um texto que explicasse de uma forma mais geral a distribuição das classes//
+//Vou fazer: Podia ter um texto que explicasse de uma forma mais geral a distribuição das classes//
 
 *CRC:
 
