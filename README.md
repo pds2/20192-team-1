@@ -50,6 +50,13 @@ Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e dis
 
 *CRC:
 
+| Classe: Pessoa                            |                       |
+|-------------------------------------------|-----------------------|
+| Responsabilidades:                        | Colaborações:         |
+|   *Saber seu nome*;                       |                       |
+|   *Saber seu cpf*;                        |                       |
+|   *Saber seu nível*;                      |                       |
+
 | Classe: Cinema                                |                       |
 |-----------------------------------------------|-----------------------|
 | Responsabilidades:                            | Colaborações:         |
@@ -64,7 +71,6 @@ Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e dis
 |   *Conhecer todas as suas sessões*;           |                       |
 |   *Conhecer todos os seus empregados*;        |                       |
 |   *Ser capaz de adicionar um novo empregado*; |                       |
-
 
 
 | Classe: Sala                      |               |
@@ -108,17 +114,17 @@ Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e dis
 |---------------------------------------------------------------------------------|-------------------|
 | Responsabilidades:                                                              | Colaborações:     |
 |   *Ser capaz de adicionar uma taxa no valor do ingresso*;                       |                   |                 
-|   *Saber sua taxa adicional*;                                                   |                   |    
+|   *Saber sua taxa*;                                                   |                   |    
 
 
-| Classe: Premium                                                                 | Superclasse: Sala |
+| Classe: Premium                                                                 | Superclasse: IMAX |
 |---------------------------------------------------------------------------------|-------------------|
 | Responsabilidades:                                                              | Colaborações:     |
 |   *Ser capaz de adicionar uma taxa no valor do ingresso*;                       |                   |                 
 |   *Saber sua taxa*;                                                             |                   |   
   
 
-| Classe: 3D                                                                      | Superclasse: Sala |
+| Classe: 3D                                                                      | Superclasse: IMAX |
 |---------------------------------------------------------------------------------|-------------------|
 | Responsabilidades:                                                              | Colaborações:     |
 |   *Ser capaz de adicionar uma taxa no valor do ingresso*;                       |                   |                 
