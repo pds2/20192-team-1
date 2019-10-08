@@ -33,12 +33,13 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 //Vou fazer: Podia ter um texto que explicasse de uma forma mais geral a distribuição das classes//
 
 *CRC:
+
 | Classe: Pessoa                            |                       |
 |-------------------------------------------|-----------------------|
 | Responsabilidades:                        | Colaborações:         |
 |   *Saber seu nome*;                       |                       |
-|   *Saber seu cpf*;                        |
-|   *Saber seu nível*;                      |
+|   *Saber seu cpf*;                        |                       |
+|   *Saber seu nível*;                      |                       |
 
 
 | Classe: Cinema                            |                       |
@@ -95,7 +96,7 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 |   *Saber sua taxa adicional*;                                                                       | 
 
 
-| Classe: Premium                                                                 | Superclasse: Sala |
+| Classe: Premium                                                                 | Superclasse: IMAX |
 |---------------------------------------------------------------------------------|-------------------|
 | Responsabilidades:                                                              | Colaborações:     |
 |   *Ser capaz de adicionar uma taxa no valor do ingresso*;                                           | 
