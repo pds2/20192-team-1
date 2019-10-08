@@ -46,7 +46,7 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 O cinema é composto por salas que, por sua vez, compoem sessões através de filmes. A sessão possui uma quantidade de assentos definido pela sala escolhida, um horário e um filme.
 Os assentos das sessões são vendidos em formas de ingresso e, acada venda de assento, é mudado o estado do mesmo de livre para ocupado.
 A cada venda de ingresso de determinada sessão é necessário guardar o valor do ingresso na arrecadação do filme, no caixa do cinema e a devida porcentagem para o distribuidor cujo filme foi negociado.
-Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e distribuidor. Cada um possui um nível de acesso para que cada um consiga acessar somente determinadas funcionalidades do sistema.
+Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e distribuidor. Cada um possui um nível de acesso para que cada um consiga acessar somente determinadas funcionalidades do sistema. 
 
 *CRC:
 
