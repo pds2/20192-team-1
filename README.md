@@ -13,17 +13,19 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 
 ## User Stories
 
-
+# Vendedor
 * Como um vendedor, eu quero ver todos os assentos disponíveis e seus respectivos preços das sessões abertas para a venda para que eu possa mostrar ao cliente.
 
 * Como um vendedor, eu quero conseguir vender ingressos de assentos disponíveis das sessões abertas para venda.
 
+# Gerente
 * Como um gerente, eu quero ser capaz de adicionar um novo filme para exibição, a porcentagem de bilheteria do distribuidor e do exibidor, o horário, a quantidade e o tipo de sala das sessões de cada novo filme.
 
 * Como gerente, eu quero ser capaz de ver a renda de cada filme para que eu possa decidir ou não criar novas sessões daquele filme.
 
 * Como gerente, eu quero ser capaz de definir valores para cada assento de acordo com o tipo de sala.
 
+# Diretor do Cinema
 * Como diretor do cinema, eu quero poder criar novas salas, criar novos gerentes e novos vendedores.
 
 ## Cartões CRC
