@@ -7,7 +7,7 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 
 ## Autores
 
-* **Andressa Nowasyk** - @username
+* **Andressa Nowasyk** - @andressanowasyk
 * **Henrique Lisboa** - @hlisboasousa
 * **Matheus** - @username
 
