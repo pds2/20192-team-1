@@ -15,12 +15,12 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 
 ### Vendedor
 * Como um vendedor, eu quero ver todos os assentos disponíveis e seus respectivos preços das sessões abertas para a venda para que eu possa mostrar ao cliente.
-- [ ] Imprimir assentos disponíveis e vendidos de determinada sessão
-- [ ] Pesquisar próximas sessões de determinado filme ou horário e o preço de seu ingresso
+#### - [ ] Imprimir assentos disponíveis e vendidos de determinada sessão
+#### - [ ] Pesquisar próximas sessões de determinado filme ou horário e o preço de seu ingresso
 
 * Como um vendedor, eu quero conseguir vender ingressos de assentos disponíveis das sessões abertas para venda.
-- [ ] Vender um ingresso do mapa de assento da determinada sessão, transformando-o num assento ocupado.
-- [ ] Adicionar na renda do filme, do cinema e do distribuidor o valor adquirido para cada ingresso vendido
+#### - [ ] Vender um ingresso do mapa de assento da determinada sessão, transformando-o num assento ocupado.
+#### - [ ] Adicionar na renda do filme, do cinema e do distribuidor o valor adquirido para cada ingresso vendido
 
 ### Gerente
 * Como um gerente, eu quero ser capaz de adicionar um novo filme para exibição, o horário, a quantidade e o tipo de sala das sessões de cada novo filme.
