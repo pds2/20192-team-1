@@ -87,7 +87,7 @@ Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e dis
 |   *Ser capaz de setar seu estado*;  |               |
 
 
-| CLasse: Filme                                             |                 |
+| Classe: Filme                                             |                 |
 |-----------------------------------------------------------|-----------------|
 | Responsabilidades:                                        | Colaborações:   |
 |   *Saber sua duração*;                                    | *Distribuidor*; |
