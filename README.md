@@ -7,7 +7,7 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 
 ## Autores
 
-* **Andressa Nowasyk** - @andressanowasyk
+* **Andressa Nowasyk** - @username
 * **Henrique Lisboa** - @hlisboasousa
 * **Matheus** - @username
 
@@ -30,9 +30,72 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 
 ## Cartões CRC
 
+//Podia ter um texto que explicasse de uma forma mais geral a distribuição das classes//
+
+*CRC:
+
+| Classe: Cinema                            |                       |
+|-------------------------------------------|-----------------------|
+| Responsabilidades:                        | Colaborações:         |
+|   *Ser capaz de adicionar salas*;         |                       |
+|   *Ser capaz de adicionar filmes*;        |                       |
+|   *Ser capaz adicionar sessões*;          |                       |
+|   *Ser capaz de adicionar distribuidor*;  |                       |
+|   *Saber filmes em cartaz*;               |                       |
+|   *Saber valor total já arrecadado*;      |                       |
+
+
+| Classe: Sala                      |               |
+|-----------------------------------|---------------|
+| Responsabilidades:                | Colaborações: |
+|   *Saber sua capacidade*;         |
+|   *Saber seu valor por assento*;  | 
+
+
+| Classe: Assento                     |               | 
+|-------------------------------------|---------------|
+| Responsabilidades:                  | Colaborações: |
+|   *Saber se está ocupado ou livre*; |               |
+|   *Ser capaz de setar seu estado*;  |               |
+
+
+| CLasse: Filmes                                            |                 |
+|-----------------------------------------------------------|-----------------|
+| Responsabilidades:                                        | Colaborações:   |
+|   *Saber sua duração*;                                    | *Distribuidor*; |
+|   *Saber seu título*;                                     |                 |
+|   *Saber sua verba arrecadada*;                           |                 |
+|   *Saber o distribuidor que negociou*;                    |                 |
+|   *Saber sua bilheteria total*;                           |                 |
+|   *Saber seu público total*;                              |                 |
+|   *Saber seu tícket médio*;                               |                 |
+|   *Ser capaz de adicionar valor na sua verba arrecadada*; |                 |
+
+| Classe: Sessão                                                                  |                 |
+|---------------------------------------------------------------------------------|-----------------|
+| Responsabilidades:                                                              | Colaborações:   |
+|   *Saber sua data/hora*;                                                        |  *Sala*         |
+|   *Saber seu filme*;                                                            |  *FIlme*        |
+|   *Ser capaz de criar seu mapa de assentos de acordo com a capacidade da sala*; |  *Assento*      |
+|   *Ser capaz de ver assentos*;
+|   *Ser capaz de imprimir o mapa de assentos (livres/ocupados)*;
+
+
+| Classe: IMAX                                                                    | Superclasse: Sala |
+|---------------------------------------------------------------------------------|-------------------|
+| Responsabilidades:                                                              | Colaborações:     |
+|   *Ser capaz de adicionar uma taxa no valor do ingresso*;                                           |                 
+|   *Saber sua taxa adicional*;                                                                       |    
+
+
+| Classe: Premium                                                                 | Superclasse: Sala |
+|---------------------------------------------------------------------------------|-------------------|
+| Responsabilidades:                                                              | Colaborações:     |
+|   *Ser capaz de adicionar uma taxa no valor do ingresso*;                                           |                 
+|   *Saber sua taxa*;                                                                                 |   
+  
+
+
+
 Acho que aqui a gente pode inserir as tabelas, usando um gerador de tabelas: https://www.tablesgenerator.com/markdown_tables
-
-
-
-
 
