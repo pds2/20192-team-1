@@ -48,7 +48,6 @@ Os assentos das sessões são vendidos em formas de ingresso e, acada venda de a
 A cada venda de ingresso de determinada sessão é necessário guardar o valor do ingresso na arrecadação do filme, no caixa do cinema e a devida porcentagem para o distribuidor cujo filme foi negociado.
 Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e distribuidor. Cada um possui um nível de acesso para que cada um consiga acessar somente determinadas funcionalidades do sistema. 
 
-*CRC:
 
 | Classe: Pessoa                            |                       |
 |-------------------------------------------|-----------------------|
