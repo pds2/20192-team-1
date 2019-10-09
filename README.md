@@ -40,6 +40,12 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 * Como diretor do cinema, eu quero poder criar novas salas, criar novos gerentes e novos vendedores.
 - [ ] Criar novas salas e setar suas capacidades
 
+### Distribuidor
+* Como distribuidor, quero ser capaz de verificar e sacar meu crédito.
+- [ ] Imprimir Saldo
+- [ ] Sacar saldo
+
+
 
 ## Cartões CRC
 
@@ -128,7 +134,3 @@ Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e dis
 | Responsabilidades:                                                              | Colaborações:     |
 |   *Ser capaz de adicionar uma taxa no valor do ingresso*;                       |                   |                 
 |   *Saber sua taxa*;                                                             |                   |  
-
-
-Acho que aqui a gente pode inserir as tabelas, usando um gerador de tabelas: https://www.tablesgenerator.com/markdown_tables
-
