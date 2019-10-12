@@ -15,6 +15,8 @@ class Cinema {
         unsigned long long int verbaArrecadada;
 
     public:
+        Cinema();
+        ~Cinema();
         void criarNovaSala(int); // int:capacidade
         void criarNovaPessoa(int); // int:nivel de acesso
         void cadastrarNovoDistribuidor(Distribuidor);
