@@ -9,6 +9,18 @@
 #include <iostream>
 
 int main(){
-    std::cout << "Use o main para testar seu programa!" << std::endl;
+    int numero_acesso;
+    std::cout << "Digite o numero de acesso" << std::endl;
+    std::cin >> numero_acesso;
+
+    if(numero_acesso==1){
+        std::cout << "Olá Andressa" << std::endl;
+    }
+    if(numero_acesso==2){
+        std::cout << "Olá Henrique" << std::endl;
+    }
+    if(numero_acesso==3){
+        std::cout << "Olá Matheus" << std::endl;
+    }
     return 0;
 }
