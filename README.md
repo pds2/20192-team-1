@@ -1,4 +1,4 @@
-# Projeto de gerenciamento de uma exibidora de cinema
+﻿# Projeto de gerenciamento de uma exibidora de cinema
 
 Este projeto consiste em um sistema de gerenciamento para uma exibidora de cinema. 
 O sistema deve ser capaz de gerenciar as salas do cinema, suas respectivas sessões, 
@@ -9,7 +9,7 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 
 * **Andressa Nowasyk** - @andressanowasyk
 * **Henrique Lisboa** - @hlisboasousa
-* **Matheus Akira** - @matheysakira
+* **Matheus Akira** - @matheusakira
 
 ## User Stories
 
