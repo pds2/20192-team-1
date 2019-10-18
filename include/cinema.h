@@ -9,26 +9,35 @@
 
 class Cinema {
     private:
-        std::vector<Filme> listaFilmes;
-        std::vector<Pessoa> listaEmpregados;
-        std::vector<Sala> listaSalas;
-        std::vector<Sessao> listaSessoes;
-        std::vector<Distribuidor> listaDistribuidores;
+        // os maps terao como chave respectivamente:
+        // filme: titulo do filme
+        // empregados: numero identificador
+        // sala: numero da sala
+        // sessao: string representando data/hora
+        // lista distribuidores: numero identificador
+        std::map<std::string, Filme> listaFilmes;
+        std::map<unsigned long long int, Pessoa> listaEmpregados;
+        std::map<int, Sala> listaSalas;
+        std::map<std::string, Sessao> listaSessoes;
+        std::map<unsigned long long int, Distribuidor> listaDistribuidores;
         unsigned long long int verbaArrecadada;
+        std::string nomeDoCinema;
 
     public:
-        Cinema();
+        Cinema(std::string nome);
         ~Cinema();
-        void criarNovaSala(int); // int:capacidade
-        void criarNovaPessoa(int); // int:nivel de acesso
-        void cadastrarNovoDistribuidor(Distribuidor);
-        void cadastrarNovoFilme(Filme,Distribuidor);
-        void cadastrarSessao(Sessao);
+        void criarNovaSala(int capacidade); // int:capacidade
+        void criarNovaPessoa(int nivelAcesso); // int:nivel de acesso
+        void armazenarNovoDistribuidor(Distribuidor novoDistribuidor);
+        void armazenarNovoFilme(Filme novoFilme,Distribuidor distribuidorNovoFilme);
+        void armazenarSessao(Sessao novaSessao);
         void imprimirFilmesEmCartaz();
-        void imprimirSessoesFuturas(Filme); // imprimir as sessoes futuras daquele filme
+        void imprimirSessoesFuturas(Filme filme); // imprimir as sessoes futuras daquele filme
         void imprimirEmpregados();
         void imprimirDistribuidores();
-        void adicionarVerbaArrecadada(unsigned int);
+        void adicionarVerbaArrecadada(unsigned int valorParaAdicionar);
         unsigned long long int getVerbaArrecadada();
+        void setNomeDoCinema(std::string novoNome);
+        std::string getNomeDoCinema();
 };
 #endif
