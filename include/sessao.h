@@ -11,11 +11,11 @@
 class Sessao {
     private:
         std::string datahora;
-        Filme filme;
-        Sala sala;
+        Filme *filme;
+        Sala *sala;
 
     public:
-        Sessao(Sala, Filme, std::string);
+        Sessao(Sala sala, Filme filme, std::string datahora);
         ~Sessao();
         void imprimir_mapa_assentos();
 

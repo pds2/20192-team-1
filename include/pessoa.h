@@ -9,7 +9,7 @@ class Pessoa {
         unsigned long long int identificacao; // CPF ou CNPJ
         int nivelDeAcesso;
     public:
-        Pessoa(std::string,unsigned long long int, int);
+        Pessoa(std::string nome,unsigned long long int identificacao, int acesso);
         ~Pessoa();
         std::string getNome();
         long long int getIdentificacao();

@@ -15,6 +15,8 @@ int main(){
 
     if(numero_acesso==1){
         std::cout << "Olá Andressa" << std::endl;
+        Cinema cinema("Cineart");
+
     }
     if(numero_acesso==2){
         std::cout << "Olá Henrique" << std::endl;

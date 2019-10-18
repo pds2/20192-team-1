@@ -13,7 +13,7 @@ class Filme {
         float ticketMedio;
         Distribuidor *distribuidor;
     public:
-        Filme(std::string, Distribuidor&); // nao tenho certeza da passagem do distribuidor como ponteiro (mas tem que ser ponteiro)
+        Filme(std::string titulo, Distribuidor& distribuidor);
         ~Filme();
         float getTicketMedio(); 
         unsigned long long int getPublicoTotal();

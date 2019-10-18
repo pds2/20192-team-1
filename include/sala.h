@@ -10,7 +10,7 @@ class Sala {
         int capacidade;
         float valorPorAssento;
     public:
-        Sala(int,int,float); // numero, capacidade, valorPorAssento
+        Sala(int numero,int capacidade,float valorPorAssento); // numero, capacidade, valorPorAssento
         ~Sala();
         void alterarValorPorAssento(int);
         int getNumero();
