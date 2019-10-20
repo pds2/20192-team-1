@@ -8,9 +8,9 @@ class Sala {
     private:
         int numero;
         int capacidade;
-        float valorPorAssento;
+        static float valorPorAssento; // valor por assento precisa ser estático para que todas as salas do mesmo tipo tenham o mesmo valor por assento
     public:
-        Sala(int numero,int capacidade,float valorPorAssento); // numero, capacidade, valorPorAssento
+        Sala(int numero,int capacidade);
         ~Sala();
         void alterarValorPorAssento(int);
         int getNumero();

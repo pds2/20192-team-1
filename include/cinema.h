@@ -26,18 +26,26 @@ class Cinema {
     public:
         Cinema(std::string nome);
         ~Cinema();
-        void criarNovaSala(int capacidade); // int:capacidade
-        void criarNovaPessoa(int nivelAcesso); // int:nivel de acesso
+        void armazenarNovaSala(Sala sala); 
+        void armazenarNovaPessoa(Pessoa pessoa); 
         void armazenarNovoDistribuidor(Distribuidor novoDistribuidor);
         void armazenarNovoFilme(Filme novoFilme,Distribuidor distribuidorNovoFilme);
         void armazenarSessao(Sessao novaSessao);
         void imprimirFilmesEmCartaz();
-        void imprimirSessoesFuturas(Filme filme); // imprimir as sessoes futuras daquele filme
+        void imprimirSessoesFuturas(Filme filme);
         void imprimirEmpregados();
         void imprimirDistribuidores();
+        void imprimirSalas();
         void adicionarVerbaArrecadada(unsigned int valorParaAdicionar);
         unsigned long long int getVerbaArrecadada();
         void setNomeDoCinema(std::string novoNome);
+        int getProximaSalaASerCriada();
+        bool isListaSalaVazia(); // testa se nao ha nenhum elemento na lista de salas
+        std::map<std::string, Filme> getFilmes();
+        std::map<unsigned long long int, Pessoa> getEmpregados();
+        std::map<int, Sala> getSalas();
+        std::map<std::string, Sessao> getSessoes();
+        std::map<unsigned long long int, Distribuidor> getDistribuidores();
         std::string getNomeDoCinema();
 };
 #endif
