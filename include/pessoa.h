@@ -12,7 +12,7 @@ class Pessoa {
         Pessoa(std::string nome,unsigned long long int identificacao, int acesso);
         ~Pessoa();
         std::string getNome();
-        long long int getIdentificacao();
+        unsigned long long int getIdentificacao();
         int getNivelDeAcesso();
         void setNome(std::string);
         void setIdentificacao(unsigned long long int);
