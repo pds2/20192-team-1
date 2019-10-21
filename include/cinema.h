@@ -41,6 +41,7 @@ class Cinema {
         void setNomeDoCinema(std::string novoNome);
         int getProximaSalaASerCriada();
         bool isListaSalaVazia(); // testa se nao ha nenhum elemento na lista de salas
+        bool isEmpregadoExistente(unsigned long long int id_empregado);
         std::map<std::string, Filme> getFilmes();
         std::map<unsigned long long int, Pessoa> getEmpregados();
         std::map<int, Sala> getSalas();
