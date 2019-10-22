@@ -19,19 +19,19 @@ int Sala::getCapacidade() {
     return this->capacidade;
 }
 
-float Sala::getValorPorAssento(){
-    return this->valorPorAssento;
+float Sala::getValorPorAssento() {
+    return Sala::valorPorAssento;
 }
 
-void Sala::setCapacidade(int capacidade){
+void Sala::setCapacidade(int capacidade) {
     this->capacidade = capacidade;
 }
 
-void Sala::setValorPorAssento(float valor){
+void Sala::setValorPorAssento(float valor) {
     this->valorPorAssento = valor;
 }
 
-void Sala::setNumero(int numero){
+void Sala::setNumero(int numero) {
     this->numero = numero;
 }
 
