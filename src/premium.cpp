@@ -14,5 +14,5 @@ void Premium::setTaxaAdicional(float taxa){
 }
 
 float Premium::getValorPorAssento(){
-    return(valorPorAssento * taxaAdicionalPremium);
+    return(Sala::valorPorAssento * Premium::taxaAdicionalPremium);
 }
