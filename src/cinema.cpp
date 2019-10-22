@@ -1,7 +1,6 @@
 #include <iostream>
 #include "cinema.h"
 
-// implementada ok!
 Cinema::Cinema (std::string nome) {
     this->nomeDoCinema = nome;
     std::cout << "Bem-vindo ao " << this->nomeDoCinema << "!" << std::endl;
@@ -69,6 +68,7 @@ std::string Cinema::getNomeDoCinema() {
     return this->nomeDoCinema;
 }
 
+// imprime a lista de salas cadastradas no cinema
 void Cinema::imprimirSalas() {
     std::map<int, Sala>::iterator it;
     it = this->listaSalas.begin(); // estou pegando certo?
@@ -84,6 +84,7 @@ void Cinema::imprimirSalas() {
     }
 }
 
+// imprime a lista de empregados cadastrados no cinema
 void Cinema::imprimirEmpregados() {
     std::map<unsigned long long int, Pessoa>::iterator it;
     it = this->listaEmpregados.begin(); // estou pegando certo?
