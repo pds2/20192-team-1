@@ -29,7 +29,7 @@ class Cinema {
         void armazenarNovaSala(Sala sala); 
         void armazenarNovaPessoa(Pessoa pessoa); 
         void armazenarNovoDistribuidor(Distribuidor novoDistribuidor);
-        void armazenarNovoFilme(Filme novoFilme,Distribuidor distribuidorNovoFilme);
+        void armazenarNovoFilme(Filme novoFilme);
         void armazenarSessao(Sessao novaSessao);
         void imprimirFilmesEmCartaz();
         void imprimirSessoesFuturas(Filme filme);

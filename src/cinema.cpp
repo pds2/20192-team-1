@@ -86,6 +86,11 @@ void Cinema::armazenarNovaPessoa(Pessoa pessoa) {
     std::cout << "Empregado " << pessoa.getNome() << " armazenado com sucesso!" << std::endl;
 }
 
+void Cinema::armazenarNovoFilme(Filme filme) {
+    this->listaFilmes.insert(std::pair<std::string,Filme>(filme.getTitulo(),filme));
+    std::cout << "Filme " << filme.getTitulo() << " armazenado com sucesso!" << std::endl;
+}
+
 std::string Cinema::getNomeDoCinema() {
     return this->nomeDoCinema;
 }

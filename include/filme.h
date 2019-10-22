@@ -16,6 +16,7 @@ class Filme {
         Filme(std::string titulo, Distribuidor& distribuidor);
         ~Filme();
         float getTicketMedio(); 
+        std::string getTitulo();
         unsigned long long int getPublicoTotal();
         unsigned long long int getVerbaArrecadada();
         void setTicketMedio(float);
