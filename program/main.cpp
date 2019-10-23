@@ -50,9 +50,10 @@ int main(){
     int num_sala;
     int capacidade_sala;
     Sala * s;
-    //Pessoa * p;
-    //Filme * f;
-    std::string nome_empregado;
+    Pessoa * p;
+    Filme * f;
+    Distribuidor * d;
+    //std::string nome_empregado;
     //unsigned long long int id_empregado;
     unsigned long long int id_distribuidor;
     //int nivel_acesso_empregado;
@@ -84,7 +85,8 @@ int main(){
             std::cout << "8. Imprimir salas do cinema" << std::endl;
             std::cout << "9. Imprimir empregados" << std::endl;
             std::cout << "10. Imprimir lista Distribuidores" << std::endl;
-            std::cout << "10. Vender ingressos" << std::endl;
+            std::cout << "11. Imprimir todos os filmes do cinema" << std::endl;
+            std::cout << "12. Vender ingressos" << std::endl;
             std::cout << "-1. Sair" << std::endl;
             std::cin >> opcao;
 
@@ -120,7 +122,8 @@ int main(){
                     std::cout << "Código Distribuidor: " << std::endl;
                     std::cin >> id_distribuidor;
                     if (!cinema.isDistribuidorExistente(id_distribuidor)) {
-                        std::cout << "Distribuidor não localizado. Deseja cadastrar o Distribuidor " << id_distribuidor << "?" << std::endl;
+                        
+                        std::cout << "Distribuidor não localizado. Deseja cadastrar o Distribuidor ? " << id_distribuidor << "?" << std::endl;
                         std::cout << "Digite Y para cadastrar, qualquer outra tecla para imprimir a lista de distribuidores existentes." << std::endl;
                         std::cin >> opcao_yn;
                         if (opcao_yn == 'Y') {
@@ -130,7 +133,8 @@ int main(){
                         }
                     }
                 } while (!cinema.isDistribuidorExistente(id_distribuidor));
-
+                f = new Filme(nome_filme,*d);
+                cinema.armazenarNovoFilme(*f);
             }
 
             if (opcao == 8) {
@@ -140,7 +144,18 @@ int main(){
             if (opcao == 9) {
                 cinema.imprimirEmpregados();
             }
+
+            if (opcao == -1) {
+                // desalocar os espacos alocados
+                delete s;
+                delete p;
+                delete f;
+                delete d;
+                cinema.~Cinema();
+            }
         }
+
+
     }
     if(numero_acesso==2){
         std::cout << "Olá Henrique" << std::endl;
