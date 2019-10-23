@@ -30,15 +30,41 @@ Pessoa criarEmpregado(){
     std::cin >> id;
 
     do {
-            std::cout << "Nivel de Acesso: " << std::endl;
-            std::cin >> nivel;
-                if (nivel < ACESSO_MINIMO || nivel > ACESSO_MAXIMO) {
-                    std::cout << "Nivel inválido. Tente novamente." << std::endl;
-                }
+        std::cout << "Nivel de Acesso: " << std::endl;
+        std::cin >> nivel;
+            if (nivel < ACESSO_MINIMO || nivel > ACESSO_MAXIMO) {
+                std::cout << "Nivel inválido. Tente novamente." << std::endl;
+            }
         } while (nivel < ACESSO_MINIMO || nivel > ACESSO_MAXIMO);
 
-           p = new Pessoa(nome, id, nivel);
-            return(*p);
+    p = new Pessoa(nome, id, nivel);
+    return(*p);
+}
+
+Distribuidor criarDistribuidor(){
+
+    std::string nome;
+    int id;
+    unsigned long long int acesso;
+    Distribuidor *d;
+
+    std::cout << "Nome do Distribuidor: " << std::endl;
+    std::cin.ignore();
+    std::getline (std::cin,nome);
+
+    std::cout << "Identificador Distribuidor: " << std::endl;
+    std::cin >> id;
+
+    do {
+        std::cout << "Nivel de Acesso: " << std::endl;
+        std::cin >> acesso;
+            if (acesso < ACESSO_MINIMO || acesso > ACESSO_MAXIMO) {
+                std::cout << "Nivel inválido. Tente novamente." << std::endl;
+            }
+        } while (acesso < ACESSO_MINIMO || acesso > ACESSO_MAXIMO);
+
+    d = new Distribuidor(nome, id, acesso);
+    return(*d);
 }
 
 
@@ -105,6 +131,7 @@ int main(){
             }
 
             if (opcao == 3) {
+                cinema.armazenarNovoDistribuidor(criarDistribuidor());
 
             }
 
