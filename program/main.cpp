@@ -172,6 +172,10 @@ int main(){
                 cinema.imprimirEmpregados();
             }
 
+            if(opcao == 10){
+                cinema.imprimirDistribuidores();
+            }
+
             if (opcao == -1) {
                 // desalocar os espacos alocados
                 delete s;
