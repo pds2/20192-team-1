@@ -13,6 +13,11 @@ void TresD::setTaxaAdicional(float taxa){
     this->taxaAdicionalTresD = taxa;
 }
 
+float TresD::getTaxaAdicional(){
+    return(taxaAdicionalTresD);
+}
+
+
 float TresD::getValorPorAssento(){
-    return(valorPorAssento + taxaAdicionalTresD);
+    return((Sala::valorPorAssento * IMAX::taxaAdicionalIMAX) + TresD::taxaAdicionalTresD);
 }
