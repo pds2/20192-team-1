@@ -93,7 +93,8 @@ int main(){
             }
 
             if (opcao == 3) {
-
+                // cadastrar um novo distribuidor
+                
             }
 
             if (opcao == 4) {
