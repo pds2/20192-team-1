@@ -9,3 +9,7 @@ Filme::Filme(std::string titulo, Distribuidor &distribuidor) {
 Filme::~Filme() {
 
 }
+
+std::string Filme::getTitulo(){
+    return(this->titulo);
+}

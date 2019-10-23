@@ -82,10 +82,28 @@ void Cinema::armazenarNovaSala(Sala sala) {
 }
 
 void Cinema::armazenarNovaPessoa(Pessoa pessoa) {
+    
+    if (isEmpregadoExistente(pessoa.getIdentificacao())) {
+            std::cout << "O identificador já existe no sistema. Tente novamente." << std::endl;
+    }
+
+    else {
     this->listaEmpregados.insert(std::pair<unsigned long long int, Pessoa>(pessoa.getIdentificacao(),pessoa));
     std::cout << "Empregado " << pessoa.getNome() << " armazenado com sucesso!" << std::endl;
+    }
 }
 
+void Cinema::armazenarNovoDistribuidor(Distribuidor distribuidor) {
+    
+    if (isDistribuidorExistente(distribuidor.getIdentificacao())) {
+            std::cout << "O identificador já existe no sistema. Tente novamente." << std::endl;
+    }
+
+    else {
+    this->listaDistribuidores.insert(std::pair<unsigned long long int, Distribuidor>(distribuidor.getIdentificacao(),distribuidor));
+    std::cout << "Distribuidor " << distribuidor.getNome() << " armazenado com sucesso!" << std::endl;
+    }
+}
 void Cinema::armazenarNovoFilme(Filme filme) {
     this->listaFilmes.insert(std::pair<std::string,Filme>(filme.getTitulo(),filme));
     std::cout << "Filme " << filme.getTitulo() << " armazenado com sucesso!" << std::endl;
