@@ -13,6 +13,10 @@ void IMAX::setTaxaAdicional(float taxa){
     this->taxaAdicionalIMAX = taxa;
 }
 
+float IMAX::getTaxaAdicional(){
+    return(IMAX::taxaAdicionalIMAX);
+}
+
 float IMAX::getValorPorAssento(){
     return(Sala::valorPorAssento * IMAX::taxaAdicionalIMAX);
 }

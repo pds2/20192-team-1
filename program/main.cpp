@@ -4,6 +4,9 @@
 #include "filme.h"
 #include "pessoa.h"
 #include "sala.h"
+#include "imax.h"
+#include "tresd.h"
+#include "premium.h"
 
 #include <string.h>
 #include <iostream>
@@ -11,6 +14,35 @@
 
 #define ACESSO_MINIMO 0
 #define ACESSO_MAXIMO 5
+
+Pessoa criarEmpregado(){
+
+    std::string nome;
+    int id;
+    unsigned long long int nivel;
+    Pessoa *p;
+
+    std::cout << "Nome do Empregado: " << std::endl;
+    std::cin.ignore();
+    std::getline (std::cin,nome);
+
+    std::cout << "Identificador Empregado: " << std::endl;
+    std::cin >> id;
+
+    do {
+            std::cout << "Nivel de Acesso: " << std::endl;
+            std::cin >> nivel;
+                if (nivel < ACESSO_MINIMO || nivel > ACESSO_MAXIMO) {
+                    std::cout << "Nivel inválido. Tente novamente." << std::endl;
+                }
+        } while (nivel < ACESSO_MINIMO || nivel > ACESSO_MAXIMO);
+
+           p = new Pessoa(nome, id, nivel);
+            return(*p);
+}
+
+
+
 int main(){
     int numero_acesso;
     // INICIO VARIAVEIS DA ANDRESSA
@@ -21,13 +53,17 @@ int main(){
     Pessoa * p;
     Filme * f;
     Distribuidor * d;
-    std::string nome_empregado;
-    unsigned long long int id_empregado;
+    //std::string nome_empregado;
+    //unsigned long long int id_empregado;
     unsigned long long int id_distribuidor;
-    int nivel_acesso_empregado;
+    //int nivel_acesso_empregado;
     std::string nome_filme;
     char opcao_yn;
     // FIM VARIAVEIS DA ANDRESSA
+
+    //INICIO VARIAVEIS DO HENRIQUE
+    
+    //FIM VARIAVEIS DO HENRIQUE
     std::cout << "Digite o numero de acesso" << std::endl;
     std::cin >> numero_acesso;
 
@@ -65,31 +101,7 @@ int main(){
             }
 
             if (opcao == 2) {
-                // criando um empregado
-
-                // início transformar em funcao
-                std::cout << "Nome do Empregado: " << std::endl;
-                std::cin.ignore();
-                std::getline (std::cin,nome_empregado);
-                do {
-                    std::cout << "Identificador Empregado: " << std::endl;
-                    std::cin >> id_empregado;
-                    if (cinema.isEmpregadoExistente(id_empregado)) {
-                        std::cout << "O identificador já existe no sistema. Tente novamente." << std::endl;
-                    }
-                } while (cinema.isEmpregadoExistente(id_empregado));
-
-                do {
-                    std::cout << "Nivel de Acesso: " << std::endl;
-                    std::cin >> nivel_acesso_empregado;
-                    if (nivel_acesso_empregado < ACESSO_MINIMO || nivel_acesso_empregado > ACESSO_MAXIMO) {
-                        std::cout << "Nivel inválido. Tente novamente." << std::endl;
-                    }
-                } while (nivel_acesso_empregado < ACESSO_MINIMO || nivel_acesso_empregado > ACESSO_MAXIMO);
-                // fim transformar em funcao
-
-                p = new Pessoa(nome_empregado,id_empregado,nivel_acesso_empregado);
-                cinema.armazenarNovaPessoa(*p);
+                cinema.armazenarNovaPessoa(criarEmpregado());
             }
 
             if (opcao == 3) {
@@ -147,6 +159,65 @@ int main(){
     }
     if(numero_acesso==2){
         std::cout << "Olá Henrique" << std::endl;
+        Sala sala1(2,50), sala2(1,50); //invertendo o numero das salas para teste
+
+        IMAX salaIMAX1(4,60);
+        Premium salaPremium1(3,60);        
+        TresD salaTresD1(5,60);
+
+        /*TESTANDO OS GETTERS E SETTERS DE SALAS*/
+
+        std::cout << "Numero sala1: "<< sala1.getNumero() <<std::endl;
+        std::cout << "Numero sala2: "<< sala2.getNumero() <<std::endl;
+        std::cout << "NUMEROS ERRADOS!" << std::endl <<std::endl;
+
+        std::cout << "Corrigindo:" << std::endl;
+        sala1.setNumero(1);   
+        sala2.setNumero(2);
+            
+        std::cout << "Numero sala1: "<< sala1.getNumero() <<std::endl;
+        std::cout << "Numero sala2: "<< sala2.getNumero() <<std::endl <<std::endl;
+        
+        
+        std::cout << "Capacidade sala1: "<< sala1.getCapacidade() <<std::endl;
+        sala1.setCapacidade(20);
+        std::cout <<"Setando capacidade da sala1 para 20. Novo valor: " << sala1.getCapacidade() << std::endl <<std::endl;
+
+        std::cout << "Valor por assento sala1: "<< sala1.getValorPorAssento() <<std::endl;
+
+        sala1.setValorPorAssento(1000);
+        std::cout << "Setando para 1000 valor por assento da sala1. Novo valor :" << sala1.getCapacidade() <<std::endl;
+        sala1.setValorPorAssento(27.00);
+
+        std::cout << "Valor sala1: "<< sala1.getValorPorAssento() <<std::endl <<std::endl;
+        
+        /*TESTANDO AS SUBCLASSES*/
+        std::cout << "Taxa adicional de salaIMAX: " << salaIMAX1.getTaxaAdicional() <<std::endl;
+        std::cout << "Valor por assento de salaIMAX. ESPERADO: 32.4. RESULTADO: " << salaIMAX1.getValorPorAssento() <<std::endl;
+
+
+        salaIMAX1.setTaxaAdicional(1.3);
+        std::cout << "Setando Taxa adicional de salaIMAX para 1.3. Novo valor: " << salaIMAX1.getTaxaAdicional() <<std::endl;   
+        std::cout << "Novo valor por assento de salaIMAX. ESPERADO: 35.1 RESULTADO: " << salaIMAX1.getValorPorAssento() <<std::endl <<std::endl;
+        salaIMAX1.setTaxaAdicional(1.2);
+
+        std::cout << "Taxa adicional de salaPremium: " << salaPremium1.getTaxaAdicional() <<std::endl;
+        std::cout << "Valor por assento de salaPremium. ESPERADO: 55.08. RESULTADO: " << salaPremium1.getValorPorAssento() <<std::endl;
+
+
+        salaPremium1.setTaxaAdicional(1.8);
+        std::cout << "Setando Taxa adicional de salaPremium para 1.8. Novo valor: " << salaPremium1.getTaxaAdicional() <<std::endl;   
+        std::cout << "Novo valor por assento de salaPremium. ESPERADO: 58.32 RESULTADO: " << salaPremium1.getValorPorAssento() <<std::endl<<std::endl;
+        salaPremium1.setTaxaAdicional(1.7);
+
+        std::cout << "Taxa adicional de salaTresD: " << salaTresD1.getTaxaAdicional() <<std::endl;
+        std::cout << "Valor por assento de salaTresD. ESPERADO: 40.4. RESULTADO: " << salaTresD1.getValorPorAssento() <<std::endl;
+
+
+        salaTresD1.setTaxaAdicional(10);
+        std::cout << "Setando Taxa adicional de salaTresD para 10. Novo valor: " << salaTresD1.getTaxaAdicional() <<std::endl;   
+        std::cout << "Novo valor por assento de salaTresD. ESPERADO: 42.4 RESULTADO: " << salaTresD1.getValorPorAssento() <<std::endl;
+        salaTresD1.setTaxaAdicional(8);
     }
     if(numero_acesso==3){
         std::cout << "Olá Matheus, isso é um teste" << std::endl;
