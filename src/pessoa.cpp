@@ -10,6 +10,10 @@ Pessoa::~Pessoa () {
     
 }
 
+Pessoa::Pessoa() {
+    
+}
+
 unsigned long long int Pessoa::getIdentificacao() {
     return this->identificacao;
 }

@@ -10,8 +10,9 @@ class Distribuidor: public Pessoa {
         unsigned long long int ValorTotalArrecadado;
         unsigned long long int ValorDisponivelParaSaque;
     public:
-        Distribuidor(std::string nome,unsigned long long int identificacao, int acesso);
+        Distribuidor(std::string nome,unsigned long long int identificacao);
         ~Distribuidor();
+        Distribuidor();
         void setValorTOtalArrecadado(unsigned long long int valor);
         void setValorDisponivelParaSaque(unsigned long long int valor);
         unsigned long long int getValorTotalArrecadado();
