@@ -217,7 +217,7 @@ int main(){
         std::cout << "Valor por assento sala1: "<< sala1.getValorPorAssento() <<std::endl;
 
         sala1.setValorPorAssento(1000);
-        std::cout << "Setando para 1000 valor por assento da sala1. Novo valor :" << sala1.getCapacidade() <<std::endl;
+        std::cout << "Setando para 1000 valor por assento da sala1. Novo valor :" << sala1.getValorPorAssento() <<std::endl;
         sala1.setValorPorAssento(27.00);
 
         std::cout << "Valor sala1: "<< sala1.getValorPorAssento() <<std::endl <<std::endl;
