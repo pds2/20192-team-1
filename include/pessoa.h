@@ -11,6 +11,7 @@ class Pessoa {
     public:
         Pessoa(std::string nome,unsigned long long int identificacao, int acesso);
         ~Pessoa();
+        Pessoa();
         std::string getNome();
         unsigned long long int getIdentificacao();
         int getNivelDeAcesso();

@@ -11,6 +11,7 @@ class Sala {
         static float valorPorAssento; // valor por assento precisa ser estático para que todas as salas do mesmo tipo tenham o mesmo valor por assento
     public:
         Sala(int numero,int capacidade);
+        Sala();
         virtual ~Sala();
         int getNumero();
         int getCapacidade();

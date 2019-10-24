@@ -11,6 +11,10 @@ Sala::~Sala() {
     
 }
 
+Sala::Sala() {
+    
+}
+
 int Sala::getNumero() {
     return this->numero;
 }

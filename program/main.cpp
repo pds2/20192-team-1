@@ -54,15 +54,7 @@ Distribuidor criarDistribuidor(){
     std::cout << "Identificador Distribuidor: " << std::endl;
     std::cin >> id;
 
-    do {
-        std::cout << "Nivel de Acesso: " << std::endl;
-        std::cin >> acesso;
-            if (acesso < ACESSO_MINIMO || acesso > ACESSO_MAXIMO) {
-                std::cout << "Nivel inválido. Tente novamente." << std::endl;
-            }
-        } while (acesso < ACESSO_MINIMO || acesso > ACESSO_MAXIMO);
-
-    d = new Distribuidor(nome, id, acesso);
+    d = new Distribuidor(nome, id);
     return(*d);
 }
 
@@ -74,14 +66,12 @@ int main(){
     int opcao = 0;
     int num_sala;
     int capacidade_sala;
-    Sala * s;
-    Pessoa * p;
-    Filme * f;
-    Distribuidor * d;
-    //std::string nome_empregado;
-    //unsigned long long int id_empregado;
+    Sala * s = new Sala();
+    Pessoa * p = new Pessoa();
+    Filme * f = new Filme();
+    Distribuidor * d = new Distribuidor();
+    std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
     unsigned long long int id_distribuidor;
-    //int nivel_acesso_empregado;
     std::string nome_filme;
     char opcao_yn;
     // FIM VARIAVEIS DA ANDRESSA
@@ -133,31 +123,29 @@ int main(){
 
             if (opcao == 4) {
                 // cadastrar um novo filme
-                do {
-                    std::cout << "Nome do Filme: " << std::endl;
-                    std::cin.ignore();
-                    std::getline(std::cin,nome_filme);
-                    if (cinema.isFilmeExistente(nome_filme)) {
-                        std::cout << "O título já existe no sistema. Tente novamente." << std::endl;
-                    }
-                } while (cinema.isFilmeExistente(nome_filme));
-                do {
-                    std::cout << "Código Distribuidor: " << std::endl;
-                    std::cin >> id_distribuidor;
-                    if (!cinema.isDistribuidorExistente(id_distribuidor)) {
-                        
-                        std::cout << "Distribuidor não localizado. Deseja cadastrar o Distribuidor ? " << id_distribuidor << "?" << std::endl;
-                        std::cout << "Digite Y para cadastrar, qualquer outra tecla para imprimir a lista de distribuidores existentes." << std::endl;
-                        std::cin >> opcao_yn;
-                        if (opcao_yn == 'Y') {
-                             cinema.armazenarNovoDistribuidor(criarDistribuidor()); //FUNCAO QUE O HENRIQUE FEZ
-                        } else {
-                            cinema.imprimirDistribuidores();
+                std::cout << "Código Distribuidor: " << std::endl;
+                std::cin >> id_distribuidor;
+                if (!cinema.isDistribuidorExistente(id_distribuidor)) {
+                    
+                    std::cout << "Distribuidor não localizado"<< std::endl;
+                    std::cout << "Digite qualquer tecla para retornar ao Menu Inicial" << std::endl;
+                    std::cin >> opcao_yn; // precisamos trocar pra nao precisar dar enter          
+
+                } else {
+                    // quer dizer que o distribuidor já existe
+                    distribuidor_it = cinema.getDistribuidores().find(id_distribuidor);
+                    *d = distribuidor_it->second;
+                    do {
+                        std::cout << "Nome do Filme: " << std::endl;
+                        std::cin.ignore();
+                        std::getline(std::cin,nome_filme);
+                        if (cinema.isFilmeExistente(nome_filme)) {
+                            std::cout << "O título já existe no sistema. Tente novamente." << std::endl;
                         }
-                    }
-                } while (!cinema.isDistribuidorExistente(id_distribuidor));
-                f = new Filme(nome_filme,*d);
-                cinema.armazenarNovoFilme(*f);
+                    } while (cinema.isFilmeExistente(nome_filme));
+                    f = new Filme(nome_filme,*d);
+                    cinema.armazenarNovoFilme(*f);
+                }
             }
 
             if (opcao == 8) {

@@ -10,6 +10,10 @@ Filme::~Filme() {
 
 }
 
+Filme::Filme() {
+    
+}
+
 std::string Filme::getTitulo(){
     return(this->titulo);
 }

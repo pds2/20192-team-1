@@ -14,6 +14,7 @@ class Filme {
         Distribuidor *distribuidor;
     public:
         Filme(std::string titulo, Distribuidor& distribuidor);
+        Filme();
         ~Filme();
         float getTicketMedio(); 
         std::string getTitulo();
