@@ -148,7 +148,7 @@ void Cinema::imprimirEmpregados() {
 void Cinema::imprimirDistribuidores() {
     std::map<unsigned long long int, Distribuidor>::iterator it;
     it = this->listaDistribuidores.begin(); // estou pegando certo?
-    if (this->listaEmpregados.empty()) { // estou pegando certo?
+    if (this->listaDistribuidores.empty()) { // estou pegando certo?
         std::cout << "Não há distribuidores cadastrados no " << this->getNomeDoCinema() << std::endl;
     } else {
         std::cout << "ID\t\t| Nome\t\t\t| Valor Arrecadado" << std::endl;

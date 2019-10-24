@@ -23,9 +23,10 @@ Pessoa criarEmpregado(){
     Pessoa *p;
 
     std::cout << "Nome do Empregado: " << std::endl;
+    std::cin.ignore();
     std::getline (std::cin,nome);
-
     std::cout << "Identificador Empregado: " << std::endl;
+
     std::cin >> id;
 
     do {
