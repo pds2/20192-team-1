@@ -41,7 +41,7 @@ Pessoa criarEmpregado(){
     return(*p);
 }
 
-Distribuidor criarDistribuidor(){
+Distribuidor criarDistribuidor() {
 
     std::string nome;
     unsigned long long int id;
@@ -59,9 +59,43 @@ Distribuidor criarDistribuidor(){
     return(*d);
 }
 
+Filme cadastrarNovoFilme(Cinema &cinema) {
+    int id_distribuidor;
+    std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
+    Distribuidor * d = new Distribuidor();
+    char opcao_yn;
+    std::string nome_filme;
+    Filme * f = new Filme();
+    // cadastrar um novo filme
+    std::cout << "Código Distribuidor: " << std::endl;
+    std::cin >> id_distribuidor;
+    if (!cinema.isDistribuidorExistente(id_distribuidor)) {
+        
+        std::cout << "Distribuidor não localizado"<< std::endl;
+        std::cout << "Digite qualquer tecla para retornar ao Menu Inicial" << std::endl;
+        std::cin >> opcao_yn; // precisamos trocar pra nao precisar dar enter
+        return *f;          
+
+    } else {
+        // quer dizer que o distribuidor já existe
+        distribuidor_it = cinema.getDistribuidores().find(id_distribuidor);
+        *d = distribuidor_it->second;
+        do {
+            std::cout << "Nome do Filme: " << std::endl;
+            std::cin.ignore();
+            std::getline(std::cin,nome_filme);
+            if (cinema.isFilmeExistente(nome_filme)) {
+                std::cout << "O título já existe no sistema. Tente novamente." << std::endl;
+            }
+        } while (cinema.isFilmeExistente(nome_filme));
+        f = new Filme(nome_filme,*d);
+        return *f;
+    }
+}
 
 
-int main(){
+
+int main() {
     int numero_acesso;
     // INICIO VARIAVEIS DA ANDRESSA
     int opcao = 0;
@@ -123,30 +157,10 @@ int main(){
             }
 
             if (opcao == 4) {
-                // cadastrar um novo filme
-                std::cout << "Código Distribuidor: " << std::endl;
-                std::cin >> id_distribuidor;
-                if (!cinema.isDistribuidorExistente(id_distribuidor)) {
-                    
-                    std::cout << "Distribuidor não localizado"<< std::endl;
-                    std::cout << "Digite qualquer tecla para retornar ao Menu Inicial" << std::endl;
-                    std::cin >> opcao_yn; // precisamos trocar pra nao precisar dar enter          
-
-                } else {
-                    // quer dizer que o distribuidor já existe
-                    distribuidor_it = cinema.getDistribuidores().find(id_distribuidor);
-                    *d = distribuidor_it->second;
-                    do {
-                        std::cout << "Nome do Filme: " << std::endl;
-                        std::cin.ignore();
-                        std::getline(std::cin,nome_filme);
-                        if (cinema.isFilmeExistente(nome_filme)) {
-                            std::cout << "O título já existe no sistema. Tente novamente." << std::endl;
-                        }
-                    } while (cinema.isFilmeExistente(nome_filme));
-                    f = new Filme(nome_filme,*d);
-                    cinema.armazenarNovoFilme(*f);
-                }
+                    // PRECISAMOS FAZER TRATAMENTO DE EXCESSAO AQUI
+                    // SE NAO HOUVE DISTRIBUIDOR VAI RETORNAR UM FILME DE QUALQUER JEITO
+                    // TEMOS QUE FAZER UM THROW COM CATCH
+                    cinema.armazenarNovoFilme(cadastrarNovoFilme(cinema));
             }
 
             if (opcao == 8) {
