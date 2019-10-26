@@ -17,3 +17,7 @@ Filme::Filme() {
 std::string Filme::getTitulo(){
     return(this->titulo);
 }
+
+std::string Filme::getDistribuidor(){
+    return(this->distribuidor->getNome());
+}

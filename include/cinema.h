@@ -32,6 +32,7 @@ class Cinema {
         void armazenarNovoFilme(Filme novoFilme);
         void armazenarSessao(Sessao novaSessao);
         void imprimirFilmesEmCartaz();
+        void imprimirFilmesCadastrados();
         void imprimirSessoesFuturas(Filme filme);
         void imprimirEmpregados();
         void imprimirDistribuidores();

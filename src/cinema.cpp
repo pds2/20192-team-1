@@ -151,9 +151,24 @@ void Cinema::imprimirDistribuidores() {
     if (this->listaDistribuidores.empty()) { // estou pegando certo?
         std::cout << "Não há distribuidores cadastrados no " << this->getNomeDoCinema() << std::endl;
     } else {
-        std::cout << "ID\t\t| Nome\t\t\t| Valor Arrecadado" << std::endl;
+        std::cout << "ID\t| Nome\t\t\t| Valor Arrecadado" << std::endl;
         while (it != this->listaDistribuidores.end()) { // estou pegando certo?
             std::cout << it->first << "\t| " << it->second.getNome() << "\t| " << it->second.getValorTotalArrecadado() << "\t\t|";
+            std::cout << std::endl;
+            ++it;
+        }
+    }
+}
+
+void Cinema::imprimirFilmesCadastrados(){
+    std::map<std::string, Filme>::iterator it;
+    it = this->listaFilmes.begin(); 
+    if (this->listaFilmes.empty()) { 
+        std::cout << "Não há filmes cadastrados no " << this->getNomeDoCinema() << std::endl;
+    } else {
+        std::cout << "Nome\t\t| Distribuidor" << std::endl;
+        while (it != this->listaFilmes.end()) { 
+            std::cout << it->first << "\t\t| " << it->second.getDistribuidor();
             std::cout << std::endl;
             ++it;
         }

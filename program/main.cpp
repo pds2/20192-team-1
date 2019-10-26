@@ -305,12 +305,46 @@ int main() {
             std::cout << "-1. Sair" << std::endl;
             std::cin >> opcao;
 
-         if (opcao == 1) {
+            if (opcao == 1) {
                 // criando uma sala
                 num_sala = cinema.getProximaSalaASerCriada(); // aqui eu tenho que pegar o proximo numero de sala disponivel no meu mapa de salas
                 std::cout << "Sala a ser criada: " << num_sala << std::endl;
                 std::cout << "Digite a capacidade da sala: ";
                 std::cin >> capacidade_sala;
+                do {
+                    std::cout << "Escolha o tipo de sala:" << std::endl;
+                    std::cout << "1. Comum" << std::endl;
+                    std::cout << "2. IMAX" << std::endl;
+                    std::cout << "3. IMAX Premium" << std::endl;
+                    std::cout << "4. IMAX 3D" << std::endl;
+                    std::cin >> tipo_de_sala;
+
+                    if (tipo_de_sala < 1 || tipo_de_sala > 4) {
+                        std::cout << "Tipo de sala inválido." << std::endl;
+                    }
+                } while (tipo_de_sala < 1 || tipo_de_sala > 4);
+
+                // de acordo com a opcao de sala, preciso criar uma sala aqui
+                if (tipo_de_sala == 1) {
+                    // sala comum
+
+                }
+
+                if (tipo_de_sala == 2) {
+                    // sala IMAX
+
+                }
+
+                if (tipo_de_sala == 3) {
+                    // sala IMAX Premium
+
+
+                } else {
+                    // tipo de sala == 4
+                    // IMAX 3D
+
+                }
+
                 s = new Sala(num_sala,capacidade_sala);
                 cinema.armazenarNovaSala(*s);
             }
@@ -325,32 +359,10 @@ int main() {
             }
 
             if (opcao == 4) {
-                // cadastrar um novo filme
-                do {
-                    std::cout << "Nome do Filme: " << std::endl;
-                    std::cin.ignore();
-                    std::getline(std::cin,nome_filme);
-                    if (cinema.isFilmeExistente(nome_filme)) {
-                        std::cout << "O título já existe no sistema. Tente novamente." << std::endl;
-                    }
-                } while (cinema.isFilmeExistente(nome_filme));
-                do {
-                    std::cout << "Código Distribuidor: " << std::endl;
-                    std::cin >> id_distribuidor;
-                    if (!cinema.isDistribuidorExistente(id_distribuidor)) {
-                        
-                        std::cout << "Distribuidor não localizado. Deseja cadastrar o Distribuidor ? " << id_distribuidor << "?" << std::endl;
-                        std::cout << "Digite Y para cadastrar, qualquer outra tecla para imprimir a lista de distribuidores existentes." << std::endl;
-                        std::cin >> opcao_yn;
-                        if (opcao_yn == 'Y') {
-                             cinema.armazenarNovoDistribuidor(criarDistribuidor()); //FUNCAO QUE O HENRIQUE FEZ
-                        } else {
-                            cinema.imprimirDistribuidores();
-                        }
-                    }
-                } while (!cinema.isDistribuidorExistente(id_distribuidor));
-                f = new Filme(nome_filme,*d);
-                cinema.armazenarNovoFilme(*f);
+                    // PRECISAMOS FAZER TRATAMENTO DE EXCESSAO AQUI
+                    // SE NAO HOUVE DISTRIBUIDOR VAI RETORNAR UM FILME DE QUALQUER JEITO
+                    // TEMOS QUE FAZER UM THROW COM CATCH
+                    cinema.armazenarNovoFilme(cadastrarNovoFilme(cinema));
             }
 
             if (opcao == 8) {
@@ -364,6 +376,11 @@ int main() {
             if(opcao == 10){
                 cinema.imprimirDistribuidores();
             }
+
+            if(opcao == 11){
+                cinema.imprimirFilmesCadastrados();
+            }                  
+            
 
             if (opcao == -1) {
                 // desalocar os espacos alocados
