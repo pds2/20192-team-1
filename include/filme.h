@@ -23,5 +23,6 @@ class Filme {
         void setTicketMedio(float);
         void setPublicoTotal(unsigned long long int);
         void setVerbaArrecadada(unsigned long long int);
+        std::string getDistribuidor();
 };
 #endif
