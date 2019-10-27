@@ -120,9 +120,9 @@ void Cinema::imprimirSalas() {
     if (this->listaSalas.empty()) { // estou pegando certo?
         std::cout << "Não há salas Cadastradas ainda no " << this->getNomeDoCinema() << std::endl;
     } else {
-        std::cout << "Sala\t| Capacidade\t|" << std::endl;
+        std::cout << "Sala\t| Capacidade\t| Tipo\t|" << std::endl;
         while (it != this->listaSalas.end()) { // estou pegando certo?
-            std::cout << it->first << "\t| " << it->second.getCapacidade() << "\t\t|";
+            std::cout << it->first << "\t| " << it->second.getCapacidade() << "\t\t|" << it->second.getTipo() << "\t|";
             std::cout << std::endl;
             ++it;
         }

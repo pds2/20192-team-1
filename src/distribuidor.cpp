@@ -21,3 +21,4 @@ Distribuidor::Distribuidor() {
 unsigned long long int Distribuidor::getValorTotalArrecadado() {
     return this->ValorTotalArrecadado;
 }
+

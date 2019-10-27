@@ -2,7 +2,12 @@
 
 float IMAX::taxaAdicionalIMAX = 1.2;
 
-IMAX::IMAX(int numero, int capacidade) : Sala(numero,capacidade){
+IMAX::IMAX(int numero, int capacidade) : Sala(numero,capacidade,"IMAX") {
+    this->capacidade = capacidade;
+    this->numero = numero;
+}
+
+IMAX::IMAX(int numero, int capacidade,std::string tipo) : Sala(numero,capacidade,tipo) {
     this->capacidade = capacidade;
     this->numero = numero;
 }

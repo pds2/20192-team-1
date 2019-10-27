@@ -15,8 +15,5 @@ class Pessoa {
         std::string getNome();
         unsigned long long int getIdentificacao();
         int getNivelDeAcesso();
-        void setNome(std::string);
-        void setIdentificacao(unsigned long long int);
-        void setNivelDeAcesso(int);
 };
 #endif
