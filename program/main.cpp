@@ -45,7 +45,6 @@ Distribuidor criarDistribuidor() {
 
     std::string nome;
     unsigned long long int id;
-    int acesso;
     Distribuidor *d;
 
     std::cout << "Nome do Distribuidor: " << std::endl;
@@ -93,6 +92,52 @@ Filme cadastrarNovoFilme(Cinema &cinema) {
     }
 }
 
+Sala cadastrarNovaSala (int num_sala) {
+    Sala *s = new Sala();
+    int capacidade_sala;
+    int tipo_de_sala;
+    std::cout << "Sala a ser criada: " << num_sala << std::endl;
+    std::cout << "Digite a capacidade da sala: ";
+    std::cin >> capacidade_sala;
+    do {
+    std::cout << "Escolha o tipo de sala:" << std::endl;
+    std::cout << "1. Comum" << std::endl;
+    std::cout << "2. IMAX" << std::endl;
+    std::cout << "3. IMAX Premium" << std::endl;
+    std::cout << "4. IMAX 3D" << std::endl;
+    std::cin >> tipo_de_sala;
+
+    if (tipo_de_sala < 1 || tipo_de_sala > 4) {
+    std::cout << "Tipo de sala inválido." << std::endl;
+    }
+    } while (tipo_de_sala < 1 || tipo_de_sala > 4);
+
+    // de acordo com a opcao de sala, preciso criar uma sala aqui
+    if (tipo_de_sala == 1) {
+    // sala comum
+    s = new Sala(num_sala,capacidade_sala);
+    }
+
+    if (tipo_de_sala == 2) {
+    // sala IMAX
+    s = new IMAX(num_sala,capacidade_sala);
+
+    }
+
+    if (tipo_de_sala == 3) {
+    // sala IMAX Premium
+    s = new Premium(num_sala,capacidade_sala);
+
+
+    } 
+
+    if (tipo_de_sala == 4) {
+    // IMAX 3D
+    s = new TresD(num_sala,capacidade_sala);
+    }
+
+    return *s;
+}
 
 
 int main() {
@@ -107,9 +152,7 @@ int main() {
     Filme * f = new Filme();
     Distribuidor * d = new Distribuidor();
     std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
-    unsigned long long int id_distribuidor;
     std::string nome_filme;
-    char opcao_yn;
     // FIM VARIAVEIS DA ANDRESSA
 
     std::cout << "Digite o numero de acesso" << std::endl;
@@ -140,48 +183,7 @@ int main() {
 
             if (opcao == 1) {
                 // criando uma sala
-                num_sala = cinema.getProximaSalaASerCriada(); // aqui eu tenho que pegar o proximo numero de sala disponivel no meu mapa de salas
-                std::cout << "Sala a ser criada: " << num_sala << std::endl;
-                std::cout << "Digite a capacidade da sala: ";
-                std::cin >> capacidade_sala;
-                do {
-                    std::cout << "Escolha o tipo de sala:" << std::endl;
-                    std::cout << "1. Comum" << std::endl;
-                    std::cout << "2. IMAX" << std::endl;
-                    std::cout << "3. IMAX Premium" << std::endl;
-                    std::cout << "4. IMAX 3D" << std::endl;
-                    std::cin >> tipo_de_sala;
-
-                    if (tipo_de_sala < 1 || tipo_de_sala > 4) {
-                        std::cout << "Tipo de sala inválido." << std::endl;
-                    }
-                } while (tipo_de_sala < 1 || tipo_de_sala > 4);
-
-                // de acordo com a opcao de sala, preciso criar uma sala aqui
-                if (tipo_de_sala == 1) {
-                    // sala comum
-                    s = new Sala(num_sala,capacidade_sala);
-                }
-
-                if (tipo_de_sala == 2) {
-                    // sala IMAX
-                    s = new IMAX(num_sala,capacidade_sala);
-
-                }
-
-                if (tipo_de_sala == 3) {
-                    // sala IMAX Premium
-                    s = new Premium(num_sala,capacidade_sala);
-
-
-                } 
-                
-                if (tipo_de_sala == 4) {
-                    // IMAX 3D
-                    s = new TresD(num_sala,capacidade_sala);
-                }
-                
-                cinema.armazenarNovaSala(*s);
+                cinema.armazenarNovaSala(cadastrarNovaSala(cinema.getProximaSalaASerCriada()));
             }
 
             if (opcao == 2) {
