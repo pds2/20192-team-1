@@ -105,8 +105,13 @@ void Cinema::armazenarNovoDistribuidor(Distribuidor distribuidor) {
     }
 }
 void Cinema::armazenarNovoFilme(Filme filme) {
+    if (isFilmeExistente(filme.getTitulo())) {
+                std::cout << "O título já existe no sistema. Tente novamente." << std::endl;
+            }
+    else {
     this->listaFilmes.insert(std::pair<std::string,Filme>(filme.getTitulo(),filme));
     std::cout << "Filme " << filme.getTitulo() << " armazenado com sucesso!" << std::endl;
+    }
 }
 
 std::string Cinema::getNomeDoCinema() {
