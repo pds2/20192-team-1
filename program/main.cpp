@@ -58,7 +58,7 @@ Distribuidor criarDistribuidor() {
     return(*d);
 }
 
-Filme cadastrarNovoFilme(Cinema &cinema) {
+Filme criarFilme(std::map<unsigned long long int, Distribuidor> listaDistribuidores) {
     int id_distribuidor;
     std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
     Distribuidor * d = new Distribuidor();
@@ -68,7 +68,9 @@ Filme cadastrarNovoFilme(Cinema &cinema) {
     // cadastrar um novo filme
     std::cout << "Código Distribuidor: " << std::endl;
     std::cin >> id_distribuidor;
-    if (!cinema.isDistribuidorExistente(id_distribuidor)) {
+
+    distribuidor_it = listaDistribuidores.find(id_distribuidor);
+    if (distribuidor_it == listaDistribuidores.end()) { 
         
         std::cout << "Distribuidor não localizado"<< std::endl;
         std::cout << "Digite qualquer tecla para retornar ao Menu Inicial" << std::endl;
@@ -77,16 +79,10 @@ Filme cadastrarNovoFilme(Cinema &cinema) {
 
     } else {
         // quer dizer que o distribuidor já existe
-        distribuidor_it = cinema.getDistribuidores().find(id_distribuidor);
         *d = distribuidor_it->second;
-        do {
-            std::cout << "Nome do Filme: " << std::endl;
-            std::cin.ignore();
-            std::getline(std::cin,nome_filme);
-            if (cinema.isFilmeExistente(nome_filme)) {
-                std::cout << "O título já existe no sistema. Tente novamente." << std::endl;
-            }
-        } while (cinema.isFilmeExistente(nome_filme));
+        std::cout << "Nome do Filme: " << std::endl;
+        std::cin.ignore();
+        std::getline(std::cin,nome_filme);        
         f = new Filme(nome_filme,*d);
         return *f;
     }
@@ -199,7 +195,7 @@ int main() {
                     // PRECISAMOS FAZER TRATAMENTO DE EXCESSAO AQUI
                     // SE NAO HOUVE DISTRIBUIDOR VAI RETORNAR UM FILME DE QUALQUER JEITO
                     // TEMOS QUE FAZER UM THROW COM CATCH
-                    cinema.armazenarNovoFilme(cadastrarNovoFilme(cinema));
+                    cinema.armazenarNovoFilme(criarFilme(cinema.getDistribuidores()));
             }
 
             if (opcao == 8) {
@@ -369,7 +365,7 @@ int main() {
                     // PRECISAMOS FAZER TRATAMENTO DE EXCESSAO AQUI
                     // SE NAO HOUVE DISTRIBUIDOR VAI RETORNAR UM FILME DE QUALQUER JEITO
                     // TEMOS QUE FAZER UM THROW COM CATCH
-                    cinema.armazenarNovoFilme(cadastrarNovoFilme(cinema));
+                    cinema.armazenarNovoFilme(criarFilme(cinema.getDistribuidores()));
             }
 
             if (opcao == 8) {
