@@ -3,6 +3,13 @@
 float Sala::valorPorAssento = 27.00;
 
 Sala::Sala(int numero,int capacidade) {
+    this->tipo = "Comum";
+    this->capacidade = capacidade;
+    this->numero = numero;
+}
+
+Sala::Sala(int numero,int capacidade,std::string tipo) {
+    this->tipo = tipo;
     this->capacidade = capacidade;
     this->numero = numero;
 }
@@ -39,3 +46,6 @@ void Sala::setNumero(int numero) {
     this->numero = numero;
 }
 
+std::string Sala::getTipo() {
+    return this->tipo;
+}

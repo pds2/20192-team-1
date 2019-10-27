@@ -7,7 +7,7 @@
 class TresD : public IMAX {
     private:
         static float taxaAdicionalTresD; // é somada ao valor do imax
-
+    
     public:
         TresD(int numero,int capacidade);
         ~TresD();

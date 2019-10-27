@@ -101,7 +101,7 @@ int main() {
     int opcao = 0;
     int num_sala;
     int capacidade_sala;
-    int tipo_de_sala;
+    int tipo_de_sala = 0;
     Sala * s = new Sala();
     Pessoa * p = new Pessoa();
     Filme * f = new Filme();
@@ -160,25 +160,27 @@ int main() {
                 // de acordo com a opcao de sala, preciso criar uma sala aqui
                 if (tipo_de_sala == 1) {
                     // sala comum
-
+                    s = new Sala(num_sala,capacidade_sala);
                 }
 
                 if (tipo_de_sala == 2) {
                     // sala IMAX
+                    s = new IMAX(num_sala,capacidade_sala);
 
                 }
 
                 if (tipo_de_sala == 3) {
                     // sala IMAX Premium
+                    s = new Premium(num_sala,capacidade_sala);
 
 
-                } else {
-                    // tipo de sala == 4
+                } 
+                
+                if (tipo_de_sala == 4) {
                     // IMAX 3D
-
+                    s = new TresD(num_sala,capacidade_sala);
                 }
-
-                s = new Sala(num_sala,capacidade_sala);
+                
                 cinema.armazenarNovaSala(*s);
             }
 
@@ -210,6 +212,9 @@ int main() {
                 cinema.imprimirDistribuidores();
             }              
             
+            if(opcao == 11){
+                cinema.imprimirFilmesCadastrados();
+            } 
 
             if (opcao == -1) {
                 // desalocar os espacos alocados
