@@ -7,6 +7,7 @@
 #include "imax.h"
 #include "tresd.h"
 #include "premium.h"
+#include "sessao.h"
 
 #include <string.h>
 #include <iostream>
@@ -107,10 +108,7 @@ Sala cadastrarNovaSala (int num_sala) {
     if (tipo_de_sala == 3) {
         // sala IMAX Premium
         s = new Premium(num_sala,qtde_fileiras,assentos_por_fileiras);
-    } 
-
-    if (tipo_de_sala == 4) {
-        // IMAX 3D
+    } else {
         s = new TresD(num_sala,qtde_fileiras,assentos_por_fileiras);
     }
     
@@ -141,8 +139,8 @@ int main() {
         
         while (opcao != -1) {
             std::cout << std::endl;
-            std::cout << "O que você deseja fazer?" << std::endl;
-            std::cout << "1. Criar uma nova sala do cinema" << std::endl; 
+            std::cout << "O que você deseja fazer?" << std::endl; 
+            std::cout << "1. Criar uma nova sala do cinema" << std::endl; // OK 
             std::cout << "2. Criar um novo empregado" << std::endl; // OK
             std::cout << "3. Cadastrar um novo distribuidor" << std::endl; // OK
             std::cout << "4. Cadastrar um novo filme" << std::endl; // OK
@@ -181,6 +179,10 @@ int main() {
                         std::cout << "Retornando ao Menu Inicial..." << std::endl;
                         sleep(2);
                     }
+            }
+
+            if (opcao == 5) {
+                
             }
 
             if (opcao == 8) {

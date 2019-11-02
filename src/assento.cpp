@@ -23,4 +23,11 @@ bool Assento::setOcuparAssento() { /*implementando o setter:
     }
 }
 
+void Assento::imprimirAssento() {
+    if (this->estaLivre) {
+        std::cout << "0";
+    } else {
+        std::cout << "1";
+    }
+}
 

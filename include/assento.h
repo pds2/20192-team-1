@@ -13,5 +13,6 @@ class Assento {
         bool getAssentoEstaLivre();
         bool setOcuparAssento(); // retornar TRUE se o assento estiver livre e conseguirmos transforma-lo em ocupado
                                  // retornar FALSE se o assento ja estiver ocupado
+        void imprimirAssento();
 };
 #endif

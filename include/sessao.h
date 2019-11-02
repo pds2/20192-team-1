@@ -11,14 +11,15 @@
 
 class Sessao {
     private:
+        int fileiras;
+        int assentosPorFileiras;
         std::string datahora;
         std::string filme;
-        int capacidade;
-        std::map <std::string,Assento> mapa_assentos;
+        std::multimap <std::string,Assento> mapa_assentos;
     public:
-        Sessao(int capacidade, std::string filme, std::string datahora);
+        Sessao(int fileiras, int assentosPorFileiras, std::string filme, std::string datahora);
         ~Sessao();
-        void imprimir_mapa_assentos();
+        void imprimirMapaAssentos();
 
 };
 #endif
