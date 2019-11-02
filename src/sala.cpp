@@ -56,3 +56,11 @@ void Sala::setNumero(int numero) {
 std::string Sala::getTipo() {
     return this->tipo;
 }
+
+int Sala::getFileiras() {
+    return this->fileiras;
+}
+
+int Sala::getAssentosPorFileiras() {
+    return this->assentosPorFileiras;
+}

@@ -13,10 +13,12 @@
 #include <iostream>
 #include <limits>
 #include <unistd.h>
+#include <time.h>
 
 
 #define ACESSO_MINIMO 0
 #define ACESSO_MAXIMO 5
+#define ANO_ATUAL 2019
 
 Pessoa criarEmpregado(){
 
@@ -63,16 +65,19 @@ Distribuidor criarDistribuidor() {
 
 Filme criarFilme(unsigned long long int distribuidor) {
     std::string nome_filme;
+    int duracao;
     std::cout << "Nome do Filme: " << std::endl;
     std::cin.ignore();
-    std::getline(std::cin,nome_filme);        
-    Filme *f = new Filme(nome_filme,distribuidor);
+    std::getline(std::cin,nome_filme);     
+    std::cout << "Duracao: " << std::endl;
+    std::cin >> duracao;
+    Filme *f = new Filme(nome_filme,distribuidor,duracao);
     return *f;
 
 }
 
 Sala cadastrarNovaSala (int num_sala) {
-    Sala *s;
+    Sala *s = new Sala();
     int qtde_fileiras;
     int assentos_por_fileiras;
     int tipo_de_sala;
@@ -108,7 +113,9 @@ Sala cadastrarNovaSala (int num_sala) {
     if (tipo_de_sala == 3) {
         // sala IMAX Premium
         s = new Premium(num_sala,qtde_fileiras,assentos_por_fileiras);
-    } else {
+    }
+
+    if (tipo_de_sala == 4) {
         s = new TresD(num_sala,qtde_fileiras,assentos_por_fileiras);
     }
     
@@ -121,11 +128,14 @@ int main() {
     // INICIO VARIAVEIS DA ANDRESSA
     int opcao = 0;
     int id_distribuidor;
+    int ano, mes, dia;
+    std::string s_mes, s_dia, s_sala;
+    int num_sala;
+    Sessao *_sessao = new Sessao();
+    std::string chave_sessao, chave_data;
+    std::string filme_para_sessoes;
+
     std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
-    Sala * s = new Sala();
-    Pessoa * p = new Pessoa();
-    Filme * f = new Filme();
-    Distribuidor * d = new Distribuidor();
     std::string nome_filme;
     // FIM VARIAVEIS DA ANDRESSA
 
@@ -169,20 +179,67 @@ int main() {
                 cinema.armazenarNovoDistribuidor(criarDistribuidor());
             }
 
-            if (opcao == 4) {
-                    std::cout << "Código Distribuidor: " << std::endl;
-                    std::cin >> id_distribuidor;
-                    if (cinema.isDistribuidorExistente(id_distribuidor)) {
-                        cinema.armazenarNovoFilme(criarFilme(id_distribuidor));
-                    } else {
-                        std::cout << "Distribuidor não localizado"<< std::endl;
-                        std::cout << "Retornando ao Menu Inicial..." << std::endl;
-                        sleep(2);
-                    }
+            if (opcao == 4) { // FAZER TRATAMENTO DE EXCESSAO SE FILME JÁ EXISTIR
+                std::cout << "Código Distribuidor: " << std::endl;
+                std::cin >> id_distribuidor;
+                if (cinema.isDistribuidorExistente(id_distribuidor)) {
+                    cinema.armazenarNovoFilme(criarFilme(id_distribuidor));
+                } else {
+                    std::cout << "Distribuidor não localizado"<< std::endl;
+                    std::cout << "Retornando ao Menu Inicial..." << std::endl;
+                    sleep(2);
+                }
             }
 
             if (opcao == 5) {
-                
+                std::cout << "Para qual filme deseja criar sessoes?" << std::endl;
+                std::cin >> filme_para_sessoes;
+                if (!cinema.isFilmeExistente(filme_para_sessoes)) {
+                    std::cout << "Filme não existente. Retornando ao Menu Inicial." << std::endl;
+                    sleep(2);
+                } else {
+                    std::cout << "Ano: ";
+                    std::cin >> ano;
+                    std::cout << "Mês: ";
+                    std::cin >> mes;
+                    std::cout << "Dia: ";
+                    std::cin >> dia;
+                    std::cout << "Sala: ";
+                    std::cin >> num_sala;
+                    
+                    if (mes < 10) {
+                        s_mes = "0" + std::to_string(mes);
+                    } else {
+                        s_mes = std::to_string(mes);
+                    }
+
+                    if (dia < 10) {
+                        s_dia = "0" + std::to_string(dia);
+                    } else {
+                        s_dia = std::to_string(dia);
+                    }
+
+                    if (num_sala < 10) {
+                        s_sala = "0" + std::to_string(num_sala);
+                    } else {
+                        s_sala = std::to_string(num_sala);
+                    }
+
+                    chave_data = std::to_string(ano) + s_mes + s_dia;
+                    chave_sessao = chave_data + s_sala;
+                    std::cout << chave_sessao << std::endl;
+                    if (cinema.isSessaoExistente(chave_sessao)) {
+                        std::cout << "Não foi possível criar sessão por incompatibilidade de horarios com outras sessões." << std::endl;
+                    } else {
+                        _sessao = new Sessao(cinema.getSalas().find(num_sala)->second,filme_para_sessoes,chave_data);
+                        cinema.armazenarSessao(cinema.getSalas().find(num_sala)->second.getNumero(),*_sessao);
+                    }
+
+                }
+            }
+
+            if (opcao == 7) {
+                cinema.imprimirSessoesFuturas();
             }
 
             if (opcao == 8) {
@@ -203,10 +260,6 @@ int main() {
 
             if (opcao == -1) {
                 // desalocar os espacos alocados
-                delete s;
-                delete p;
-                delete f;
-                delete d;
                 cinema.~Cinema();
             }
         }

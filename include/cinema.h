@@ -18,7 +18,7 @@ class Cinema {
         std::map<std::string, Filme> listaFilmes;
         std::map<unsigned long long int, Pessoa> listaEmpregados;
         std::map<int, Sala> listaSalas;
-        std::map<std::string, Sessao> listaSessoes;
+        std::map<std::string, Sessao> listaSessoes; // a chave aqui eh datahorasala ex: 20191102-01:00-01
         std::map<unsigned long long int, Distribuidor> listaDistribuidores;
         unsigned long long int verbaArrecadada;
         std::string nomeDoCinema;
@@ -30,10 +30,11 @@ class Cinema {
         void armazenarNovaPessoa(Pessoa pessoa); 
         void armazenarNovoDistribuidor(Distribuidor novoDistribuidor);
         void armazenarNovoFilme(Filme novoFilme);
-        void armazenarSessao(Sessao novaSessao);
+        void armazenarSessao(int num_sala, Sessao novaSessao);
         void imprimirFilmesEmCartaz();
         void imprimirFilmesCadastrados();
         void imprimirSessoesFuturas(Filme filme);
+        void imprimirSessoesFuturas();
         void imprimirEmpregados();
         void imprimirDistribuidores();
         void imprimirSalas();
@@ -45,6 +46,8 @@ class Cinema {
         bool isEmpregadoExistente(unsigned long long int id_empregado);
         bool isFilmeExistente(std::string nome_filme);
         bool isDistribuidorExistente(unsigned long long int id_distribuidor);
+        bool isSessaoExistente(Sessao sessao);
+        bool isSessaoExistente(std::string chave_sessao);
         std::map<std::string, Filme> getFilmes();
         std::map<unsigned long long int, Pessoa> getEmpregados();
         std::map<int, Sala> getSalas();

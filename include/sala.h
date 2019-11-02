@@ -25,6 +25,8 @@ class Sala {
         void setNumero(int);
         void setFileiras(int fileiras);
         void setAssentosPorFileiras(int assentosPorFileiras);
+        int getFileiras();
+        int getAssentosPorFileiras();
         std::string getTipo();
 };
 #endif
