@@ -11,9 +11,9 @@ class Filme {
         unsigned long long int verbaArrecadada;
         unsigned long long int publicoTotal;
         float ticketMedio;
-        Distribuidor *distribuidor;
+        unsigned long long int distribuidor;
     public:
-        Filme(std::string titulo, Distribuidor& distribuidor);
+        Filme(std::string titulo, unsigned long long int distribuidor);
         Filme();
         ~Filme();
         float getTicketMedio(); 
@@ -23,6 +23,6 @@ class Filme {
         void setTicketMedio(float);
         void setPublicoTotal(unsigned long long int);
         void setVerbaArrecadada(unsigned long long int);
-        std::string getDistribuidor();
+        unsigned long long int getDistribuidor();
 };
 #endif

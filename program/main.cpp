@@ -58,34 +58,14 @@ Distribuidor criarDistribuidor() {
     return(*d);
 }
 
-Filme criarFilme(std::map<unsigned long long int, Distribuidor> listaDistribuidores) {
-    int id_distribuidor;
-    std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
-    Distribuidor * d = new Distribuidor();
-    char opcao_yn;
+Filme criarFilme(unsigned long long int distribuidor) {
     std::string nome_filme;
-    Filme * f = new Filme();
-    // cadastrar um novo filme
-    std::cout << "Código Distribuidor: " << std::endl;
-    std::cin >> id_distribuidor;
+    std::cout << "Nome do Filme: " << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin,nome_filme);        
+    Filme *f = new Filme(nome_filme,distribuidor);
+    return *f;
 
-    distribuidor_it = listaDistribuidores.find(id_distribuidor);
-    if (distribuidor_it == listaDistribuidores.end()) { 
-        
-        std::cout << "Distribuidor não localizado"<< std::endl;
-        std::cout << "Digite qualquer tecla para retornar ao Menu Inicial" << std::endl;
-        std::cin >> opcao_yn; // precisamos trocar pra nao precisar dar enter
-        return *f;          
-
-    } else {
-        // quer dizer que o distribuidor já existe
-        *d = distribuidor_it->second;
-        std::cout << "Nome do Filme: " << std::endl;
-        std::cin.ignore();
-        std::getline(std::cin,nome_filme);        
-        f = new Filme(nome_filme,*d);
-        return *f;
-    }
 }
 
 Sala cadastrarNovaSala (int num_sala) {
@@ -140,14 +120,13 @@ int main() {
     int numero_acesso;
     // INICIO VARIAVEIS DA ANDRESSA
     int opcao = 0;
-    int num_sala;
-    int capacidade_sala;
-    int tipo_de_sala = 0;
+    int id_distribuidor;
+    std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
+    char opcao_yn;
     Sala * s = new Sala();
     Pessoa * p = new Pessoa();
     Filme * f = new Filme();
     Distribuidor * d = new Distribuidor();
-    std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
     std::string nome_filme;
     // FIM VARIAVEIS DA ANDRESSA
 
@@ -192,10 +171,15 @@ int main() {
             }
 
             if (opcao == 4) {
-                    // PRECISAMOS FAZER TRATAMENTO DE EXCESSAO AQUI
-                    // SE NAO HOUVE DISTRIBUIDOR VAI RETORNAR UM FILME DE QUALQUER JEITO
-                    // TEMOS QUE FAZER UM THROW COM CATCH
-                    cinema.armazenarNovoFilme(criarFilme(cinema.getDistribuidores()));
+                    std::cout << "Código Distribuidor: " << std::endl;
+                    std::cin >> id_distribuidor;
+                    if (cinema.isDistribuidorExistente(id_distribuidor)) {
+                        cinema.armazenarNovoFilme(criarFilme(id_distribuidor));
+                    } else {
+                        std::cout << "Distribuidor não localizado"<< std::endl;
+                        std::cout << "Digite qualquer tecla para retornar ao Menu Inicial" << std::endl;
+                        std::cin >> opcao_yn; // precisamos trocar pra nao precisar dar enter 
+                    }
             }
 
             if (opcao == 8) {
@@ -290,115 +274,9 @@ int main() {
 
         Cinema cinema("Cineart");
         
-        while (opcao != -1) {
-            std::cout << std::endl;
-            std::cout << "O que você deseja fazer?" << std::endl;
-            std::cout << "1. Criar uma nova sala do cinema" << std::endl;
-            std::cout << "2. Criar um novo empregado" << std::endl;
-            std::cout << "3. Cadastrar um novo distribuidor" << std::endl;
-            std::cout << "4. Cadastrar um novo filme" << std::endl;
-            std::cout << "5. Cadastrar uma nova sessao" << std::endl;
-            std::cout << "6. Imprimir filmes em cartaz" << std::endl;
-            std::cout << "7. Imprimir próximas sessoes" << std::endl;
-            std::cout << "8. Imprimir salas do cinema" << std::endl;
-            std::cout << "9. Imprimir empregados" << std::endl;
-            std::cout << "10. Imprimir lista Distribuidores" << std::endl;
-            std::cout << "11. Imprimir todos os filmes do cinema" << std::endl;
-            std::cout << "12. Vender ingressos" << std::endl;
-            std::cout << "-1. Sair" << std::endl;
-            std::cin >> opcao;
-
-            if (opcao == 1) {
-                // criando uma sala
-                num_sala = cinema.getProximaSalaASerCriada(); // aqui eu tenho que pegar o proximo numero de sala disponivel no meu mapa de salas
-                std::cout << "Sala a ser criada: " << num_sala << std::endl;
-                std::cout << "Digite a capacidade da sala: ";
-                std::cin >> capacidade_sala;
-                do {
-                    std::cout << "Escolha o tipo de sala:" << std::endl;
-                    std::cout << "1. Comum" << std::endl;
-                    std::cout << "2. IMAX" << std::endl;
-                    std::cout << "3. IMAX Premium" << std::endl;
-                    std::cout << "4. IMAX 3D" << std::endl;
-                    std::cin >> tipo_de_sala;
-
-                    if (tipo_de_sala < 1 || tipo_de_sala > 4) {
-                        std::cout << "Tipo de sala inválido." << std::endl;
-                    }
-                } while (tipo_de_sala < 1 || tipo_de_sala > 4);
-
-                // de acordo com a opcao de sala, preciso criar uma sala aqui
-                if (tipo_de_sala == 1) {
-                    // sala comum
-
-                }
-
-                if (tipo_de_sala == 2) {
-                    // sala IMAX
-
-                }
-
-                if (tipo_de_sala == 3) {
-                    // sala IMAX Premium
+        
 
 
-                } else {
-                    // tipo de sala == 4
-                    // IMAX 3D
-
-                }
-
-                s = new Sala(num_sala,capacidade_sala);
-                cinema.armazenarNovaSala(*s);
-            }
-
-            if (opcao == 2) {
-                cinema.armazenarNovaPessoa(criarEmpregado());
-            }
-
-            if (opcao == 3) {
-                // cadastrar um novo distribuidor
-                cinema.armazenarNovoDistribuidor(criarDistribuidor());
-            }
-
-            if (opcao == 4) {
-                    // PRECISAMOS FAZER TRATAMENTO DE EXCESSAO AQUI
-                    // SE NAO HOUVE DISTRIBUIDOR VAI RETORNAR UM FILME DE QUALQUER JEITO
-                    // TEMOS QUE FAZER UM THROW COM CATCH
-                    cinema.armazenarNovoFilme(criarFilme(cinema.getDistribuidores()));
-            }
-
-            if (opcao == 8) {
-                cinema.imprimirSalas();
-            }
-
-            if (opcao == 9) {
-                cinema.imprimirEmpregados();
-            }
-
-            if(opcao == 10){
-                cinema.imprimirDistribuidores();
-            }
-
-            if(opcao == 11){
-                cinema.imprimirFilmesCadastrados();
-            }                  
-            
-
-            if (opcao == -1) {
-                // desalocar os espacos alocados
-                delete s;
-                delete p;
-                delete f;
-                delete d;
-                cinema.~Cinema();
-            }
-        }
-
-
-    }
-    if(numero_acesso==3){
-        std::cout << "Olá Matheus, isso é um teste" << std::endl;
     }
     return 0;
 }

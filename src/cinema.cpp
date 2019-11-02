@@ -63,8 +63,8 @@ bool Cinema::isFilmeExistente(std::string nome_filme) {
 // verifica se o id do distribuidor ja existe na lista
 bool Cinema::isDistribuidorExistente(unsigned long long int id_distribuidor) {
     std::map<unsigned long long int,Distribuidor>::iterator it;
-    it = this->listaDistribuidores.find(id_distribuidor); // estou pegando certo?
-    if (it != this->listaDistribuidores.end()) { // estou pegando certo?
+    it = this->listaDistribuidores.find(id_distribuidor); 
+    if (it != this->listaDistribuidores.end()) {
         return true;
     } else {
         return false;
@@ -173,7 +173,7 @@ void Cinema::imprimirFilmesCadastrados(){
     } else {
         std::cout << "Nome\t\t| Distribuidor" << std::endl;
         while (it != this->listaFilmes.end()) { 
-            std::cout << it->first << "\t\t| " << it->second.getDistribuidor();
+            std::cout << it->first << "\t\t| " << this->listaDistribuidores.find(it->second.getDistribuidor())->second.getNome();
             std::cout << std::endl;
             ++it;
         }
