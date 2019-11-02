@@ -18,17 +18,17 @@
                 CONSTRUTOR COM FORMATO: Tipo(numero, capacidade)------*/
 
 TEST_CASE("01 - Testando o construtor de salas") {
-    CHECK_NOTHROW(Sala salaComum(1,50));
-    CHECK_NOTHROW(IMAX salaIMAX(2,50));
-    CHECK_NOTHROW(Premium salaPremium(3,50));
-    CHECK_NOTHROW(TresD salaTresD(4,50));
+    CHECK_NOTHROW(Sala salaComum(1,5,10));
+    CHECK_NOTHROW(IMAX salaIMAX(2,5,10));
+    CHECK_NOTHROW(Premium salaPremium(3,5,10));
+    CHECK_NOTHROW(TresD salaTresD(4,5,10));
 }
 
 TEST_CASE("02 - Testando os valores por assento de cada tipo") {
-    Sala salaComum(1,50);
-    IMAX salaIMAX(2,50);
-    Premium salaPremium(3,50);
-    TresD salaTresD(4,50);
+    Sala salaComum(1,5,10);
+    IMAX salaIMAX(2,5,10);
+    Premium salaPremium(3,5,10);
+    TresD salaTresD(4,5,10);
 
     CHECK(salaComum.getValorPorAssento()==27.00);
     CHECK(salaIMAX.getValorPorAssento()-32.40 < 0.01);
