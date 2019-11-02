@@ -1,9 +1,9 @@
 #include "filme.h"
 #include <string>
 
-Filme::Filme(std::string titulo, Distribuidor &distribuidor) {
+Filme::Filme(std::string titulo, unsigned long long int id_distribuidor) {
     this->titulo = titulo;
-    this->distribuidor = &distribuidor;
+    this->distribuidor = id_distribuidor;
 }
 
 Filme::~Filme() {
@@ -18,6 +18,6 @@ std::string Filme::getTitulo(){
     return(this->titulo);
 }
 
-std::string Filme::getDistribuidor(){
-    return(this->distribuidor->getNome());
+unsigned long long int Filme::getDistribuidor(){
+    return(this->distribuidor);
 }
