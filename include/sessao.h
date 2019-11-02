@@ -6,16 +6,17 @@
 #include <string>
 #include "sala.h"
 #include "filme.h"
+#include "assento.h"
 
 
 class Sessao {
     private:
         std::string datahora;
-        Filme *filme;
-        Sala *sala;
-
+        std::string filme;
+        int capacidade;
+        std::map <std::string,Assento> mapa_assentos;
     public:
-        Sessao(Sala sala, Filme filme, std::string datahora);
+        Sessao(int capacidade, std::string filme, std::string datahora);
         ~Sessao();
         void imprimir_mapa_assentos();
 

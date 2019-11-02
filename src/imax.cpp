@@ -2,15 +2,9 @@
 
 float IMAX::taxaAdicionalIMAX = 1.2;
 
-IMAX::IMAX(int numero, int capacidade) : Sala(numero,capacidade,"IMAX") {
-    this->capacidade = capacidade;
-    this->numero = numero;
-}
+IMAX::IMAX(int numero, int qtde_fileiras, int assentos_por_fileiras) : Sala(numero,qtde_fileiras,assentos_por_fileiras,"IMAX") { }
 
-IMAX::IMAX(int numero, int capacidade,std::string tipo) : Sala(numero,capacidade,tipo) {
-    this->capacidade = capacidade;
-    this->numero = numero;
-}
+IMAX::IMAX(int numero, int qtde_fileiras,int assentos_por_fileiras,std::string tipo) : Sala(numero,qtde_fileiras,assentos_por_fileiras,tipo) { }
 
 IMAX::~IMAX(){}
 

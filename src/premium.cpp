@@ -3,10 +3,7 @@
 
 float Premium::taxaAdicionalPremium = 1.7; //é aplicada à taxa IMAX
 
-Premium::Premium(int numero, int capacidade) : IMAX(numero,capacidade,"Premium"){
-    this->capacidade = capacidade;
-    this->numero = numero;
-}
+Premium::Premium(int numero, int qtde_fileiras, int assentos_por_fileiras) : IMAX(numero,qtde_fileiras,assentos_por_fileiras,"Premium"){ }
 
 Premium::~Premium(){}
 

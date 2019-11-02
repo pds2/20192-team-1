@@ -2,15 +2,21 @@
 
 float Sala::valorPorAssento = 27.00;
 
-Sala::Sala(int numero,int capacidade) {
+Sala::Sala() {
+    
+}
+
+Sala::Sala(int numero, int fileiras, int assentosPorFileiras) {
     this->tipo = "Comum";
-    this->capacidade = capacidade;
+    this->fileiras = fileiras;
+    this->assentosPorFileiras = assentosPorFileiras;
     this->numero = numero;
 }
 
-Sala::Sala(int numero,int capacidade,std::string tipo) {
+Sala::Sala(int numero,int fileiras, int assentosPorFileiras,std::string tipo) {
     this->tipo = tipo;
-    this->capacidade = capacidade;
+    this->fileiras = fileiras;
+    this->assentosPorFileiras = assentosPorFileiras;
     this->numero = numero;
 }
 
@@ -18,24 +24,25 @@ Sala::~Sala() {
     
 }
 
-Sala::Sala() {
-    
-}
 
 int Sala::getNumero() {
     return this->numero;
 }
 
 int Sala::getCapacidade() {
-    return this->capacidade;
+    return this->fileiras*this->assentosPorFileiras;
 }
 
 float Sala::getValorPorAssento() {
     return Sala::valorPorAssento;
 }
 
-void Sala::setCapacidade(int capacidade) {
-    this->capacidade = capacidade;
+void Sala::setFileiras(int fileiras) {
+    this->fileiras = fileiras;
+}
+
+void Sala::setAssentosPorFileiras(int assentosPorFileiras) {
+    this->assentosPorFileiras = assentosPorFileiras;
 }
 
 void Sala::setValorPorAssento(float valor) {

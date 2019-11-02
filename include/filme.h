@@ -8,10 +8,10 @@
 class Filme {
     private:
         std::string titulo;
+        unsigned long long int distribuidor;
         unsigned long long int verbaArrecadada;
         unsigned long long int publicoTotal;
         float ticketMedio;
-        unsigned long long int distribuidor;
     public:
         Filme(std::string titulo, unsigned long long int distribuidor);
         Filme();

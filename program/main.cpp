@@ -11,6 +11,8 @@
 #include <string.h>
 #include <iostream>
 #include <limits>
+#include <unistd.h>
+
 
 #define ACESSO_MINIMO 0
 #define ACESSO_MAXIMO 5
@@ -69,49 +71,49 @@ Filme criarFilme(unsigned long long int distribuidor) {
 }
 
 Sala cadastrarNovaSala (int num_sala) {
-    Sala *s = new Sala();
-    int capacidade_sala;
+    Sala *s;
+    int qtde_fileiras;
+    int assentos_por_fileiras;
     int tipo_de_sala;
     std::cout << "Sala a ser criada: " << num_sala << std::endl;
-    std::cout << "Digite a capacidade da sala: ";
-    std::cin >> capacidade_sala;
+    std::cout << "Digite a quantidade de fileiras da sala: ";
+    std::cin >> qtde_fileiras; // QTDE FILEIRAS DEVE SER MENOR QUE 26
+    std::cout << "Digite a quantidade de assentos por fileiras da sala: ";
+    std::cin >> assentos_por_fileiras;
     do {
-    std::cout << "Escolha o tipo de sala:" << std::endl;
-    std::cout << "1. Comum" << std::endl;
-    std::cout << "2. IMAX" << std::endl;
-    std::cout << "3. IMAX Premium" << std::endl;
-    std::cout << "4. IMAX 3D" << std::endl;
-    std::cin >> tipo_de_sala;
+        std::cout << "Escolha o tipo de sala:" << std::endl;
+        std::cout << "1. Comum" << std::endl;
+        std::cout << "2. IMAX" << std::endl;
+        std::cout << "3. IMAX Premium" << std::endl;
+        std::cout << "4. IMAX 3D" << std::endl;
+        std::cin >> tipo_de_sala;
 
-    if (tipo_de_sala < 1 || tipo_de_sala > 4) {
-    std::cout << "Tipo de sala inválido." << std::endl;
-    }
+        if (tipo_de_sala < 1 || tipo_de_sala > 4) {
+            std::cout << "Tipo de sala inválido." << std::endl;
+        }
     } while (tipo_de_sala < 1 || tipo_de_sala > 4);
 
-    // de acordo com a opcao de sala, preciso criar uma sala aqui
     if (tipo_de_sala == 1) {
-    // sala comum
-    s = new Sala(num_sala,capacidade_sala);
+        // sala comum
+        s = new Sala(num_sala,qtde_fileiras,assentos_por_fileiras);
     }
 
     if (tipo_de_sala == 2) {
-    // sala IMAX
-    s = new IMAX(num_sala,capacidade_sala);
+        // sala IMAX
+        s = new IMAX(num_sala,qtde_fileiras,assentos_por_fileiras);
 
     }
 
     if (tipo_de_sala == 3) {
-    // sala IMAX Premium
-    s = new Premium(num_sala,capacidade_sala);
-
-
+        // sala IMAX Premium
+        s = new Premium(num_sala,qtde_fileiras,assentos_por_fileiras);
     } 
 
     if (tipo_de_sala == 4) {
-    // IMAX 3D
-    s = new TresD(num_sala,capacidade_sala);
+        // IMAX 3D
+        s = new TresD(num_sala,qtde_fileiras,assentos_por_fileiras);
     }
-
+    
     return *s;
 }
 
@@ -122,7 +124,6 @@ int main() {
     int opcao = 0;
     int id_distribuidor;
     std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
-    char opcao_yn;
     Sala * s = new Sala();
     Pessoa * p = new Pessoa();
     Filme * f = new Filme();
@@ -141,17 +142,17 @@ int main() {
         while (opcao != -1) {
             std::cout << std::endl;
             std::cout << "O que você deseja fazer?" << std::endl;
-            std::cout << "1. Criar uma nova sala do cinema" << std::endl;
-            std::cout << "2. Criar um novo empregado" << std::endl;
-            std::cout << "3. Cadastrar um novo distribuidor" << std::endl;
-            std::cout << "4. Cadastrar um novo filme" << std::endl;
+            std::cout << "1. Criar uma nova sala do cinema" << std::endl; 
+            std::cout << "2. Criar um novo empregado" << std::endl; // OK
+            std::cout << "3. Cadastrar um novo distribuidor" << std::endl; // OK
+            std::cout << "4. Cadastrar um novo filme" << std::endl; // OK
             std::cout << "5. Cadastrar uma nova sessao" << std::endl;
             std::cout << "6. Imprimir filmes em cartaz" << std::endl;
             std::cout << "7. Imprimir próximas sessoes" << std::endl;
-            std::cout << "8. Imprimir salas do cinema" << std::endl;
-            std::cout << "9. Imprimir empregados" << std::endl;
-            std::cout << "10. Imprimir lista Distribuidores" << std::endl;
-            std::cout << "11. Imprimir todos os filmes do cinema" << std::endl;
+            std::cout << "8. Imprimir salas do cinema" << std::endl; // OK
+            std::cout << "9. Imprimir empregados" << std::endl; // OK
+            std::cout << "10. Imprimir lista Distribuidores" << std::endl; // OK
+            std::cout << "11. Imprimir todos os filmes do cinema" << std::endl; // OK
             std::cout << "12. Vender ingressos" << std::endl;
             std::cout << "-1. Sair" << std::endl;
             std::cin >> opcao;
@@ -177,8 +178,8 @@ int main() {
                         cinema.armazenarNovoFilme(criarFilme(id_distribuidor));
                     } else {
                         std::cout << "Distribuidor não localizado"<< std::endl;
-                        std::cout << "Digite qualquer tecla para retornar ao Menu Inicial" << std::endl;
-                        std::cin >> opcao_yn; // precisamos trocar pra nao precisar dar enter 
+                        std::cout << "Retornando ao Menu Inicial..." << std::endl;
+                        sleep(2);
                     }
             }
 
@@ -211,14 +212,14 @@ int main() {
 
     }
     if(numero_acesso==2){
-        std::cout << "Olá Henrique" << std::endl;
+        /*std::cout << "Olá Henrique" << std::endl;
         Sala sala1(2,50), sala2(1,50); //invertendo o numero das salas para teste
 
         IMAX salaIMAX1(4,60);
         Premium salaPremium1(3,60);        
         TresD salaTresD1(5,60);
 
-        /*TESTANDO OS GETTERS E SETTERS DE SALAS*/
+        //TESTANDO OS GETTERS E SETTERS DE SALAS
 
         std::cout << "Numero sala1: "<< sala1.getNumero() <<std::endl;
         std::cout << "Numero sala2: "<< sala2.getNumero() <<std::endl;
@@ -244,7 +245,7 @@ int main() {
 
         std::cout << "Valor sala1: "<< sala1.getValorPorAssento() <<std::endl <<std::endl;
         
-        /*TESTANDO AS SUBCLASSES*/
+        //TESTANDO AS SUBCLASSES
         std::cout << "Taxa adicional de salaIMAX: " << salaIMAX1.getTaxaAdicional() <<std::endl;
         std::cout << "Valor por assento de salaIMAX. ESPERADO: 32.4. RESULTADO: " << salaIMAX1.getValorPorAssento() <<std::endl;
 
@@ -274,7 +275,7 @@ int main() {
 
         Cinema cinema("Cineart");
         
-        
+        */
 
 
     }
