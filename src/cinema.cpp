@@ -85,9 +85,7 @@ void Cinema::armazenarNovaPessoa(Pessoa pessoa) {
     
     if (isEmpregadoExistente(pessoa.getIdentificacao())) {
             std::cout << "O identificador já existe no sistema. Tente novamente." << std::endl;
-    }
-
-    else {
+    } else {
     this->listaEmpregados.insert(std::pair<unsigned long long int, Pessoa>(pessoa.getIdentificacao(),pessoa));
     std::cout << "Empregado " << pessoa.getNome() << " armazenado com sucesso!" << std::endl;
     }
@@ -97,20 +95,51 @@ void Cinema::armazenarNovoDistribuidor(Distribuidor distribuidor) {
     
     if (isDistribuidorExistente(distribuidor.getIdentificacao())) {
             std::cout << "O identificador já existe no sistema. Tente novamente." << std::endl;
-    }
-
-    else {
+    } else {
     this->listaDistribuidores.insert(std::pair<unsigned long long int, Distribuidor>(distribuidor.getIdentificacao(),distribuidor));
     std::cout << "Distribuidor " << distribuidor.getNome() << " armazenado com sucesso!" << std::endl;
     }
 }
+
 void Cinema::armazenarNovoFilme(Filme filme) {
     if (isFilmeExistente(filme.getTitulo())) {
                 std::cout << "O título já existe no sistema. Tente novamente." << std::endl;
-            }
-    else {
-    this->listaFilmes.insert(std::pair<std::string,Filme>(filme.getTitulo(),filme));
-    std::cout << "Filme " << filme.getTitulo() << " armazenado com sucesso!" << std::endl;
+    } else {
+        this->listaFilmes.insert(std::pair<std::string,Filme>(filme.getTitulo(),filme));
+        std::cout << "Filme " << filme.getTitulo() << " armazenado com sucesso!" << std::endl;
+    }
+} 
+
+void Cinema::armazenarSessao(int num_sala, Sessao sessao) {
+    std::string chave_sessao;
+    if (isSessaoExistente(sessao.getChaveSessao())) {
+        std::cout << "Ja existe uma sessao na mesma sala, na mesma data." << std::endl;
+    } else {
+        if (num_sala < 10) {
+            chave_sessao = sessao.getData() + "0" + std::to_string(num_sala);
+        } else {
+            chave_sessao = sessao.getData() + std::to_string(num_sala);
+        }
+        std::cout << chave_sessao;
+        this->listaSessoes.insert(std::pair<std::string,Sessao>(chave_sessao,sessao));
+    }
+}
+
+bool Cinema::isSessaoExistente(Sessao sessao) {
+    std::map<std::string,Sessao>::iterator it = this->listaSessoes.find(sessao.getChaveSessao());
+    if (it != this->listaSessoes.end()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Cinema::isSessaoExistente(std::string chave_sessao) {
+    std::map<std::string,Sessao>::iterator it = this->listaSessoes.find(chave_sessao);
+    if (it != this->listaSessoes.end()) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -165,7 +194,7 @@ void Cinema::imprimirDistribuidores() {
     }
 }
 
-void Cinema::imprimirFilmesCadastrados(){
+void Cinema::imprimirFilmesCadastrados() {
     std::map<std::string, Filme>::iterator it;
     it = this->listaFilmes.begin(); 
     if (this->listaFilmes.empty()) { 
@@ -175,6 +204,20 @@ void Cinema::imprimirFilmesCadastrados(){
         while (it != this->listaFilmes.end()) { 
             std::cout << it->first << "\t\t| " << this->listaDistribuidores.find(it->second.getDistribuidor())->second.getNome();
             std::cout << std::endl;
+            ++it;
+        }
+    }
+}
+
+void Cinema::imprimirSessoesFuturas() {
+    std::map<std::string, Sessao>::iterator it;
+    it = this->listaSessoes.begin();
+    if (this->listaSessoes.empty()) {
+        std::cout << "Não há sessoes cadastradas no " << this->getNomeDoCinema() << std::endl;
+    } else {
+        std::cout << "Sessao\t\t| Sala\t\t| Filme\t\t" << std::endl;
+        while (it != this->listaSessoes.end()) {
+            std::cout << it->first << "\t| " << it->second.getSala().getNumero() << "-" << it->second.getSala().getTipo() << "\t| " << it->second.getFilme() << std::endl;
             ++it;
         }
     }
