@@ -2,10 +2,7 @@
 
 float TresD::taxaAdicionalTresD = 8.00; //valor dos oculos
 
-TresD::TresD(int numero, int capacidade) : IMAX(numero,capacidade,"3D"){
-    this->capacidade = capacidade;
-    this->numero = numero;
-}
+TresD::TresD(int numero, int qtde_fileiras, int assentos_por_fileiras) : IMAX(numero,qtde_fileiras,assentos_por_fileiras,"3D"){ }
 
 TresD::~TresD(){}
 

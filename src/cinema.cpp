@@ -77,7 +77,7 @@ int Cinema::getProximaSalaASerCriada() {
 }
 
 void Cinema::armazenarNovaSala(Sala sala) {
-    (this->listaSalas).insert(std::pair<int, Sala>(sala.getNumero(),sala)); // estou pegando certo?
+    (this->listaSalas).insert(std::pair<int, Sala>(sala.getNumero(),sala));
     std::cout << "Sala " << sala.getNumero() << " armazenada com sucesso!" << std::endl;
 }
 

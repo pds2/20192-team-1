@@ -9,7 +9,7 @@ class Premium : public IMAX {
         static float taxaAdicionalPremium;
 
     public:
-        Premium(int numero,int capacidade);
+        Premium(int numero,int qtde_fileiras, int assentos_por_fileiras);
         ~Premium();
         void setTaxaAdicional(float) override;
         float getTaxaAdicional() override;
