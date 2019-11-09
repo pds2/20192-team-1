@@ -38,6 +38,10 @@ bool Cinema::isListaSalaVazia() {
     }
 }
 
+Sessao * Cinema::getSessao(std::string chave_sessao) {
+    return &(this->listaSessoes.find(chave_sessao)->second);
+}
+
 // verifica se o id do empregado já existe na lista do cinema
 bool Cinema::isEmpregadoExistente(unsigned long long int id_empregado) {
     std::map<unsigned long long int, Pessoa>::iterator it;
@@ -221,4 +225,24 @@ void Cinema::imprimirSessoesFuturas() {
             ++it;
         }
     }
+}
+
+Distribuidor * Cinema::getDistribuidor(unsigned long long int id) {
+    return &this->listaDistribuidores.find(id)->second;
+}
+
+Distribuidor * Cinema::getDistribuidorPorNomeFilme(std::string filme) {
+    return this->getDistribuidor(this->listaFilmes.find(filme)->second.getDistribuidor());
+}
+
+Distribuidor * Cinema::getDistribuidorPorFilmeSessao(std::string sessao) {
+    return this->getDistribuidorPorNomeFilme(this->listaSessoes.find(sessao)->second.getFilme());
+}
+
+
+void Cinema::venderIngresso(std::string sessao, std::string assento) {
+    // primeiro eu ocupo o assento
+    this->listaSessoes.find(sessao)->second.setAssentoOcupado(assento);
+    // agora eu preciso adicionar na arrecadacao do distribuidor
+    this->getDistribuidorPorFilmeSessao(sessao)->adicionarVendaIngresso(this->listaSessoes.find(sessao)->second.getSala().getValorPorAssento()*PORCENTAGEMDISTRIBUIDOR);
 }

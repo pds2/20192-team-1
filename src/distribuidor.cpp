@@ -18,7 +18,11 @@ Distribuidor::Distribuidor() {
     
 }
 
-unsigned long long int Distribuidor::getValorTotalArrecadado() {
+float Distribuidor::getValorTotalArrecadado() {
     return this->ValorTotalArrecadado;
 }
 
+void Distribuidor::adicionarVendaIngresso(float valor) {
+    this->ValorTotalArrecadado += valor;
+    this->ValorDisponivelParaSaque += valor;
+}
