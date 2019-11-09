@@ -7,6 +7,8 @@
 #include "sessao.h"
 #include "sala.h"
 
+#define PORCENTAGEMDISTRIBUIDOR 0.4
+
 class Cinema {
     private:
         // os maps terao como chave respectivamente:
@@ -54,5 +56,11 @@ class Cinema {
         std::map<std::string, Sessao> getSessoes();
         std::map<unsigned long long int, Distribuidor> getDistribuidores();
         std::string getNomeDoCinema();
+        Sessao * getSessao(std::string chave_sessao);
+        Distribuidor * getDistribuidor(unsigned long long int id);
+        Distribuidor * getDistribuidorPorNomeFilme(std::string filme);
+        Distribuidor * getDistribuidorPorFilmeSessao(std::string sessao);
+        void venderIngresso(std::string sessao, std::string assento);
+        
 };
 #endif

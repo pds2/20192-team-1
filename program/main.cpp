@@ -15,6 +15,7 @@
 #include <limits>
 #include <unistd.h>
 #include <time.h>
+#include <iomanip> 
 
 
 #define ACESSO_MINIMO 0
@@ -133,6 +134,10 @@ int main() {
     std::string s_mes, s_dia, s_sala;
     int num_sala;
     int horario_sessao;
+    int qtde_vendaIngressos;
+    int contador;
+    float valor_total_venda;
+    std::string assento_venda;
     Sessao *_sessao = new Sessao();
     std::string chave_sessao, chave_data;
     std::string filme_para_sessoes;
@@ -279,6 +284,46 @@ int main() {
             if(opcao == 11){
                 cinema.imprimirFilmesCadastrados();
             } 
+
+            if (opcao == 12) { // vender ingresso
+                std::cout << "Para qual sessao você deseja vender ingressos?" << std::endl;
+                std::cin >> chave_sessao;
+                if (!cinema.isSessaoExistente(chave_sessao)) {
+                    std::cout << "Sessao Inesistente. Retornando ao Menu Inicial..." << std::endl;
+                    sleep (2);
+                } else {
+                    do {
+                        std::cout << "Quantos ingressos deseja vender?" << std::endl;
+                        std::cin >> qtde_vendaIngressos;
+                        if (qtde_vendaIngressos < 1 || qtde_vendaIngressos > cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) {
+                            std::cout << "Quantidade Inválida. Qtde de assentos livres: " + std::to_string(cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) << std::endl;
+                        }
+                    } while (qtde_vendaIngressos < 1 || qtde_vendaIngressos > cinema.getSessao(chave_sessao)->getQtdeAssentosLivres());
+                    // imprimir valor total da venda
+
+                    valor_total_venda = cinema.getSessao(chave_sessao)->getSala().getValorPorAssento() * qtde_vendaIngressos;
+                    std::cout << "Valor total: ";
+                    std::cout << std::setprecision(2) << valor_total_venda << std::endl;
+
+                    std::cout << "Selecione o(s) assento(s) que deseja vender" << std::endl;
+                    cinema.getSessao(chave_sessao)->imprimirMapaAssentos();
+                    for (contador = 0; contador<qtde_vendaIngressos;contador++) {
+                        std::cout << "Ingresso n." + std::to_string(contador+1) + ": ";
+                        std::cin >> assento_venda;
+                        // o processo de venda de cada ingresso eh feito individualmente
+                        // primeiro preciso verificar se o assento digitado eh valido
+                        if (cinema.getSessao(chave_sessao)->isAssentoLivre(assento_venda)) {
+                            // posso vendê-lo
+                            cinema.venderIngresso(chave_sessao,assento_venda);
+                        } else {
+                            // nao posso vendê-lo
+                            std::cout << "Assento não disponível. Escolha outro." << std::endl;
+                            // diminuir o contador para repetir essa venda de ingresso
+                            contador--;
+                        }
+                    }
+                }
+            }
 
             if (opcao == -1) {
                 // desalocar os espacos alocados

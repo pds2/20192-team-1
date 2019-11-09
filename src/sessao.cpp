@@ -8,6 +8,8 @@
 #define PRIMEIROASSENTO 1
 
 Sessao::Sessao(Sala sala, std::string filme, std::string dataHora) {
+    this->qtde_assentosLivres = sala.getFileiras()*sala.getAssentosPorFileiras();
+    this->qtde_assentosOcupados = 0;
     int aux_fileira = PRIMEIROASCII;
     int aux_coluna = PRIMEIROASSENTO;
     int i, j;
@@ -30,7 +32,8 @@ Sessao::~Sessao() {
 }
 
 Sessao::Sessao() {
-
+    this->qtde_assentosLivres = this->sala.getCapacidade();
+    this->qtde_assentosOcupados = 0;
 }
 
 std::string Sessao::getChaveSessao() {
@@ -67,3 +70,22 @@ std::string Sessao::getFilme() {
 Sala Sessao::getSala() {
     return this->sala;
 }
+
+int Sessao::getQtdeAssentosLivres() {
+    return this->qtde_assentosLivres;
+}
+
+int Sessao::getQtdeAssentosOcupados() {
+    return this->qtde_assentosOcupados;
+}
+
+bool Sessao::isAssentoLivre(std::string assento) {
+    return this->mapa_assentos.find(assento)->second.getAssentoEstaLivre();
+}
+
+void Sessao::setAssentoOcupado(std::string assento) {
+    this->mapa_assentos.find(assento)->second.setOcuparAssento();
+    this->qtde_assentosOcupados++;
+    this->qtde_assentosLivres--;
+}
+
