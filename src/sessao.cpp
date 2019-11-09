@@ -7,13 +7,13 @@
 #define PRIMEIROASCII 65
 #define PRIMEIROASSENTO 1
 
-Sessao::Sessao(Sala sala, std::string filme, std::string data) {
+Sessao::Sessao(Sala sala, std::string filme, std::string dataHora) {
     int aux_fileira = PRIMEIROASCII;
     int aux_coluna = PRIMEIROASSENTO;
     int i, j;
     std::string nome_assento;   
     this->filme = filme;
-    this->data = data;
+    this->dataHora = dataHora;
     this->sala = sala;
     // agora preciso criar meu map de assentos com todos livres
     // preciso rodar o alfabeto ate a quantidade de fileiras e depois os numeros ate a quantidade de assentos por fileiras
@@ -35,9 +35,9 @@ Sessao::Sessao() {
 
 std::string Sessao::getChaveSessao() {
     if (this->sala.getNumero() < 10) {
-        return this->data + "0" + std::to_string(this->sala.getNumero());
+        return this->dataHora + "0" + std::to_string(this->sala.getNumero());
     } else {
-        return this->data + std::to_string(this->sala.getNumero());
+        return this->dataHora + std::to_string(this->sala.getNumero());
     }
 }
 
@@ -56,8 +56,8 @@ void Sessao::imprimirMapaAssentos() {
     }
 }
 
-std::string Sessao::getData() {
-    return this->data;
+std::string Sessao::getDataHora() {
+    return this->dataHora;
 }
 
 std::string Sessao::getFilme() {
