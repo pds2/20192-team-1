@@ -113,12 +113,12 @@ void Cinema::armazenarNovoFilme(Filme filme) {
 void Cinema::armazenarSessao(int num_sala, Sessao sessao) {
     std::string chave_sessao;
     if (isSessaoExistente(sessao.getChaveSessao())) {
-        std::cout << "Ja existe uma sessao na mesma sala, na mesma data." << std::endl;
+        std::cout << "Ja existe uma sessao na mesma sala, na mesma data/horário." << std::endl;
     } else {
         if (num_sala < 10) {
-            chave_sessao = sessao.getData() + "0" + std::to_string(num_sala);
+            chave_sessao = sessao.getDataHora() + "0" + std::to_string(num_sala);
         } else {
-            chave_sessao = sessao.getData() + std::to_string(num_sala);
+            chave_sessao = sessao.getDataHora() + std::to_string(num_sala);
         }
         std::cout << chave_sessao;
         this->listaSessoes.insert(std::pair<std::string,Sessao>(chave_sessao,sessao));

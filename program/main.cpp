@@ -8,6 +8,7 @@
 #include "tresd.h"
 #include "premium.h"
 #include "sessao.h"
+#include "horarios.h"
 
 #include <string.h>
 #include <iostream>
@@ -69,7 +70,7 @@ Filme criarFilme(unsigned long long int distribuidor) {
     std::cout << "Nome do Filme: " << std::endl;
     std::cin.ignore();
     std::getline(std::cin,nome_filme);     
-    std::cout << "Duracao: " << std::endl;
+    std::cout << "Duração (min): " << std::endl;
     std::cin >> duracao;
     Filme *f = new Filme(nome_filme,distribuidor,duracao);
     return *f;
@@ -131,6 +132,7 @@ int main() {
     int ano, mes, dia;
     std::string s_mes, s_dia, s_sala;
     int num_sala;
+    int horario_sessao;
     Sessao *_sessao = new Sessao();
     std::string chave_sessao, chave_data;
     std::string filme_para_sessoes;
@@ -192,49 +194,69 @@ int main() {
             }
 
             if (opcao == 5) {
-                std::cout << "Para qual filme deseja criar sessoes?" << std::endl;
-                std::cin >> filme_para_sessoes;
-                if (!cinema.isFilmeExistente(filme_para_sessoes)) {
-                    std::cout << "Filme não existente. Retornando ao Menu Inicial." << std::endl;
-                    sleep(2);
+                if (cinema.getProximaSalaASerCriada() == 1) { // nao existem salas, nao da pra criar sessoes
+                    std::cout << "Não existem salas no cinema. Não é possível criar sessões." << std::endl;
                 } else {
-                    std::cout << "Ano: ";
-                    std::cin >> ano;
-                    std::cout << "Mês: ";
-                    std::cin >> mes;
-                    std::cout << "Dia: ";
-                    std::cin >> dia;
-                    std::cout << "Sala: ";
-                    std::cin >> num_sala;
-                    
-                    if (mes < 10) {
-                        s_mes = "0" + std::to_string(mes);
+                    std::cout << "Para qual filme deseja criar sessoes?" << std::endl;
+                    std::cin >> filme_para_sessoes;
+                    if (!cinema.isFilmeExistente(filme_para_sessoes)) {
+                        std::cout << "Filme não existente. Retornando ao Menu Inicial." << std::endl;
+                        sleep(2);
                     } else {
-                        s_mes = std::to_string(mes);
-                    }
+                        std::cout << "Ano: ";
+                        std::cin >> ano;
+                        std::cout << "Mês: ";
+                        std::cin >> mes;
+                        std::cout << "Dia: ";
+                        std::cin >> dia;
+                        do {
+                            std::cout << "Sala: ";
+                            std::cin >> num_sala;
+                            if (num_sala >= cinema.getProximaSalaASerCriada() || num_sala < 1) {
+                                std::cout << "Sala inválida. Tente novamente." << std::endl;
+                            }
+                        } while (num_sala >= cinema.getProximaSalaASerCriada() || num_sala < 1); // a sala deve existir
+                        do {
+                            std::cout << "Horário: " << std::endl;
+                            std::cout << "1. " + Horarios::getHora(1) << std::endl;
+                            std::cout << "2. " + Horarios::getHora(2) << std::endl;
+                            std::cout << "3. " + Horarios::getHora(3) << std::endl;
+                            std::cout << "4. " + Horarios::getHora(4) << std::endl;
+                            std::cin >> horario_sessao;
+                            if (horario_sessao > 4 || horario_sessao < 1) {
+                                std::cout << "Horário inválido. Tente novamente." << std::endl;
+                            }
+                        } while (horario_sessao > 4 || horario_sessao < 1);
 
-                    if (dia < 10) {
-                        s_dia = "0" + std::to_string(dia);
-                    } else {
-                        s_dia = std::to_string(dia);
-                    }
+                        if (mes < 10) {
+                            s_mes = "0" + std::to_string(mes);
+                        } else {
+                            s_mes = std::to_string(mes);
+                        }
 
-                    if (num_sala < 10) {
-                        s_sala = "0" + std::to_string(num_sala);
-                    } else {
-                        s_sala = std::to_string(num_sala);
-                    }
+                        if (dia < 10) {
+                            s_dia = "0" + std::to_string(dia);
+                        } else {
+                            s_dia = std::to_string(dia);
+                        }
 
-                    chave_data = std::to_string(ano) + s_mes + s_dia;
-                    chave_sessao = chave_data + s_sala;
-                    std::cout << chave_sessao << std::endl;
-                    if (cinema.isSessaoExistente(chave_sessao)) {
-                        std::cout << "Não foi possível criar sessão por incompatibilidade de horarios com outras sessões." << std::endl;
-                    } else {
-                        _sessao = new Sessao(cinema.getSalas().find(num_sala)->second,filme_para_sessoes,chave_data);
-                        cinema.armazenarSessao(cinema.getSalas().find(num_sala)->second.getNumero(),*_sessao);
-                    }
+                        if (num_sala < 10) {
+                            s_sala = "0" + std::to_string(num_sala);
+                        } else {
+                            s_sala = std::to_string(num_sala);
+                        }
 
+                        chave_data = std::to_string(ano) + s_mes + s_dia + Horarios::getHora(horario_sessao);
+                        chave_sessao = chave_data + s_sala;
+
+                        if (cinema.isSessaoExistente(chave_sessao)) {
+                            std::cout << "Não foi possível criar sessão por incompatibilidade de horarios com outras sessões." << std::endl;
+                        } else {
+                            _sessao = new Sessao(cinema.getSalas().find(num_sala)->second,filme_para_sessoes,chave_data);
+                            cinema.armazenarSessao(cinema.getSalas().find(num_sala)->second.getNumero(),*_sessao);
+                        }
+
+                    }
                 }
             }
 
