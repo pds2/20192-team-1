@@ -289,7 +289,7 @@ int main() {
                 std::cout << "Para qual sessao você deseja vender ingressos?" << std::endl;
                 std::cin >> chave_sessao;
                 if (!cinema.isSessaoExistente(chave_sessao)) {
-                    std::cout << "Sessao Inesistente. Retornando ao Menu Inicial..." << std::endl;
+                    std::cout << "Sessao Inexistente. Retornando ao Menu Inicial..." << std::endl;
                     sleep (2);
                 } else {
                     do {
