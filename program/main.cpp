@@ -161,7 +161,7 @@ int main() {
             std::cout << "2. Criar um novo empregado" << std::endl; // OK
             std::cout << "3. Cadastrar um novo distribuidor" << std::endl; // OK
             std::cout << "4. Cadastrar um novo filme" << std::endl; // OK
-            std::cout << "5. Cadastrar uma nova sessao" << std::endl;
+            std::cout << "5. Cadastrar uma nova sessao" << std::endl; // OK
             std::cout << "6. Imprimir filmes em cartaz" << std::endl;
             std::cout << "7. Imprimir próximas sessoes" << std::endl;
             std::cout << "8. Imprimir salas do cinema" << std::endl; // OK
@@ -255,13 +255,17 @@ int main() {
                         chave_data = std::to_string(ano) + s_mes + s_dia + Horarios::getHora(horario_sessao);
                         chave_sessao = chave_data + s_sala;
 
-                        if (cinema.isSessaoExistente(chave_sessao)) {
-                            std::cout << "Não foi possível criar sessão por incompatibilidade de horarios com outras sessões." << std::endl;
+                        if (!Sessao::isSessaoFutura(chave_sessao)) {
+                            // se for uma sessao que já passou nao deve ser possível cria-lá
+                            std::cout << "Não é possível criar uma sessão para uma data/hora atual/passada." << std::endl;
                         } else {
-                            _sessao = new Sessao(cinema.getSalas().find(num_sala)->second,filme_para_sessoes,chave_data);
-                            cinema.armazenarSessao(cinema.getSalas().find(num_sala)->second.getNumero(),*_sessao);
+                            if (cinema.isSessaoExistente(chave_sessao)) {
+                                std::cout << "Não foi possível criar sessão por incompatibilidade de horarios com outras sessões." << std::endl;
+                            } else {
+                                _sessao = new Sessao(cinema.getSalas().find(num_sala)->second,filme_para_sessoes,chave_data);
+                                cinema.armazenarSessao(cinema.getSalas().find(num_sala)->second.getNumero(),*_sessao);
+                            }
                         }
-
                     }
                 }
             }

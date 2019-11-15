@@ -200,6 +200,7 @@ void Cinema::imprimirDistribuidores() {
     }
 }
 
+
 void Cinema::imprimirFilmesCadastrados() {
     std::map<std::string, Filme>::iterator it;
     it = this->listaFilmes.begin(); 
@@ -215,7 +216,8 @@ void Cinema::imprimirFilmesCadastrados() {
     }
 }
 
-void Cinema::imprimirSessoesFuturas() {
+
+void Cinema::imprimirSessoesFuturas() { 
     std::map<std::string, Sessao>::iterator it;
     it = this->listaSessoes.begin();
     if (this->listaSessoes.empty()) {
@@ -223,6 +225,7 @@ void Cinema::imprimirSessoesFuturas() {
     } else {
         std::cout << "Sessao\t\t| Sala\t\t| Filme\t\t" << std::endl;
         while (it != this->listaSessoes.end()) {
+            // apenas se a sessao for posterior a hoje que eu devo imprimir
             std::cout << it->first << "\t| " << it->second.getSala().getNumero() << "-" << it->second.getSala().getTipo() << "\t| " << it->second.getFilme() << std::endl;
             ++it;
         }

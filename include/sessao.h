@@ -30,5 +30,6 @@ class Sessao {
         int getQtdeAssentosOcupados();
         bool isAssentoLivre(std::string assento);
         void setAssentoOcupado(std::string assento);
+        static bool isSessaoFutura(std::string cod_sessao);
 };
 #endif
