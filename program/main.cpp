@@ -283,7 +283,7 @@ int main() {
             
             if(opcao == 11){
                 cinema.imprimirFilmesCadastrados();
-            } 
+            }
 
             if (opcao == 12) { // vender ingresso
                 std::cout << "Para qual sessao você deseja vender ingressos?" << std::endl;
@@ -303,7 +303,7 @@ int main() {
 
                     valor_total_venda = cinema.getSessao(chave_sessao)->getSala().getValorPorAssento() * qtde_vendaIngressos;
                     std::cout << "Valor total: ";
-                    std::cout << std::setprecision(2) << valor_total_venda << std::endl;
+                    std::cout << std::setprecision(2) << std::fixed << valor_total_venda << std::endl;
 
                     std::cout << "Selecione o(s) assento(s) que deseja vender" << std::endl;
                     cinema.getSessao(chave_sessao)->imprimirMapaAssentos();
@@ -334,71 +334,7 @@ int main() {
 
     }
     if(numero_acesso==2){
-        /*std::cout << "Olá Henrique" << std::endl;
-        Sala sala1(2,50), sala2(1,50); //invertendo o numero das salas para teste
-
-        IMAX salaIMAX1(4,60);
-        Premium salaPremium1(3,60);        
-        TresD salaTresD1(5,60);
-
-        //TESTANDO OS GETTERS E SETTERS DE SALAS
-
-        std::cout << "Numero sala1: "<< sala1.getNumero() <<std::endl;
-        std::cout << "Numero sala2: "<< sala2.getNumero() <<std::endl;
-        std::cout << "NUMEROS ERRADOS!" << std::endl <<std::endl;
-
-        std::cout << "Corrigindo:" << std::endl;
-        sala1.setNumero(1);   
-        sala2.setNumero(2);
-            
-        std::cout << "Numero sala1: "<< sala1.getNumero() <<std::endl;
-        std::cout << "Numero sala2: "<< sala2.getNumero() <<std::endl <<std::endl;
         
-        
-        std::cout << "Capacidade sala1: "<< sala1.getCapacidade() <<std::endl;
-        sala1.setCapacidade(20);
-        std::cout <<"Setando capacidade da sala1 para 20. Novo valor: " << sala1.getCapacidade() << std::endl <<std::endl;
-
-        std::cout << "Valor por assento sala1: "<< sala1.getValorPorAssento() <<std::endl;
-
-        sala1.setValorPorAssento(1000);
-        std::cout << "Setando para 1000 valor por assento da sala1. Novo valor :" << sala1.getValorPorAssento() <<std::endl;
-        sala1.setValorPorAssento(27.00);
-
-        std::cout << "Valor sala1: "<< sala1.getValorPorAssento() <<std::endl <<std::endl;
-        
-        //TESTANDO AS SUBCLASSES
-        std::cout << "Taxa adicional de salaIMAX: " << salaIMAX1.getTaxaAdicional() <<std::endl;
-        std::cout << "Valor por assento de salaIMAX. ESPERADO: 32.4. RESULTADO: " << salaIMAX1.getValorPorAssento() <<std::endl;
-
-
-        salaIMAX1.setTaxaAdicional(1.3);
-        std::cout << "Setando Taxa adicional de salaIMAX para 1.3. Novo valor: " << salaIMAX1.getTaxaAdicional() <<std::endl;   
-        std::cout << "Novo valor por assento de salaIMAX. ESPERADO: 35.1 RESULTADO: " << salaIMAX1.getValorPorAssento() <<std::endl <<std::endl;
-        salaIMAX1.setTaxaAdicional(1.2);
-
-        std::cout << "Taxa adicional de salaPremium: " << salaPremium1.getTaxaAdicional() <<std::endl;
-        std::cout << "Valor por assento de salaPremium. ESPERADO: 55.08. RESULTADO: " << salaPremium1.getValorPorAssento() <<std::endl;
-
-
-        salaPremium1.setTaxaAdicional(1.8);
-        std::cout << "Setando Taxa adicional de salaPremium para 1.8. Novo valor: " << salaPremium1.getTaxaAdicional() <<std::endl;   
-        std::cout << "Novo valor por assento de salaPremium. ESPERADO: 58.32 RESULTADO: " << salaPremium1.getValorPorAssento() <<std::endl<<std::endl;
-        salaPremium1.setTaxaAdicional(1.7);
-
-        std::cout << "Taxa adicional de salaTresD: " << salaTresD1.getTaxaAdicional() <<std::endl;
-        std::cout << "Valor por assento de salaTresD. ESPERADO: 40.4. RESULTADO: " << salaTresD1.getValorPorAssento() <<std::endl;
-
-
-        salaTresD1.setTaxaAdicional(10);
-        std::cout << "Setando Taxa adicional de salaTresD para 10. Novo valor: " << salaTresD1.getTaxaAdicional() <<std::endl;   
-        std::cout << "Novo valor por assento de salaTresD. ESPERADO: 42.4 RESULTADO: " << salaTresD1.getValorPorAssento() <<std::endl;
-        salaTresD1.setTaxaAdicional(8);
-
-        Cinema cinema("Cineart");
-        
-        */
-
 
     }
     return 0;

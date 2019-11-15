@@ -79,8 +79,19 @@ int Sessao::getQtdeAssentosOcupados() {
     return this->qtde_assentosOcupados;
 }
 
-bool Sessao::isAssentoLivre(std::string assento) {
-    return this->mapa_assentos.find(assento)->second.getAssentoEstaLivre();
+bool Sessao::isAssentoLivre(std::string assento) {    
+    try{        
+        std::multimap <std::string,Assento>::iterator it =this->mapa_assentos.find(assento);
+        if(it==mapa_assentos.end()){
+            throw("Assento inexistente");
+        }else{
+
+    return it->second.getAssentoEstaLivre();
+        }
+    }
+    catch(char const* ex){
+        std::cout << "exceção lançada" << std::endl;
+    }
 }
 
 void Sessao::setAssentoOcupado(std::string assento) {

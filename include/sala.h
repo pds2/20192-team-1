@@ -20,7 +20,6 @@ class Sala {
         int getNumero();
         int getCapacidade();
         virtual float getValorPorAssento();
-        void setCapacidade(int);
         void setValorPorAssento(float);
         void setNumero(int);
         void setFileiras(int fileiras);
