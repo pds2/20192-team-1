@@ -186,7 +186,7 @@ int main() {
                 cinema.armazenarNovoDistribuidor(criarDistribuidor());
             }
 
-            if (opcao == 4) { // FAZER TRATAMENTO DE EXCESSAO SE FILME JÁ EXISTIR
+            if (opcao == 4) { // FAZER TRATAMENTO DE EXCEÇAO SE FILME JÁ EXISTIR
                 std::cout << "Código Distribuidor: " << std::endl;
                 std::cin >> id_distribuidor;
                 if (cinema.isDistribuidorExistente(id_distribuidor)) {
@@ -203,7 +203,8 @@ int main() {
                     std::cout << "Não existem salas no cinema. Não é possível criar sessões." << std::endl;
                 } else {
                     std::cout << "Para qual filme deseja criar sessoes?" << std::endl;
-                    std::cin >> filme_para_sessoes;
+                    std::cin.ignore();
+                    std::getline (std::cin,filme_para_sessoes);
                     if (!cinema.isFilmeExistente(filme_para_sessoes)) {
                         std::cout << "Filme não existente. Retornando ao Menu Inicial." << std::endl;
                         sleep(2);
@@ -317,11 +318,12 @@ int main() {
                             cinema.venderIngresso(chave_sessao,assento_venda);
                         } else {
                             // nao posso vendê-lo
-                            std::cout << "Assento não disponível. Escolha outro." << std::endl;
+                            //std::cout << "Assento não disponível. Escolha outro." << std::endl;
                             // diminuir o contador para repetir essa venda de ingresso
                             contador--;
                         }
                     }
+                    std::cout << "Ingressos vendidos com sucesso." << std::endl;
                 }
             }
 

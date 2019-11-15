@@ -10,7 +10,7 @@ class Filme {
         std::string titulo;
         int duracao_minutos;
         unsigned long long int distribuidor;
-        unsigned long long int verbaArrecadada;
+        float verbaArrecadada;
         unsigned long long int publicoTotal;
         float ticketMedio;
     public:
@@ -18,14 +18,11 @@ class Filme {
         Filme();
         ~Filme();
         int getDuracaoMinutos();
-        int getDuracaoSegundos();
         float getTicketMedio(); 
         std::string getTitulo();
         unsigned long long int getPublicoTotal();
-        unsigned long long int getVerbaArrecadada();
-        void setTicketMedio(float);
-        void setPublicoTotal(unsigned long long int);
-        void setVerbaArrecadada(unsigned long long int);
+        float getVerbaArrecadada();
         unsigned long long int getDistribuidor();
+        void adicionarVendaIngresso(float valor);
 };
 #endif

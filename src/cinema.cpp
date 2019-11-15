@@ -4,6 +4,8 @@
 Cinema::Cinema (std::string nome) {
     this->nomeDoCinema = nome;
     std::cout << "Bem-vindo ao " << this->nomeDoCinema << "!" << std::endl;
+    this->lucro = 0;
+    this->verbaArrecadada = 0;
 }
 
 Cinema::~Cinema () {
@@ -189,7 +191,7 @@ void Cinema::imprimirDistribuidores() {
     if (this->listaDistribuidores.empty()) { // estou pegando certo?
         std::cout << "Não há distribuidores cadastrados no " << this->getNomeDoCinema() << std::endl;
     } else {
-        std::cout << "ID\t| Nome\t\t\t| Valor Arrecadado" << std::endl;
+        std::cout << "ID\t| Nome\t\t| Valor Arrecadado" << std::endl;
         while (it != this->listaDistribuidores.end()) { // estou pegando certo?
             std::cout << it->first << "\t| " << it->second.getNome() << "\t| " << it->second.getValorTotalArrecadado() << "\t\t|";
             std::cout << std::endl;
@@ -204,9 +206,9 @@ void Cinema::imprimirFilmesCadastrados() {
     if (this->listaFilmes.empty()) { 
         std::cout << "Não há filmes cadastrados no " << this->getNomeDoCinema() << std::endl;
     } else {
-        std::cout << "Nome\t\t| Distribuidor" << std::endl;
+        std::cout << "Nome\t\t| Distribuidor\t\t| Valor Arrecadado\t| Publico\t| Ticket Médio" << std::endl;
         while (it != this->listaFilmes.end()) { 
-            std::cout << it->first << "\t\t| " << this->listaDistribuidores.find(it->second.getDistribuidor())->second.getNome();
+            std::cout << it->first << "\t\t| " << this->listaDistribuidores.find(it->second.getDistribuidor())->second.getNome() << "\t\t| " << it->second.getVerbaArrecadada() << "\t\t| " << it->second.getPublicoTotal() << "\t| " << it->second.getTicketMedio();
             std::cout << std::endl;
             ++it;
         }
@@ -239,10 +241,23 @@ Distribuidor * Cinema::getDistribuidorPorFilmeSessao(std::string sessao) {
     return this->getDistribuidorPorNomeFilme(this->listaSessoes.find(sessao)->second.getFilme());
 }
 
+Filme * Cinema::getFilme (std::string filme) {
+    return &this->listaFilmes.find(filme)->second;
+}
+
+Filme * Cinema::getFilmePorSessao(std::string sessao) {
+    return this->getFilme(this->listaSessoes.find(sessao)->second.getFilme());
+}
 
 void Cinema::venderIngresso(std::string sessao, std::string assento) {
+    float valorIngresso = this->listaSessoes.find(sessao)->second.getSala().getValorPorAssento();
     // primeiro eu ocupo o assento
     this->listaSessoes.find(sessao)->second.setAssentoOcupado(assento);
     // agora eu preciso adicionar na arrecadacao do distribuidor
-    this->getDistribuidorPorFilmeSessao(sessao)->adicionarVendaIngresso(this->listaSessoes.find(sessao)->second.getSala().getValorPorAssento()*PORCENTAGEMDISTRIBUIDOR);
+    this->getDistribuidorPorFilmeSessao(sessao)->adicionarVendaIngresso(valorIngresso*PORCENTAGEMDISTRIBUIDOR);
+    // agora eu preciso adicionar na arrecadação do filme
+    this->getFilmePorSessao(sessao)->adicionarVendaIngresso(valorIngresso);
+    // agora eu preciso adicionar na arrecadação geral do cinema
+    this->verbaArrecadada += valorIngresso;
+    this->lucro += valorIngresso*(1-PORCENTAGEMDISTRIBUIDOR);
 }

@@ -90,7 +90,7 @@ bool Sessao::isAssentoLivre(std::string assento) {
         }
     }
     catch(char const* ex){
-        std::cout << "exceção lançada" << std::endl;
+        std::cout << "Assento não disponível. Escolha outro" << std::endl;
     }
 }
 

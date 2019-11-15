@@ -22,7 +22,8 @@ class Cinema {
         std::map<int, Sala> listaSalas;
         std::map<std::string, Sessao> listaSessoes; // a chave aqui eh datahorasala ex: 20191102-01:00-01
         std::map<unsigned long long int, Distribuidor> listaDistribuidores;
-        unsigned long long int verbaArrecadada;
+        double verbaArrecadada;
+        double lucro;
         std::string nomeDoCinema;
 
     public:
@@ -60,6 +61,8 @@ class Cinema {
         Distribuidor * getDistribuidor(unsigned long long int id);
         Distribuidor * getDistribuidorPorNomeFilme(std::string filme);
         Distribuidor * getDistribuidorPorFilmeSessao(std::string sessao);
+        Filme * getFilmePorSessao(std::string sessao);
+        Filme * getFilme(std::string filme);
         void venderIngresso(std::string sessao, std::string assento);
         
 };
