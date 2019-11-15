@@ -33,6 +33,13 @@ int Sala::getCapacidade() {
     return this->fileiras*this->assentosPorFileiras;
 }
 
+int Sala::getFileiras() {
+    return this->fileiras;
+}
+
+int Sala::getAssentosPorFileiras() {
+    return this->assentosPorFileiras;
+}
 float Sala::getValorPorAssento() {
     return Sala::valorPorAssento;
 }
@@ -57,10 +64,3 @@ std::string Sala::getTipo() {
     return this->tipo;
 }
 
-int Sala::getFileiras() {
-    return this->fileiras;
-}
-
-int Sala::getAssentosPorFileiras() {
-    return this->assentosPorFileiras;
-}
