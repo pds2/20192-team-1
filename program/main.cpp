@@ -148,194 +148,191 @@ int main() {
 
     std::cout << "Digite o numero de acesso" << std::endl;
     std::cin >> numero_acesso;
+    
+    std::cout << "Olá Andressa" << std::endl;
+    Cinema cinema("Cineart");
+    
+    while (opcao != -1) {
+        std::cout << std::endl;
+        std::cout << "O que você deseja fazer?" << std::endl; 
+        std::cout << "1. Criar uma nova sala do cinema" << std::endl; // OK 
+        std::cout << "2. Criar um novo empregado" << std::endl; // OK
+        std::cout << "3. Cadastrar um novo distribuidor" << std::endl; // OK
+        std::cout << "4. Cadastrar um novo filme" << std::endl; // OK
+        std::cout << "5. Cadastrar uma nova sessao" << std::endl; // OK
+        std::cout << "6. Imprimir filmes em cartaz" << std::endl;
+        std::cout << "7. Imprimir próximas sessoes" << std::endl;
+        std::cout << "8. Imprimir salas do cinema" << std::endl; // OK
+        std::cout << "9. Imprimir empregados" << std::endl; // OK
+        std::cout << "10. Imprimir lista Distribuidores" << std::endl; // OK
+        std::cout << "11. Imprimir todos os filmes do cinema" << std::endl; // OK
+        std::cout << "12. Vender ingressos" << std::endl;
+        std::cout << "-1. Sair" << std::endl;
+        std::cin >> opcao;
 
-    if(numero_acesso==1){
-        
-        std::cout << "Olá Andressa" << std::endl;
-        Cinema cinema("Cineart");
-        
-        while (opcao != -1) {
-            std::cout << std::endl;
-            std::cout << "O que você deseja fazer?" << std::endl; 
-            std::cout << "1. Criar uma nova sala do cinema" << std::endl; // OK 
-            std::cout << "2. Criar um novo empregado" << std::endl; // OK
-            std::cout << "3. Cadastrar um novo distribuidor" << std::endl; // OK
-            std::cout << "4. Cadastrar um novo filme" << std::endl; // OK
-            std::cout << "5. Cadastrar uma nova sessao" << std::endl;
-            std::cout << "6. Imprimir filmes em cartaz" << std::endl;
-            std::cout << "7. Imprimir próximas sessoes" << std::endl;
-            std::cout << "8. Imprimir salas do cinema" << std::endl; // OK
-            std::cout << "9. Imprimir empregados" << std::endl; // OK
-            std::cout << "10. Imprimir lista Distribuidores" << std::endl; // OK
-            std::cout << "11. Imprimir todos os filmes do cinema" << std::endl; // OK
-            std::cout << "12. Vender ingressos" << std::endl;
-            std::cout << "-1. Sair" << std::endl;
-            std::cin >> opcao;
+        if (opcao == 1) {
+            // criando uma sala
+            cinema.armazenarNovaSala(cadastrarNovaSala(cinema.getProximaSalaASerCriada()));
+        }
 
-            if (opcao == 1) {
-                // criando uma sala
-                cinema.armazenarNovaSala(cadastrarNovaSala(cinema.getProximaSalaASerCriada()));
+        if (opcao == 2) {
+            cinema.armazenarNovaPessoa(criarEmpregado());
+        }
+
+        if (opcao == 3) {
+            // cadastrar um novo distribuidor
+            cinema.armazenarNovoDistribuidor(criarDistribuidor());
+        }
+
+        if (opcao == 4) { // FAZER TRATAMENTO DE EXCEÇAO SE FILME JÁ EXISTIR
+            std::cout << "Código Distribuidor: " << std::endl;
+            std::cin >> id_distribuidor;
+            if (cinema.isDistribuidorExistente(id_distribuidor)) {
+                cinema.armazenarNovoFilme(criarFilme(id_distribuidor));
+            } else {
+                std::cout << "Distribuidor não localizado"<< std::endl;
+                std::cout << "Retornando ao Menu Inicial..." << std::endl;
+                sleep(2);
             }
+        }
 
-            if (opcao == 2) {
-                cinema.armazenarNovaPessoa(criarEmpregado());
-            }
-
-            if (opcao == 3) {
-                // cadastrar um novo distribuidor
-                cinema.armazenarNovoDistribuidor(criarDistribuidor());
-            }
-
-            if (opcao == 4) { // FAZER TRATAMENTO DE EXCESSAO SE FILME JÁ EXISTIR
-                std::cout << "Código Distribuidor: " << std::endl;
-                std::cin >> id_distribuidor;
-                if (cinema.isDistribuidorExistente(id_distribuidor)) {
-                    cinema.armazenarNovoFilme(criarFilme(id_distribuidor));
-                } else {
-                    std::cout << "Distribuidor não localizado"<< std::endl;
-                    std::cout << "Retornando ao Menu Inicial..." << std::endl;
+        if (opcao == 5) {
+            if (cinema.getProximaSalaASerCriada() == 1) { // nao existem salas, nao da pra criar sessoes
+                std::cout << "Não existem salas no cinema. Não é possível criar sessões." << std::endl;
+            } else {
+                std::cout << "Para qual filme deseja criar sessoes?" << std::endl;
+                std::cin.ignore();
+                std::getline (std::cin,filme_para_sessoes);
+                if (!cinema.isFilmeExistente(filme_para_sessoes)) {
+                    std::cout << "Filme não existente. Retornando ao Menu Inicial." << std::endl;
                     sleep(2);
-                }
-            }
-
-            if (opcao == 5) {
-                if (cinema.getProximaSalaASerCriada() == 1) { // nao existem salas, nao da pra criar sessoes
-                    std::cout << "Não existem salas no cinema. Não é possível criar sessões." << std::endl;
                 } else {
-                    std::cout << "Para qual filme deseja criar sessoes?" << std::endl;
-                    std::cin >> filme_para_sessoes;
-                    if (!cinema.isFilmeExistente(filme_para_sessoes)) {
-                        std::cout << "Filme não existente. Retornando ao Menu Inicial." << std::endl;
-                        sleep(2);
+                    std::cout << "Ano: ";
+                    std::cin >> ano;
+                    std::cout << "Mês: ";
+                    std::cin >> mes;
+                    std::cout << "Dia: ";
+                    std::cin >> dia;
+                    do {
+                        std::cout << "Sala: ";
+                        std::cin >> num_sala;
+                        if (num_sala >= cinema.getProximaSalaASerCriada() || num_sala < 1) {
+                            std::cout << "Sala inválida. Tente novamente." << std::endl;
+                        }
+                    } while (num_sala >= cinema.getProximaSalaASerCriada() || num_sala < 1); // a sala deve existir
+                    do {
+                        std::cout << "Horário: " << std::endl;
+                        std::cout << "1. " + Horarios::getHora(1) << std::endl;
+                        std::cout << "2. " + Horarios::getHora(2) << std::endl;
+                        std::cout << "3. " + Horarios::getHora(3) << std::endl;
+                        std::cout << "4. " + Horarios::getHora(4) << std::endl;
+                        std::cin >> horario_sessao;
+                        if (horario_sessao > 4 || horario_sessao < 1) {
+                            std::cout << "Horário inválido. Tente novamente." << std::endl;
+                        }
+                    } while (horario_sessao > 4 || horario_sessao < 1);
+
+                    if (mes < 10) {
+                        s_mes = "0" + std::to_string(mes);
                     } else {
-                        std::cout << "Ano: ";
-                        std::cin >> ano;
-                        std::cout << "Mês: ";
-                        std::cin >> mes;
-                        std::cout << "Dia: ";
-                        std::cin >> dia;
-                        do {
-                            std::cout << "Sala: ";
-                            std::cin >> num_sala;
-                            if (num_sala >= cinema.getProximaSalaASerCriada() || num_sala < 1) {
-                                std::cout << "Sala inválida. Tente novamente." << std::endl;
-                            }
-                        } while (num_sala >= cinema.getProximaSalaASerCriada() || num_sala < 1); // a sala deve existir
-                        do {
-                            std::cout << "Horário: " << std::endl;
-                            std::cout << "1. " + Horarios::getHora(1) << std::endl;
-                            std::cout << "2. " + Horarios::getHora(2) << std::endl;
-                            std::cout << "3. " + Horarios::getHora(3) << std::endl;
-                            std::cout << "4. " + Horarios::getHora(4) << std::endl;
-                            std::cin >> horario_sessao;
-                            if (horario_sessao > 4 || horario_sessao < 1) {
-                                std::cout << "Horário inválido. Tente novamente." << std::endl;
-                            }
-                        } while (horario_sessao > 4 || horario_sessao < 1);
+                        s_mes = std::to_string(mes);
+                    }
 
-                        if (mes < 10) {
-                            s_mes = "0" + std::to_string(mes);
-                        } else {
-                            s_mes = std::to_string(mes);
-                        }
+                    if (dia < 10) {
+                        s_dia = "0" + std::to_string(dia);
+                    } else {
+                        s_dia = std::to_string(dia);
+                    }
 
-                        if (dia < 10) {
-                            s_dia = "0" + std::to_string(dia);
-                        } else {
-                            s_dia = std::to_string(dia);
-                        }
+                    if (num_sala < 10) {
+                        s_sala = "0" + std::to_string(num_sala);
+                    } else {
+                        s_sala = std::to_string(num_sala);
+                    }
 
-                        if (num_sala < 10) {
-                            s_sala = "0" + std::to_string(num_sala);
-                        } else {
-                            s_sala = std::to_string(num_sala);
-                        }
+                    chave_data = std::to_string(ano) + s_mes + s_dia + Horarios::getHora(horario_sessao);
+                    chave_sessao = chave_data + s_sala;
 
-                        chave_data = std::to_string(ano) + s_mes + s_dia + Horarios::getHora(horario_sessao);
-                        chave_sessao = chave_data + s_sala;
-
+                    if (!Sessao::isSessaoFutura(chave_sessao)) {
+                        // se for uma sessao que já passou nao deve ser possível cria-lá
+                        std::cout << "Não é possível criar uma sessão para uma data/hora atual/passada." << std::endl;
+                    } else {
                         if (cinema.isSessaoExistente(chave_sessao)) {
                             std::cout << "Não foi possível criar sessão por incompatibilidade de horarios com outras sessões." << std::endl;
                         } else {
                             _sessao = new Sessao(cinema.getSalas().find(num_sala)->second,filme_para_sessoes,chave_data);
                             cinema.armazenarSessao(cinema.getSalas().find(num_sala)->second.getNumero(),*_sessao);
                         }
-
                     }
                 }
-            }
-
-            if (opcao == 7) {
-                cinema.imprimirSessoesFuturas();
-            }
-
-            if (opcao == 8) {
-                cinema.imprimirSalas();
-            }
-
-            if (opcao == 9) {
-                cinema.imprimirEmpregados();
-            }
-
-            if(opcao == 10){
-                cinema.imprimirDistribuidores();
-            }              
-            
-            if(opcao == 11){
-                cinema.imprimirFilmesCadastrados();
-            }
-
-            if (opcao == 12) { // vender ingresso
-                std::cout << "Para qual sessao você deseja vender ingressos?" << std::endl;
-                std::cin >> chave_sessao;
-                if (!cinema.isSessaoExistente(chave_sessao)) {
-                    std::cout << "Sessao Inexistente. Retornando ao Menu Inicial..." << std::endl;
-                    sleep (2);
-                } else {
-                    do {
-                        std::cout << "Quantos ingressos deseja vender?" << std::endl;
-                        std::cin >> qtde_vendaIngressos;
-                        if (qtde_vendaIngressos < 1 || qtde_vendaIngressos > cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) {
-                            std::cout << "Quantidade Inválida. Qtde de assentos livres: " + std::to_string(cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) << std::endl;
-                        }
-                    } while (qtde_vendaIngressos < 1 || qtde_vendaIngressos > cinema.getSessao(chave_sessao)->getQtdeAssentosLivres());
-                    // imprimir valor total da venda
-
-                    valor_total_venda = cinema.getSessao(chave_sessao)->getSala().getValorPorAssento() * qtde_vendaIngressos;
-                    std::cout << "Valor total: ";
-                    std::cout << std::setprecision(2) << std::fixed << valor_total_venda << std::endl;
-
-                    std::cout << "Selecione o(s) assento(s) que deseja vender" << std::endl;
-                    cinema.getSessao(chave_sessao)->imprimirMapaAssentos();
-                    for (contador = 0; contador<qtde_vendaIngressos;contador++) {
-                        std::cout << "Ingresso n." + std::to_string(contador+1) + ": ";
-                        std::cin >> assento_venda;
-                        // o processo de venda de cada ingresso eh feito individualmente
-                        // primeiro preciso verificar se o assento digitado eh valido
-                        if (cinema.getSessao(chave_sessao)->isAssentoLivre(assento_venda)) {
-                            // posso vendê-lo
-                            cinema.venderIngresso(chave_sessao,assento_venda);
-                        } else {
-                            // nao posso vendê-lo
-                            std::cout << "Assento não disponível. Escolha outro." << std::endl;
-                            // diminuir o contador para repetir essa venda de ingresso
-                            contador--;
-                        }
-                    }
-                }
-            }
-
-            if (opcao == -1) {
-                // desalocar os espacos alocados
-                cinema.~Cinema();
             }
         }
 
+        if (opcao == 7) {
+            cinema.imprimirSessoesFuturas();
+        }
 
-    }
-    if(numero_acesso==2){
+        if (opcao == 8) {
+            cinema.imprimirSalas();
+        }
+
+        if (opcao == 9) {
+            cinema.imprimirEmpregados();
+        }
+
+        if(opcao == 10){
+            cinema.imprimirDistribuidores();
+        }              
         
+        if(opcao == 11){
+            cinema.imprimirFilmesCadastrados();
+        }
 
+        if (opcao == 12) { // vender ingresso
+            std::cout << "Para qual sessao você deseja vender ingressos?" << std::endl;
+            std::cin >> chave_sessao;
+            if (!cinema.isSessaoExistente(chave_sessao)) {
+                std::cout << "Sessao Inexistente. Retornando ao Menu Inicial..." << std::endl;
+                sleep (2);
+            } else {
+                do {
+                    std::cout << "Quantos ingressos deseja vender?" << std::endl;
+                    std::cin >> qtde_vendaIngressos;
+                    if (qtde_vendaIngressos < 1 || qtde_vendaIngressos > cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) {
+                        std::cout << "Quantidade Inválida. Qtde de assentos livres: " + std::to_string(cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) << std::endl;
+                    }
+                } while (qtde_vendaIngressos < 1 || qtde_vendaIngressos > cinema.getSessao(chave_sessao)->getQtdeAssentosLivres());
+                // imprimir valor total da venda
+
+                valor_total_venda = cinema.getSessao(chave_sessao)->getSala().getValorPorAssento() * qtde_vendaIngressos;
+                std::cout << "Valor total: ";
+                std::cout << std::setprecision(2) << std::fixed << valor_total_venda << std::endl;
+
+                std::cout << "Selecione o(s) assento(s) que deseja vender" << std::endl;
+                cinema.getSessao(chave_sessao)->imprimirMapaAssentos();
+                for (contador = 0; contador<qtde_vendaIngressos;contador++) {
+                    std::cout << "Ingresso n." + std::to_string(contador+1) + ": ";
+                    std::cin >> assento_venda;
+                    // o processo de venda de cada ingresso eh feito individualmente
+                    // primeiro preciso verificar se o assento digitado eh valido
+                    if (cinema.getSessao(chave_sessao)->isAssentoLivre(assento_venda)) {
+                        // posso vendê-lo
+                        cinema.venderIngresso(chave_sessao,assento_venda);
+                    } else {
+                        // nao posso vendê-lo
+                        //std::cout << "Assento não disponível. Escolha outro." << std::endl;
+                        // diminuir o contador para repetir essa venda de ingresso
+                        contador--;
+                    }
+                }
+                std::cout << "Ingressos vendidos com sucesso." << std::endl;
+            }
+        }
+
+        if (opcao == -1) {
+            // desalocar os espacos alocados
+            cinema.~Cinema();
+        }
     }
     return 0;
 }

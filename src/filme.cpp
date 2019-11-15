@@ -27,6 +27,21 @@ int Filme::getDuracaoMinutos() {
     return this->duracao_minutos;
 }
 
-int Filme::getDuracaoSegundos() {
-    return this->duracao_minutos*60;
+// venda de 1 ingresso
+void Filme::adicionarVendaIngresso(float valor) {
+    this->verbaArrecadada += valor;
+    this->publicoTotal ++;
+    this->ticketMedio = (float) (this->verbaArrecadada/this->publicoTotal);
+}
+
+float Filme::getVerbaArrecadada() {
+    return this->verbaArrecadada;
+}
+
+unsigned long long int Filme::getPublicoTotal() {
+    return this->publicoTotal;
+}
+
+float Filme::getTicketMedio() {
+    return this->ticketMedio;
 }

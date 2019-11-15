@@ -90,7 +90,7 @@ bool Sessao::isAssentoLivre(std::string assento) {
         }
     }
     catch(char const* ex){
-        std::cout << "exceção lançada" << std::endl;
+        std::cout << "Assento não disponível. Escolha outro" << std::endl;
     }
 }
 
@@ -100,3 +100,51 @@ void Sessao::setAssentoOcupado(std::string assento) {
     this->qtde_assentosLivres--;
 }
 
+bool Sessao::isSessaoFutura(std::string cod_sessao) {
+    int ano, mes, dia, hora;
+    std::string s_ano, s_mes,s_dia,s_hora;
+    std::string sessaoAtual;
+    std::string sub_datahora;
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    ano = 1900 + ltm->tm_year;
+    mes = 1 + ltm->tm_mon;
+    dia = ltm->tm_mday;
+    hora = ltm->tm_hour;
+
+    s_ano = std::to_string(ano);
+
+    if (mes < 10) {
+        s_mes = '0' + std::to_string(mes);
+    } else {
+        s_mes = std::to_string(mes);
+    }
+
+    if (dia < 10) {
+        s_dia = '0' + std::to_string(dia);
+    } else {
+        s_dia = std::to_string(dia);
+    }
+
+    if (hora < 10) {
+        s_hora = '0' + std::to_string(hora);
+    } else {
+        s_hora = std::to_string(hora);
+    }
+
+    sessaoAtual = s_ano + s_mes + s_dia + s_hora;
+    sub_datahora = cod_sessao.substr(0,10); // tirando a sala (dois ultimos caracteres) para comparar as duas strings
+    
+    //std::cout << "Data Hora atual: " << sessaoAtual << std::endl;
+    //std::cout << "Data Hora a ser comparada: " << sub_datahora << std::endl;
+
+    if (sessaoAtual < sub_datahora) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Sessao::isSessaoFutura() {
+    return Sessao::isSessaoFutura(this->dataHora);
+}
