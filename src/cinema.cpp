@@ -225,8 +225,10 @@ void Cinema::imprimirSessoesFuturas() {
     } else {
         std::cout << "Sessao\t\t| Sala\t\t| Filme\t\t" << std::endl;
         while (it != this->listaSessoes.end()) {
-            // apenas se a sessao for posterior a hoje que eu devo imprimir
-            std::cout << it->first << "\t| " << it->second.getSala().getNumero() << "-" << it->second.getSala().getTipo() << "\t| " << it->second.getFilme() << std::endl;
+            // apenas se a sessao for posterior a hoje/agora que eu devo imprimir
+            if (it->second.isSessaoFutura()) {
+                std::cout << it->first << "\t| " << it->second.getSala().getNumero() << "-" << it->second.getSala().getTipo() << "\t| " << it->second.getFilme() << std::endl;
+            }
             ++it;
         }
     }

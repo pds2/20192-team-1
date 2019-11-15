@@ -31,5 +31,6 @@ class Sessao {
         bool isAssentoLivre(std::string assento);
         void setAssentoOcupado(std::string assento);
         static bool isSessaoFutura(std::string cod_sessao);
+        bool isSessaoFutura();
 };
 #endif

@@ -144,3 +144,7 @@ bool Sessao::isSessaoFutura(std::string cod_sessao) {
         return false;
     }
 }
+
+bool Sessao::isSessaoFutura() {
+    return Sessao::isSessaoFutura(this->dataHora);
+}
