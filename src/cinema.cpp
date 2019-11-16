@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 #include "cinema.h"
 
 Cinema::Cinema (std::string nome) {
@@ -126,7 +127,7 @@ void Cinema::armazenarSessao(int num_sala, Sessao sessao) {
         } else {
             chave_sessao = sessao.getDataHora() + std::to_string(num_sala);
         }
-        std::cout << chave_sessao;
+        std::cout << "Sessão " << chave_sessao << "criada com Sucesso!" << std::endl;
         this->listaSessoes.insert(std::pair<std::string,Sessao>(chave_sessao,sessao));
     }
 }
@@ -214,6 +215,41 @@ void Cinema::imprimirFilmesCadastrados() {
             ++it;
         }
     }
+}
+
+void Cinema::imprimirFilmesEmCartaz() {
+    // criar um mapa cuja chave é o nome dos filmes e o conteúdo é a quantidade de sessoes futuras existentes daquele filme.
+    std::map<std::string, int> listaFilmeEmCartaz;
+    std::map<std::string, int>::iterator it_filmes;
+    std::map<std::string, Sessao>::iterator it_sessoes;
+    
+    it_sessoes = this->listaSessoes.begin();
+    while (it_sessoes != this->listaSessoes.end()) {
+        // primeiro preciso saber se a sessao que eu estou analisando é futura
+        if (it_sessoes->second.isSessaoFutura()) {
+            // se o filme existir, somar no contador interno dele
+            if (listaFilmeEmCartaz.find(it_sessoes->second.getFilme()) != listaFilmeEmCartaz.end()) {
+                listaFilmeEmCartaz.find(it_sessoes->second.getFilme())->second ++;
+            } else { // se nao existir vou ter que adicionar e iniciar o contador com 1 (o filme existe em pelo menos uma sessao futura)
+                listaFilmeEmCartaz.insert( std::pair<std::string, int>(it_sessoes->second.getFilme(), 1) );
+            }
+        }
+        ++it_sessoes;
+    }
+    
+    // agora é o processo de impressao do filme em cartaz
+    it_filmes = listaFilmeEmCartaz.begin();
+    if (it_filmes == listaFilmeEmCartaz.end()) {
+        std::cout << "Não há filmes em Cartaz" << std::endl;
+    } else {
+        std::cout << "Filme \t\t| Qtde Sessoes \t\t" << std::endl;
+        while (it_filmes != listaFilmeEmCartaz.end())
+        {
+            std::cout << it_filmes->first << "\t\t| " << it_filmes->second << std::endl;
+            ++it_filmes;
+        }
+    }
+    
 }
 
 
