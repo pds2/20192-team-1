@@ -126,8 +126,7 @@ Sala cadastrarNovaSala (int num_sala) {
 
 
 int main() {
-    int numero_acesso;
-    // INICIO VARIAVEIS DA ANDRESSA
+
     int opcao = 0;
     int id_distribuidor;
     int ano, mes, dia;
@@ -144,12 +143,9 @@ int main() {
 
     std::map<unsigned long long int, Distribuidor>::iterator distribuidor_it;
     std::string nome_filme;
-    // FIM VARIAVEIS DA ANDRESSA
 
-    std::cout << "Digite o numero de acesso" << std::endl;
-    std::cin >> numero_acesso;
-    
-    std::cout << "Olá Andressa" << std::endl;
+    std::cout << std::endl;
+
     Cinema cinema("Cineart");
     
     while (opcao != -1) {
@@ -160,8 +156,8 @@ int main() {
         std::cout << "3. Cadastrar um novo distribuidor" << std::endl; // OK
         std::cout << "4. Cadastrar um novo filme" << std::endl; // OK
         std::cout << "5. Cadastrar uma nova sessao" << std::endl; // OK
-        std::cout << "6. Imprimir filmes em cartaz" << std::endl;
-        std::cout << "7. Imprimir próximas sessoes" << std::endl;
+        std::cout << "6. Imprimir filmes em cartaz" << std::endl; 
+        std::cout << "7. Imprimir próximas sessoes" << std::endl; // OK
         std::cout << "8. Imprimir salas do cinema" << std::endl; // OK
         std::cout << "9. Imprimir empregados" << std::endl; // OK
         std::cout << "10. Imprimir lista Distribuidores" << std::endl; // OK
@@ -209,10 +205,20 @@ int main() {
                 } else {
                     std::cout << "Ano: ";
                     std::cin >> ano;
-                    std::cout << "Mês: ";
-                    std::cin >> mes;
-                    std::cout << "Dia: ";
-                    std::cin >> dia;
+                    do {
+                        std::cout << "Mês: ";
+                        std::cin >> mes;
+                        if (mes > 12 || mes < 1) {
+                            std::cout << "Mês Inválido." << std::endl;
+                        }
+                    } while (mes > 12 || mes < 1);
+                    do {
+                        std::cout << "Dia: ";
+                        std::cin >> dia;
+                        if (dia < 1 || dia > 31) {
+                            std::cout << "Dia Inválido." << std::endl;
+                        }
+                    } while (dia < 1 || dia > 31);
                     do {
                         std::cout << "Sala: ";
                         std::cin >> num_sala;
@@ -266,6 +272,10 @@ int main() {
                     }
                 }
             }
+        }
+
+        if (opcao == 6) {
+            cinema.imprimirFilmesEmCartaz();
         }
 
         if (opcao == 7) {
