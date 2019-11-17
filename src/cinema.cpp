@@ -9,8 +9,7 @@ Cinema::Cinema (std::string nome) {
     this->verbaArrecadada = 0;
 }
 
-Cinema::~Cinema () {
-    
+Cinema::~Cinema () {  
 }
 
 std::map<int, Sala> Cinema::getSalas() {
@@ -301,4 +300,8 @@ void Cinema::venderIngresso(std::string sessao, std::string assento) {
     // agora eu preciso adicionar na arrecadação geral do cinema
     this->verbaArrecadada += valorIngresso;
     this->lucro += valorIngresso*(1-PORCENTAGEMDISTRIBUIDOR);
+}
+
+float Cinema::getVerbaArrecadada(){
+    return(this->verbaArrecadada);
 }
