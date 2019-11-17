@@ -127,7 +127,7 @@ void Cinema::armazenarSessao(int num_sala, Sessao sessao) {
         } else {
             chave_sessao = sessao.getDataHora() + std::to_string(num_sala);
         }
-        std::cout << "Sessão " << chave_sessao << "criada com Sucesso!" << std::endl;
+        std::cout << "Sessão " << chave_sessao << " criada com Sucesso!" << std::endl;
         this->listaSessoes.insert(std::pair<std::string,Sessao>(chave_sessao,sessao));
     }
 }

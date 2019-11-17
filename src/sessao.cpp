@@ -21,7 +21,12 @@ Sessao::Sessao(Sala sala, std::string filme, std::string dataHora) {
     // preciso rodar o alfabeto ate a quantidade de fileiras e depois os numeros ate a quantidade de assentos por fileiras
     for (i=aux_fileira;i<=sala.getFileiras()+aux_fileira;i++) {
         for (j=aux_coluna;j<=sala.getAssentosPorFileiras();j++) {
-            nome_assento = char(i) + std::to_string(j);
+            if(j<10){
+                nome_assento = char(i) + ("0" + std::to_string(j));
+            }
+            else{
+                nome_assento = char(i) + std::to_string(j);
+            }
             this->mapa_assentos.insert(std::pair<std::string,Assento>(nome_assento,*new Assento()));
         }
     }
