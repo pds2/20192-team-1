@@ -21,8 +21,9 @@
 3) Filmes;
 4) Sessões;
 5) Vendas de ingresso;
-5) Cinema;
-5) Funções complexas (valor total arrecadado, publico total etc)
+6) Valor arrecadado, publico total ticket medio (filme);
+7) Valor total arrecadado do cinema;
+8) Porcentagem do distribuidor;
 
 
 ---------------------------TESTES UNITÁRIOS----------------------------
@@ -204,7 +205,6 @@ TEST_CASE("09 - Testando os getters de filme"){
     CHECK(ReiLeao->getTitulo()=="Rei Leão");
     CHECK(ReiLeao->getDistribuidor()==1);
     CHECK(ReiLeao->getDuracaoMinutos()==90);
-    CHECK(ReiLeao->getDuracaoSegundos()==5400);
 }
 
 TEST_CASE("10 - Testando o cadastro de filmes"){
@@ -402,12 +402,15 @@ TEST_CASE("14 - Testando os getters de sessão"){
     CHECK(sessao2->getQtdeAssentosOcupados()==0);
 
     //vendendo 3 ingressos da sessao1 e 2 ingressos da sessao2
-    Cineart.venderIngresso(sessao1->getChaveSessao(), "B1");
-    Cineart.venderIngresso(sessao1->getChaveSessao(), "B2");
-    Cineart.venderIngresso("201909301001", "B3");
+    Cineart.venderIngresso(sessao1->getChaveSessao(),"B1");
+    Cineart.venderIngresso(sessao1->getChaveSessao(),"B2");
+    Cineart.venderIngresso("201909301001","B3");
 
-    Cineart.venderIngresso("201909301002", "C1");
-    Cineart.venderIngresso("201909301002", "C2");
+    Cineart.venderIngresso("201909301002","C1");
+    Cineart.venderIngresso("201909301002","C2");
+
+    sessao1->imprimirMapaAssentos();
+    sessao1->imprimirMapaAssentos();
 
     CHECK(sessao1->getQtdeAssentosLivres()==57);
     CHECK(sessao2->getQtdeAssentosLivres()==48);
@@ -426,3 +429,4 @@ TEST_CASE("14 - Testando os getters de sessão"){
     delete sessao2;
 
 }*/
+

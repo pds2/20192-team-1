@@ -162,7 +162,8 @@ int main() {
         std::cout << "9. Imprimir empregados" << std::endl; // OK
         std::cout << "10. Imprimir lista Distribuidores" << std::endl; // OK
         std::cout << "11. Imprimir todos os filmes do cinema" << std::endl; // OK
-        std::cout << "12. Vender ingressos" << std::endl;
+        std::cout << "12. Imprmir mapa de assentos de determinada sessao" << std::endl;
+        std::cout << "13. Vender ingressos" << std::endl;
         std::cout << "-1. Sair" << std::endl;
         std::cin >> opcao;
 
@@ -297,8 +298,19 @@ int main() {
         if(opcao == 11){
             cinema.imprimirFilmesCadastrados();
         }
+        
+        if(opcao == 12){
+            std::cout << "Para qual sessao você deseja imprimir o mapa de assentos?" << std::endl;
+            std::cin >> chave_sessao;
+            if (!cinema.isSessaoExistente(chave_sessao)) {
+                std::cout << "Sessao Inexistente. Retornando ao Menu Inicial..." << std::endl;
+                sleep (2);
+            } else {
+                cinema.getSessao(chave_sessao)->imprimirMapaAssentos();
+            }
+        }    
 
-        if (opcao == 12) { // vender ingresso
+        if (opcao == 13) { // vender ingresso
             std::cout << "Para qual sessao você deseja vender ingressos?" << std::endl;
             std::cin >> chave_sessao;
             if (!cinema.isSessaoExistente(chave_sessao)) {
