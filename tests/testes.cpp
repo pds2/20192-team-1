@@ -320,13 +320,13 @@ TEST_CASE("13 - Testando a venda de ingressos"){
     Sessao *sessao = new Sessao(*salaComum,"Rei Leão", std::to_string(2019093010));
     Cineart.armazenarSessao(1,*sessao);
 
-    CHECK(Cineart.getSessao("201909301001")->isAssentoLivre("A1")==1); //assento previamente livre
-    Cineart.venderIngresso(sessao->getChaveSessao(),"A1");
-    CHECK(Cineart.getSessao("201909301001")->isAssentoLivre("A1")==0); //assento ocupado após venda
+    CHECK(Cineart.getSessao("201909301001")->isAssentoLivre("A01")==1); //assento previamente livre
+    Cineart.venderIngresso(sessao->getChaveSessao(),"A01");
+    CHECK(Cineart.getSessao("201909301001")->isAssentoLivre("A01")==0); //assento ocupado após venda
 
-    CHECK(Cineart.getSessao("201909301001")->isAssentoLivre("A2")==1); //assento previamente livre
-    Cineart.venderIngresso("201909301001","A2");
-    CHECK(Cineart.getSessao("201909301001")->isAssentoLivre("A2")==0); //assento ocupado após venda
+    CHECK(Cineart.getSessao("201909301001")->isAssentoLivre("A02")==1); //assento previamente livre
+    Cineart.venderIngresso("201909301001","A02");
+    CHECK(Cineart.getSessao("201909301001")->isAssentoLivre("A02")==0); //assento ocupado após venda
 
     //DESALOCANDO MEMÓRIA
     delete salaComum;
