@@ -22,8 +22,8 @@ class Cinema {
         std::map<int, Sala> listaSalas;
         std::map<std::string, Sessao> listaSessoes; // a chave aqui eh datahorasala ex: 20191102-01:00-01
         std::map<unsigned long long int, Distribuidor> listaDistribuidores;
-        double verbaArrecadada;
-        double lucro;
+        float verbaArrecadada;
+        float lucro;
         std::string nomeDoCinema;
 
     public:
@@ -42,7 +42,7 @@ class Cinema {
         void imprimirDistribuidores();
         void imprimirSalas();
         void adicionarVerbaArrecadada(unsigned int valorParaAdicionar);
-        unsigned long long int getVerbaArrecadada();
+        float getVerbaArrecadada();
         void setNomeDoCinema(std::string novoNome);
         int getProximaSalaASerCriada();
         bool isListaSalaVazia(); // testa se nao ha nenhum elemento na lista de salas

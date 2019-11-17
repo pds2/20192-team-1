@@ -101,7 +101,6 @@ TEST_CASE("04 - Testando o cadastro de salas"){
     Premium *salaPremium = new Premium(3,5,10);
     TresD *salaTresD = new TresD(4,5,10);
 
-    //*******************O SISTEMA CONSEGUE CADASTRAR DUAS SALAS COM O MESMO NUMERO DE SALA
     CHECK_NOTHROW(Cineart.armazenarNovaSala(*salaComum));
     CHECK_NOTHROW(Cineart.armazenarNovaSala(*salaIMAX));
     CHECK_NOTHROW(Cineart.armazenarNovaSala(*salaPremium));
@@ -258,13 +257,46 @@ TEST_CASE("11 - Testando o contrutor de sessões "){
     delete Titanic;
 }
 
-TEST_CASE("12 - Testando o cadastro de Sessões"){
+TEST_CASE("12 - Testando os getters de sessão"){
+
+    //Definição de salas
+    Sala *salaComum = new Sala(1,6,10);
+    Sala *salaIMAX = new IMAX(2,5,10);
+    
+    //Definição de distribuidores
+    Distribuidor *distribuidor = new Distribuidor("distribuidor", 1);
+
+    //Definição de filmes
+    Filme *ReiLeao = new Filme("Rei Leão",1,90);
+    Filme *Titanic = new Filme("Titanic",1,195);
+
+    //Definição de Sessões
+    Sessao *sessao1 = new Sessao(*salaComum,"Rei Leão", std::to_string(2019093010));
+    Sessao *sessao2 = new Sessao(*salaIMAX,"Titanic", std::to_string(2019093010));
+
+    CHECK(sessao1->getChaveSessao()=="201909301001");
+    CHECK(sessao1->getDataHora()=="2019093010");
+    CHECK(sessao1->getFilme()=="Rei Leão");
+    CHECK(sessao2->getFilme()=="Titanic");
+    CHECK(sessao1->getSala().getNumero()==1);    
+    
+    //DESALOCANDO MEMÓRIA
+    delete salaComum;
+    delete salaIMAX;
+    delete distribuidor;
+    delete ReiLeao;
+    delete Titanic;
+    delete sessao1;
+    delete sessao2;
+}
+
+TEST_CASE("13 - Testando o cadastro de Sessões"){
 
     Cinema Cineart("Cineart");
 
     //Definição e cadastro de salas
     Sala *salaComum = new Sala(1,5,10);
-    Sala *salaIMAX = new Sala(2,5,10);
+    Sala *salaIMAX = new IMAX(2,5,10);
     Cineart.armazenarNovaSala(*salaComum);
     Cineart.armazenarNovaSala(*salaIMAX);
 
@@ -278,9 +310,7 @@ TEST_CASE("12 - Testando o cadastro de Sessões"){
     Cineart.armazenarNovoFilme(*ReiLeao);
     Cineart.armazenarNovoFilme(*Titanic);
 
-    //Definição de Sessões
-
-    //Cadastrando duas sessões no mesmo dia, na mesma hora, em salas diferentes    
+    //Definição e cadastro de sessoes    
     Sessao *sessao1 = new Sessao(*salaComum,"Rei Leão", std::to_string(2019093010));
     Sessao *sessao2 = new Sessao(*salaIMAX,"Titanic", std::to_string(2019093010));
     Cineart.armazenarSessao(1,*sessao1);
@@ -300,7 +330,7 @@ TEST_CASE("12 - Testando o cadastro de Sessões"){
 }
 
 
-TEST_CASE("13 - Testando a venda de ingressos"){
+TEST_CASE("14 - Testando a venda de ingressos"){
 
     Cinema Cineart("Cineart");
 
@@ -335,46 +365,14 @@ TEST_CASE("13 - Testando a venda de ingressos"){
     delete sessao;
 }
 
-TEST_CASE("14 - Testando os getters de sessão"){
 
-    //Definição de salas
-    Sala *salaComum = new Sala(1,6,10);
-    Sala *salaIMAX = new Sala(2,5,10);
-    
-    //Definição de distribuidores
-    Distribuidor *distribuidor = new Distribuidor("distribuidor", 1);
-
-    //Definição de filmes
-    Filme *ReiLeao = new Filme("Rei Leão",1,90);
-    Filme *Titanic = new Filme("Titanic",1,195);
-
-    //Definição de Sessões
-    Sessao *sessao1 = new Sessao(*salaComum,"Rei Leão", std::to_string(2019093010));
-    Sessao *sessao2 = new Sessao(*salaIMAX,"Titanic", std::to_string(2019093010));
-
-    CHECK(sessao1->getChaveSessao()=="201909301001");
-    CHECK(sessao1->getDataHora()=="2019093010");
-    CHECK(sessao1->getFilme()=="Rei Leão");
-    CHECK(sessao2->getFilme()=="Titanic");
-    CHECK(sessao1->getSala().getNumero()==1);    
-    
-    //DESALOCANDO MEMÓRIA
-    delete salaComum;
-    delete salaIMAX;
-    delete distribuidor;
-    delete ReiLeao;
-    delete Titanic;
-    delete sessao1;
-    delete sessao2;
-}
-
-/*TEST_CASE("15 - Testando a função de quantidade de assentos livres/ocupados"){
+TEST_CASE("15 - Testando a função de quantidade de assentos livres/ocupados"){
 
     Cinema Cineart("Cineart");
 
     //Definição e cadastro de salas
     Sala *salaComum = new Sala(1,6,10);
-    Sala *salaIMAX = new Sala(2,5,10);
+    Sala *salaIMAX = new IMAX(2,5,10);
     Cineart.armazenarNovaSala(*salaComum);
     Cineart.armazenarNovaSala(*salaIMAX);
 
@@ -388,37 +386,29 @@ TEST_CASE("14 - Testando os getters de sessão"){
     Cineart.armazenarNovoFilme(*ReiLeao);
     Cineart.armazenarNovoFilme(*Titanic);
 
-    //Definição de Sessões
-
-    //Cadastrando duas sessões no mesmo dia, na mesma hora, em salas diferentes    
-    Sessao *sessao1 = new Sessao(*salaComum,"Rei Leão", std::to_string(2019093010));
-    Sessao *sessao2 = new Sessao(*salaIMAX,"Titanic", std::to_string(2019093010));
+    //Definição e cadastro de Sessões    
+    Sessao *sessao1 = new Sessao(*salaComum,"Rei Leão", std::to_string(2019123010));
+    Sessao *sessao2 = new Sessao(*salaIMAX,"Titanic", std::to_string(2019123010));
     Cineart.armazenarSessao(1,*sessao1);
     Cineart.armazenarSessao(2,*sessao2);
 
-    CHECK(sessao1->getQtdeAssentosLivres()==60);
-    CHECK(sessao2->getQtdeAssentosLivres()==50);
-    CHECK(sessao1->getQtdeAssentosOcupados()==0);
-    CHECK(sessao2->getQtdeAssentosOcupados()==0);
+    CHECK(Cineart.getSessao(sessao1->getChaveSessao())->getQtdeAssentosLivres()==60);
+    CHECK(Cineart.getSessao(sessao2->getChaveSessao())->getQtdeAssentosLivres()==50);
+    CHECK(Cineart.getSessao(sessao1->getChaveSessao())->getQtdeAssentosOcupados()==0);
+    CHECK(Cineart.getSessao(sessao2->getChaveSessao())->getQtdeAssentosOcupados()==0);
 
     //vendendo 3 ingressos da sessao1 e 2 ingressos da sessao2
-    Cineart.venderIngresso(sessao1->getChaveSessao(),"B1");
-    Cineart.venderIngresso(sessao1->getChaveSessao(),"B2");
-    Cineart.venderIngresso("201909301001","B3");
+    Cineart.venderIngresso(sessao1->getChaveSessao(),"B01");
+    Cineart.venderIngresso(sessao1->getChaveSessao(),"B02");
+    Cineart.venderIngresso(sessao1->getChaveSessao(),"B03");
+    Cineart.venderIngresso(sessao2->getChaveSessao(),"C01");
+    Cineart.venderIngresso(sessao2->getChaveSessao(),"C02");
 
-    Cineart.venderIngresso("201909301002","C1");
-    Cineart.venderIngresso("201909301002","C2");
-
-    sessao1->imprimirMapaAssentos();
-    sessao1->imprimirMapaAssentos();
-
-    CHECK(sessao1->getQtdeAssentosLivres()==57);
-    CHECK(sessao2->getQtdeAssentosLivres()==48);
-    CHECK(sessao1->getQtdeAssentosOcupados()==3);
-    CHECK(sessao2->getQtdeAssentosOcupados()==2);
+    CHECK(Cineart.getSessao(sessao1->getChaveSessao())->getQtdeAssentosLivres()==57);
+    CHECK(Cineart.getSessao(sessao2->getChaveSessao())->getQtdeAssentosLivres()==48);
+    CHECK(Cineart.getSessao(sessao1->getChaveSessao())->getQtdeAssentosOcupados()==3);
+    CHECK(Cineart.getSessao(sessao2->getChaveSessao())->getQtdeAssentosOcupados()==2);
     
-
-
     //DESALOCANDO MEMÓRIA
     delete salaComum;
     delete salaIMAX;
@@ -428,5 +418,62 @@ TEST_CASE("14 - Testando os getters de sessão"){
     delete sessao1;
     delete sessao2;
 
-}*/
+}
 
+TEST_CASE("16 - Testando publico total, valor arrecadado e ticket medio de filmes"){
+
+    Cinema Cineart("Cineart");
+
+    //Definição e cadastro de salas
+    Sala *salaComum = new Sala(1,6,10);
+    Sala *salaIMAX = new IMAX(2,5,10);
+    Cineart.armazenarNovaSala(*salaComum);
+    Cineart.armazenarNovaSala(*salaIMAX);
+
+    //Definição e cadastro de distribuidores
+    Distribuidor *distribuidor = new Distribuidor("distribuidor", 1);
+    Cineart.armazenarNovoDistribuidor(*distribuidor);
+
+    //Definição e cadastro de filmes
+    Filme *ReiLeao = new Filme("Rei Leão",1,90);
+    Filme *Titanic = new Filme("Titanic",1,195);
+    Cineart.armazenarNovoFilme(*ReiLeao);
+    Cineart.armazenarNovoFilme(*Titanic);
+
+    //Definição e cadastro de Sessões
+    Sessao *sessao1 = new Sessao(*salaComum,"Rei Leão", std::to_string(2019123010));
+    Sessao *sessao2 = new Sessao(*salaIMAX,"Titanic", std::to_string(2019123010));
+    Cineart.armazenarSessao(1,*sessao1);
+    Cineart.armazenarSessao(2,*sessao2);
+
+    //vendendo 5 ingressos da sessão 1
+    Cineart.venderIngresso(sessao1->getChaveSessao(), "A05");
+    Cineart.venderIngresso(sessao1->getChaveSessao(), "A06");
+    Cineart.venderIngresso(sessao1->getChaveSessao(), "A07");
+    Cineart.venderIngresso(sessao1->getChaveSessao(), "A08");
+    Cineart.venderIngresso(sessao1->getChaveSessao(), "A09");
+
+    //vendendo 10 ingressos da sessão 2
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "A01");
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "B01");
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "C01");
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "C02");
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "C03");
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "D01");
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "D02");
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "D03");
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "D04");
+    Cineart.venderIngresso(sessao2->getChaveSessao(), "D05");
+
+    //publico total
+    CHECK(Cineart.getFilme("Rei Leão")->getPublicoTotal()==5);
+    CHECK(Cineart.getFilme("Titanic")->getPublicoTotal()==10);
+    
+    //valor total arrecadado de um filme
+    CHECK(Cineart.getFilme("Rei Leão")->getVerbaArrecadada()==135);
+    CHECK(Cineart.getFilme("Titanic")->getVerbaArrecadada()==324);
+
+    //valor total arrecadado do cinema
+    CHECK(Cineart.getSessao(sessao2->getChaveSessao())->getSala().getValorPorAssento()==32.4);
+    CHECK(Cineart.getVerbaArrecadada()==Cineart.getFilme("Rei Leão")->getVerbaArrecadada()+Cineart.getFilme("Titanic")->getVerbaArrecadada());
+}

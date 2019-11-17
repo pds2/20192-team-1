@@ -5,6 +5,9 @@ Filme::Filme(std::string titulo, unsigned long long int id_distribuidor,int dura
     this->titulo = titulo;
     this->distribuidor = id_distribuidor;
     this->duracao_minutos = duracao_minutos;
+    this->publicoTotal = 0;
+    this->ticketMedio = 0;
+    this->verbaArrecadada =0;
 }
 
 Filme::~Filme() {
