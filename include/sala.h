@@ -10,7 +10,8 @@ class Sala {
         int numero;
         int fileiras;
         int assentosPorFileiras;
-        static float valorPorAssento; // valor por assento precisa ser estático para que todas as salas do mesmo tipo tenham o mesmo valor por assento
+        float valorPorAssento; // valor por assento precisa ser estático para que todas as salas do mesmo tipo tenham o mesmo valor por assento
+        static float valorPorAssentoComum;
         std::string tipo;
     public:
         Sala(int numero,int fileiras, int assentosPorFileiras,std::string tipo);
@@ -19,7 +20,7 @@ class Sala {
         virtual ~Sala();
         int getNumero();
         int getCapacidade();
-        virtual float getValorPorAssento();
+        float getValorPorAssento();
         void setValorPorAssento(float);
         void setNumero(int);
         void setFileiras(int fileiras);

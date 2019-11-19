@@ -13,6 +13,5 @@ class TresD : public IMAX {
         ~TresD();
         void setTaxaAdicional(float) override;
         float getTaxaAdicional() override;
-        float getValorPorAssento() override;
 };
 #endif

@@ -33,7 +33,7 @@ class Cinema {
         void armazenarNovaPessoa(Pessoa pessoa); 
         void armazenarNovoDistribuidor(Distribuidor novoDistribuidor);
         void armazenarNovoFilme(Filme novoFilme);
-        void armazenarSessao(int num_sala, Sessao novaSessao);
+        void armazenarSessao(Sala sala, Sessao novaSessao);
         void imprimirFilmesEmCartaz();
         void imprimirFilmesCadastrados();
         void imprimirSessoesFuturas(Filme filme);

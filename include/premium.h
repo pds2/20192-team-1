@@ -13,7 +13,6 @@ class Premium : public IMAX {
         ~Premium();
         void setTaxaAdicional(float) override;
         float getTaxaAdicional() override;
-        float getValorPorAssento() override;
-        
+      
 };
 #endif

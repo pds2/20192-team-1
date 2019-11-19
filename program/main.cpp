@@ -268,7 +268,7 @@ int main() {
                             std::cout << "Não foi possível criar sessão por incompatibilidade de horarios com outras sessões." << std::endl;
                         } else {
                             _sessao = new Sessao(cinema.getSalas().find(num_sala)->second,filme_para_sessoes,chave_data);
-                            cinema.armazenarSessao(cinema.getSalas().find(num_sala)->second.getNumero(),*_sessao);
+                            cinema.armazenarSessao(cinema.getSalas().find(num_sala)->second,*_sessao);
                         }
                     }
                 }
