@@ -16,7 +16,6 @@ class IMAX : public Sala {
         ~IMAX();
         virtual void setTaxaAdicional(float taxa_adicional);
         virtual float getTaxaAdicional(); // é virtual para cada tipo de sala retornar sua proŕia taxa
-        float getValorPorAssento() override;
         
 };
 #endif

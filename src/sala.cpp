@@ -1,6 +1,6 @@
 #include "sala.h"
 
-float Sala::valorPorAssento = 27.00;
+float Sala::valorPorAssentoComum = 27.00;
 
 Sala::Sala() {
     
@@ -10,6 +10,7 @@ Sala::Sala(int numero, int fileiras, int assentosPorFileiras) {
     this->tipo = "Comum";
     this->fileiras = fileiras;
     this->assentosPorFileiras = assentosPorFileiras;
+    this->valorPorAssento = 27.00;
     this->numero = numero;
 }
 
@@ -17,6 +18,7 @@ Sala::Sala(int numero,int fileiras, int assentosPorFileiras,std::string tipo) {
     this->tipo = tipo;
     this->fileiras = fileiras;
     this->assentosPorFileiras = assentosPorFileiras;
+    this->valorPorAssento = 27.00;
     this->numero = numero;
 }
 
@@ -41,7 +43,7 @@ int Sala::getAssentosPorFileiras() {
     return this->assentosPorFileiras;
 }
 float Sala::getValorPorAssento() {
-    return Sala::valorPorAssento;
+    return this->valorPorAssento;
 }
 
 void Sala::setFileiras(int fileiras) {

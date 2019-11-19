@@ -2,7 +2,9 @@
 
 float TresD::taxaAdicionalTresD = 8.00; //valor dos oculos
 
-TresD::TresD(int numero, int qtde_fileiras, int assentos_por_fileiras) : IMAX(numero,qtde_fileiras,assentos_por_fileiras,"3D"){ }
+TresD::TresD(int numero, int qtde_fileiras, int assentos_por_fileiras) : IMAX(numero,qtde_fileiras,assentos_por_fileiras,"3D"){ 
+   this->valorPorAssento = (Sala::valorPorAssentoComum * IMAX::taxaAdicionalIMAX) + TresD::taxaAdicionalTresD;
+}
 
 TresD::~TresD(){}
 
@@ -12,9 +14,4 @@ void TresD::setTaxaAdicional(float taxa){
 
 float TresD::getTaxaAdicional(){
     return(taxaAdicionalTresD);
-}
-
-
-float TresD::getValorPorAssento(){
-    return((Sala::valorPorAssento * IMAX::taxaAdicionalIMAX) + TresD::taxaAdicionalTresD);
 }
