@@ -45,7 +45,7 @@ TEST_CASE("02 - Testando getters e setters das salas") {
     Sala *salaComum = new Sala(1,5,10);
     Sala *salaIMAX = new IMAX(2,5,10);
     Sala *salaPremium = new Premium(3,5,10);
-    Sala *salaTresD = new TresD(4,5,10);
+    Sala *sala3D = new TresD(4,5,10);
 
     CHECK(salaComum->getCapacidade()==50);
     CHECK(salaComum->getNumero()==1);
@@ -54,7 +54,7 @@ TEST_CASE("02 - Testando getters e setters das salas") {
     CHECK(salaComum->getTipo()=="Comum");
     CHECK(salaIMAX->getTipo()=="IMAX");
     CHECK(salaPremium->getTipo()=="Premium");
-    CHECK(salaTresD->getTipo()=="3D");
+    CHECK(sala3D->getTipo()=="3D");
 
     //setando valores diferentes
     salaComum->setNumero(2);
@@ -69,7 +69,7 @@ TEST_CASE("02 - Testando getters e setters das salas") {
     delete salaComum;
     delete salaIMAX;
     delete salaPremium;
-    delete salaTresD;
+    delete sala3D;
 }
 
 TEST_CASE("03 - Testando os valores por assento de cada tipo") {
@@ -78,19 +78,19 @@ TEST_CASE("03 - Testando os valores por assento de cada tipo") {
     Sala *salaComum = new Sala(1,5,10);
     Sala *salaIMAX = new IMAX(2,5,10);
     Sala *salaPremium = new Premium(3,5,10);
-    Sala *salaTresD = new TresD(4,5,10);
+    Sala *sala3D = new TresD(4,5,10);
 
     //CONFERINDO OS VALORES POR ASSENTO
     CHECK(salaComum->getValorPorAssento()==27.00);
     CHECK(salaIMAX->getValorPorAssento()-32.40 < 0.01);
     CHECK(salaPremium->getValorPorAssento()-55.08 < 0.01);
-    CHECK(salaTresD->getValorPorAssento()-40.40 < 0.01);
+    CHECK(sala3D->getValorPorAssento()-40.40 < 0.01);
 
     //DESALOCANDO MEMÓRIA
     delete salaComum;
     delete salaIMAX;
     delete salaPremium;
-    delete salaTresD;
+    delete sala3D;
 }
 
 TEST_CASE("04 - Testando o cadastro de salas"){
@@ -99,18 +99,18 @@ TEST_CASE("04 - Testando o cadastro de salas"){
     Sala *salaComum = new Sala(1,5,10);
     Sala *salaIMAX = new IMAX(2,5,10);
     Sala *salaPremium = new Premium(3,5,10);
-    Sala *salaTresD = new TresD(4,5,10);
+    Sala *sala3D = new TresD(4,5,10);
 
     CHECK_NOTHROW(Cineart.armazenarNovaSala(*salaComum));
     CHECK_NOTHROW(Cineart.armazenarNovaSala(*salaIMAX));
     CHECK_NOTHROW(Cineart.armazenarNovaSala(*salaPremium));
-    CHECK_NOTHROW(Cineart.armazenarNovaSala(*salaTresD));
+    CHECK_NOTHROW(Cineart.armazenarNovaSala(*sala3D));
 
     //DESALOCANDO MEMÓRIA
     delete salaComum;
     delete salaIMAX;
     delete salaPremium;
-    delete salaTresD;
+    delete sala3D;
 }
 
 /*---------------------------TESTE PESSOAS E NIVEIS-----------------------------
@@ -420,15 +420,19 @@ TEST_CASE("15 - Testando a função de quantidade de assentos livres/ocupados"){
 
 }
 
-TEST_CASE("16 - Testando publico total, valor arrecadado e ticket medio de filmes"){
+TEST_CASE("16 - Testando publico total, ticket médio e valor arrecadado de filmes"){
 
     Cinema Cineart("Cineart");
 
     //Definição e cadastro de salas
     Sala *salaComum = new Sala(1,6,10);
     Sala *salaIMAX = new IMAX(2,5,10);
+    Sala *salaPremium = new Premium (3,5,10);
+    Sala *sala3D = new TresD (4,5,10);
     Cineart.armazenarNovaSala(*salaComum);
     Cineart.armazenarNovaSala(*salaIMAX);
+    Cineart.armazenarNovaSala(*salaPremium);
+    Cineart.armazenarNovaSala(*sala3D);
 
     //Definição e cadastro de distribuidores
     Distribuidor *distribuidor = new Distribuidor("distribuidor", 1);
@@ -443,13 +447,17 @@ TEST_CASE("16 - Testando publico total, valor arrecadado e ticket medio de filme
     //Definição e cadastro de Sessões
     Sessao *sessao1 = new Sessao(*salaComum,"Rei Leão", std::to_string(2019123010));
     Sessao *sessao2 = new Sessao(*salaIMAX,"Titanic", std::to_string(2019123010));
+    Sessao *sessao3 = new Sessao(*salaPremium, "Rei Leão", std::to_string(2019123010));
+    Sessao *sessao4 = new Sessao(*sala3D, "Titanic", std::to_string(2019123010));
     Cineart.armazenarSessao(*salaComum,*sessao1);
     Cineart.armazenarSessao(*salaIMAX,*sessao2);
+    Cineart.armazenarSessao(*salaPremium, *sessao3);
+    Cineart.armazenarSessao(*sala3D,*sessao4);
 
-    std::cout << Cineart.getSessao(sessao2->getChaveSessao())->getSala().getValorPorAssento() << std::endl;
-    std::cout << std::endl;
-    Cineart.getSessao(sessao2->getChaveSessao())->imprimirMapaAssentos();
-
+    //vendas de ingressos
+    CHECK(salaIMAX->getValorPorAssento()-32.40 < 0.01);
+    CHECK(salaPremium->getValorPorAssento()-55.08 < 0.01);
+    CHECK(sala3D->getValorPorAssento()-40.40 < 0.01);
 
     //vendendo 5 ingressos da sessão 1
     Cineart.venderIngresso(sessao1->getChaveSessao(), "A05");
@@ -470,27 +478,48 @@ TEST_CASE("16 - Testando publico total, valor arrecadado e ticket medio de filme
     Cineart.venderIngresso(sessao2->getChaveSessao(), "D04");
     Cineart.venderIngresso(sessao2->getChaveSessao(), "D05");
 
-    Cineart.getSessao(sessao1->getChaveSessao())->imprimirMapaAssentos();
-    std::cout << std::endl;
-    Cineart.getSessao(sessao2->getChaveSessao())->imprimirMapaAssentos();
+    //vendendo 3 ingressos da sessão 3
+    Cineart.venderIngresso(sessao3->getChaveSessao(), "A01");
+    Cineart.venderIngresso(sessao3->getChaveSessao(), "B01");
+    Cineart.venderIngresso(sessao3->getChaveSessao(), "C01");
+
+    //vendendo 8 ingressos da sessão 4
+    Cineart.venderIngresso(sessao4->getChaveSessao(), "A01");
+    Cineart.venderIngresso(sessao4->getChaveSessao(), "B01");
+    Cineart.venderIngresso(sessao4->getChaveSessao(), "C01");
+    Cineart.venderIngresso(sessao4->getChaveSessao(), "C02");
+    Cineart.venderIngresso(sessao4->getChaveSessao(), "C03");
+    Cineart.venderIngresso(sessao4->getChaveSessao(), "D01");
+    Cineart.venderIngresso(sessao4->getChaveSessao(), "D02");
+    Cineart.venderIngresso(sessao4->getChaveSessao(), "D03");
+
 
     //publico total
-    CHECK(Cineart.getFilme("Rei Leão")->getPublicoTotal()==5);
-    CHECK(Cineart.getFilme("Titanic")->getPublicoTotal()==10);
+    CHECK(Cineart.getFilme("Rei Leão")->getPublicoTotal()==8);
+    CHECK(Cineart.getFilme("Titanic")->getPublicoTotal()==18);
     
     //valor total arrecadado de um filme
-    CHECK(Cineart.getFilme("Rei Leão")->getVerbaArrecadada()-135 < 0.1);
-    CHECK(Cineart.getFilme("Titanic")->getVerbaArrecadada()-324 < 0.1);
+    CHECK(Cineart.getFilme("Rei Leão")->getVerbaArrecadada()-300.24 < 0.1);
+    CHECK(Cineart.getFilme("Titanic")->getVerbaArrecadada()-647.2 < 0.1);
+
+    //ticket medio de um filme
+    CHECK(Cineart.getFilme("Rei Leão")->getTicketMedio()-37.53 < 0.1);
+    CHECK(Cineart.getFilme("Titanic")->getTicketMedio()-35.95 < 0.1);
 
     //valor total arrecadado do cinema
-    CHECK(Cineart.getSessao(sessao2->getChaveSessao())->getSala().getValorPorAssento()-32.4 < 0.1);
-    CHECK(Cineart.getVerbaArrecadada()-459 < 0.1);
+    CHECK(Cineart.getVerbaArrecadada()-947.4 < 0.1);
 
-    std::cout << sessao2->getSala().getValorPorAssento() << std::endl;
-    std::cout << sessao1->getSala().getValorPorAssento() << std::endl;
-    std::cout << Cineart.getSessao(sessao1->getChaveSessao())->getSala().getValorPorAssento() << std::endl;
-    Cineart.getSessao(sessao2->getChaveSessao())->imprimirMapaAssentos();
-
-    //std::cout << Cineart.getSessao(sessao2->getChaveSessao())->imprimirMapaAssentos() << std::endl;
+    //DESALOCANDO MEMÓRIA
+    delete salaComum;
+    delete salaIMAX;
+    delete salaPremium;
+    delete sala3D;
+    delete distribuidor;
+    delete ReiLeao;
+    delete Titanic;
+    delete sessao1;
+    delete sessao2;
+    delete sessao3;
+    delete sessao4;
 
 }
