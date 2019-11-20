@@ -9,7 +9,6 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 
 * **Andressa Nowasyk** - @andressanowasyk
 * **Henrique Lisboa** - @hlisboasousa
-* **Matheus Akira** - @matheusakira
 
 ## User Stories
 
