@@ -14,7 +14,6 @@ class Distribuidor: public Pessoa {
         ~Distribuidor();
         Distribuidor();
         float getValorTotalArrecadado();
-        float getValorDisponivelParaSaque();
         void adicionarVendaIngresso(float valor);
 
 };
