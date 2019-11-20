@@ -23,7 +23,7 @@
 5) Vendas de ingresso;
 6) Valor arrecadado, publico total ticket medio (filme);
 7) Valor total arrecadado do cinema;
-8) Porcentagem do distribuidor;
+8) Lucro do cinema e porcentagem do distribuidor;
 
 
 ---------------------------TESTES UNITÁRIOS----------------------------
@@ -521,5 +521,100 @@ TEST_CASE("16 - Testando publico total, ticket médio e valor arrecadado de film
     delete sessao2;
     delete sessao3;
     delete sessao4;
+}
+
+TEST_CASE("17 - Testando o lucro do cinema e porcentagem do distribuidor"){
+    
+    Cinema Cineart("Cineart");
+
+    //Definição e cadastro de salas
+    Sala *salaComum = new Sala(1,6,20);
+    Sala *salaIMAX = new IMAX(2,5,20);
+    Cineart.armazenarNovaSala(*salaComum);
+    Cineart.armazenarNovaSala(*salaIMAX);
+
+    //Definição e cadastro de distribuidores
+    Distribuidor *distribuidor1 = new Distribuidor("Henrique Lisboa", 1);
+    Distribuidor *distribuidor2 = new Distribuidor("Andressa Nowasyk", 2);
+    Cineart.armazenarNovoDistribuidor(*distribuidor1);
+    Cineart.armazenarNovoDistribuidor(*distribuidor2);
+
+    //Definição e cadastro de filmes
+    Filme *ReiLeao = new Filme("Rei Leão",1,90);
+    Filme *ChefJack = new Filme("Chef Jack",2,90);
+    Cineart.armazenarNovoFilme(*ReiLeao);
+    Cineart.armazenarNovoFilme(*ChefJack);
+
+    //Definição e cadastro de Sessões    
+    Sessao *sessao1 = new Sessao(*salaComum,"Rei Leão", std::to_string(2019123010));
+    Sessao *sessao2 = new Sessao(*salaIMAX, "Rei Leão", std::to_string(2019123010));
+    Sessao *sessao3 = new Sessao(*salaComum,"Chef Jack", std::to_string(2019113010));
+    Sessao *sessao4 = new Sessao(*salaIMAX, "Chef Jack", std::to_string(2019113010));
+    Cineart.armazenarSessao(*salaComum,*sessao1);
+    Cineart.armazenarSessao(*salaIMAX,*sessao2);
+    Cineart.armazenarSessao(*salaComum,*sessao3);
+    Cineart.armazenarSessao(*salaIMAX,*sessao4);
+
+    //vendas
+    int i;
+
+    //vendendo 20 ingressos da sessao 1 -> valor total = 540,00;
+    for(i=1; i < 21; i++){
+        if(i < 10)
+            Cineart.venderIngresso(sessao1->getChaveSessao(), "A0" + std::to_string(i));
+        else
+            Cineart.venderIngresso(sessao1->getChaveSessao(),"A"+ std::to_string(i));     
+   }
+
+    //vendendo 39 ingressos da sessao 2 -> valor total = 1263,60
+    for(i=1; i < 21; i++){
+        if(i < 10)
+            Cineart.venderIngresso(sessao2->getChaveSessao(), "A0" + std::to_string(i));
+        else
+            Cineart.venderIngresso(sessao2->getChaveSessao(),"A"+ std::to_string(i));     
+   }
+   for(i=1; i < 20; i++){
+        if(i < 10)
+            Cineart.venderIngresso(sessao2->getChaveSessao(), "B0" + std::to_string(i));
+        else
+            Cineart.venderIngresso(sessao2->getChaveSessao(),"B"+ std::to_string(i));     
+   }
+    //vendendo 13 ingressos da sessão 3 = 351,00
+    for(i=1; i < 14; i++){
+        if(i < 10)
+            Cineart.venderIngresso(sessao3->getChaveSessao(), "A0" + std::to_string(i));
+        else
+            Cineart.venderIngresso(sessao3->getChaveSessao(),"A"+ std::to_string(i));     
+   }
+   //vendendo 14 ingressos da sessão 4 = 453,60
+   for(i=1; i < 15; i++){
+        if(i < 10)
+            Cineart.venderIngresso(sessao4->getChaveSessao(), "A0" + std::to_string(i));
+        else
+            Cineart.venderIngresso(sessao4->getChaveSessao(),"A"+ std::to_string(i));     
+   }
+
+   //conferindo a verba arrecadada total
+   CHECK(Cineart.getVerbaArrecadada()-2608.2 < 0.1);
+   //conferindo o valor total arrecadado de cada filme 
+   CHECK(Cineart.getFilme("Rei Leão")->getVerbaArrecadada()-1803.6 < 0.1);
+   CHECK(Cineart.getFilme("Chef Jack")->getVerbaArrecadada()-804.6 < 0.1);
+
+   //conferindo a porcentagem de cada distribuidor = 0.4
+   CHECK(Cineart.getDistribuidor(1)->getValorTotalArrecadado()-(1803.6*0.4) < 0.1);
+   CHECK(Cineart.getDistribuidor(2)->getValorTotalArrecadado()-(804.6*0.4) < 0.1);
+
+    //DESALOCANDO MEMÓRIA
+    delete salaComum;
+    delete salaIMAX;
+    delete ReiLeao;
+    delete ChefJack;
+    delete sessao1;
+    delete sessao2;
+    delete sessao3;
+    delete sessao4;
+    delete distribuidor1;
+    delete distribuidor2;
 
 }
+

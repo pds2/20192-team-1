@@ -102,7 +102,6 @@ Sala cadastrarNovaSala (int num_sala) {
     } while (tipo_de_sala < 1 || tipo_de_sala > 4);
 
     if (tipo_de_sala == 1) {
-        // sala comum
         s = new Sala(num_sala,qtde_fileiras,assentos_por_fileiras);
     }
 
