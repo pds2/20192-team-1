@@ -2,20 +2,24 @@
 
 Este projeto consiste em um sistema de gerenciamento para uma exibidora de cinema. 
 O sistema deve ser capaz de gerenciar as salas do cinema, suas respectivas sessões, 
-bem como a venda de ingressos de acordo com o tipo da sala (IMAX,3D,COMUM) e a disponibilidade dos assentos, 
-incluindo informações sobre a bilheteria total e a verba arrecadada.
+bem como a venda de ingressos de acordo com o tipo da sala (IMAX,3D,COMUM) e a disponibilidade dos assentos.
 
 ## Autores
 
 * **Andressa Nowasyk** - @andressanowasyk
 * **Henrique Lisboa** - @hlisboasousa
 
+## Como compilar
+- Comando *make* para compilar
+- *make run* para compilar e rodar
+- *make tests* para rodar os testes
+
 ## User Stories
 
 ### Vendedor
 * Como um vendedor, eu quero ver todos os assentos disponíveis e seus respectivos preços das sessões abertas para a venda para que eu possa mostrar ao cliente.
 - [ ] Imprimir assentos disponíveis e vendidos de determinada sessão
-- [ ] Pesquisar próximas sessões de determinado filme ou horário e o preço de seu ingresso
+- [ ] Imprimir próximas sessões do cinema
 
 * Como um vendedor, eu quero conseguir vender ingressos de assentos disponíveis das sessões abertas para venda.
 - [ ] Vender um ingresso do mapa de assento da determinada sessão, transformando-o num assento ocupado.
@@ -28,23 +32,13 @@ incluindo informações sobre a bilheteria total e a verba arrecadada.
 - [ ] Adicionar uma nova sessão, em determinado horário e sala de determinado filme
 
 * Como gerente, eu quero ser capaz de ver a renda de cada filme para que eu possa decidir ou não criar novas sessões daquele filme.
-- [ ] Pesquisar os filmes mais rentáveis em exibição
-- [ ] Pesquisar os filmes mais rentáveis de todo cinema
 - [ ] Imprimir cada filme em exibição, sua respectiva verba, ticket médio e público
 
-* Como gerente, eu quero ser capaz de definir valores para cada assento de acordo com o tipo de sala.
-- [ ] Setar o valor por assento e as porcentagens adicionais para cada tipo de sala
 
 ### Diretor do Cinema
 * Como diretor do cinema, eu quero poder criar novas salas, criar novos gerentes e novos vendedores.
 - [ ] Criar novas salas e setar suas capacidades
-
-### Distribuidor
-* Como distribuidor, quero ser capaz de verificar e sacar meu crédito.
-- [ ] Imprimir Saldo
-- [ ] Sacar saldo
-
-
+- [ ] Criar novos empregados para o cinema
 
 ## Cartões CRC
 
@@ -60,6 +54,7 @@ Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e dis
 |   *Saber seu nome*;                       |                       |
 |   *Saber seu cpf*;                        |                       |
 |   *Saber seu nível*;                      |                       |
+
 
 | Classe: Cinema                                |                       |
 |-----------------------------------------------|-----------------------|
@@ -77,11 +72,13 @@ Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e dis
 |   *Ser capaz de adicionar um novo empregado*; |                       |
 
 
-| Classe: Sala                      |               |
-|-----------------------------------|---------------|
-| Responsabilidades:                | Colaborações: |
-|   *Saber sua capacidade*;         |               |
-|   *Saber seu valor por assento*;  |               |
+| Classe: Sala                                        |               |
+|-----------------------------------------------------|---------------|
+| Responsabilidades:                                  | Colaborações: |
+|   *Saber sua quantidade de fileiras*;               |               |
+|   *Saber sua quantidade de assentos por fileiras*;  |               |
+|   *Saber seu valor por assento*;                    |               |
+|   *Saber seu tipo*;                                 |               |
 
 
 | Classe: Assento                     |               | 
@@ -108,7 +105,7 @@ Os usuários que compoem o sistema são: dono do cinema, gerente, vendedor e dis
 |---------------------------------------------------------------------------------|-----------------|
 | Responsabilidades:                                                              | Colaborações:   |
 |   *Saber sua data/hora*;                                                        |  *Sala*         |
-|   *Saber seu filme*;                                                            |  *FIlme*        |
+|   *Saber seu filme*;                                                            |  *Filme*        |
 |   *Ser capaz de criar seu mapa de assentos de acordo com a capacidade da sala*; |  *Assento*      |
 |   *Ser capaz de ver assentos*;                                                  |                 |
 |   *Ser capaz de imprimir o mapa de assentos (livres/ocupados)*;                 |                 |
