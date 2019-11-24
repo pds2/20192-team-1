@@ -9,7 +9,7 @@ bem como a venda de ingressos de acordo com o tipo da sala (IMAX,3D,COMUM) e a d
 * **Andressa Nowasyk** - @andressanowasyk
 * **Henrique Lisboa** - @hlisboasousa
 
-##Requisitos para compilação
+## Requisitos para compilação
 Para compilar é necessario ter:
 
 Compilador g++, versão 11
