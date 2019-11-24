@@ -27,7 +27,10 @@ make run
 ```
 make tests
 ```
-
+- Comando para desfazer compilações anteriores
+```
+make clean
+```
 ## User Stories
 
 ### Vendedor
