@@ -84,31 +84,60 @@ Sala cadastrarNovaSala (int num_sala) {
     int assentos_por_fileiras;
     int tipo_de_sala;
     std::cout << "Sala a ser criada: " << num_sala << std::endl;
-    std::cout << "Digite a quantidade de fileiras da sala: ";
-    std::cin >> qtde_fileiras; // QTDE FILEIRAS DEVE SER MENOR QUE 26
-    std::cout << "Digite a quantidade de assentos por fileiras da sala: ";
-    std::cin >> assentos_por_fileiras;
-    do {
+
+do{
+    try{
+        std::cout << "Digite a quantidade de fileiras da sala: " << std::endl;
+        std::cin.clear();
+        std::cin.ignore(10000,'\n');
+        std::cin >> qtde_fileiras; // QTDE FILEIRAS DEVE SER MENOR QUE 26
+        if(std::cin.fail() || qtde_fileiras < 0 || qtde_fileiras > 26) {
+            throw(std::invalid_argument("Valor inválido"));
+        }
+    } catch (std::invalid_argument &e) {
+        std::cout << "Valor inválido. Tente novamente" << std::endl;        
+    } 
+} while (std::cin.fail() || qtde_fileiras < 0 || qtde_fileiras > 26);
+
+do{
+    try{
+        std::cout << "Digite a quantidade de assentos por fileiras da sala: ";
+        std::cin.clear();
+        std::cin.ignore(10000,'\n');
+        std::cin >> assentos_por_fileiras;
+        if(std::cin.fail() || assentos_por_fileiras < 0){
+            throw(std::invalid_argument("Valor inválido"));
+        }
+    } catch(std::invalid_argument &e) {
+            std::cout << "Valor inválido. Tente novamente" << std::endl;        
+        }
+} while (std::cin.fail() || assentos_por_fileiras < 0);
+
+do{
+    try{
         std::cout << "Escolha o tipo de sala:" << std::endl;
         std::cout << "1. Comum" << std::endl;
         std::cout << "2. IMAX" << std::endl;
         std::cout << "3. IMAX Premium" << std::endl;
         std::cout << "4. IMAX 3D" << std::endl;
-        std::cin >> tipo_de_sala;
+        std::cin.clear();
+        std::cin.ignore(10000,'\n');
 
-        if (tipo_de_sala < 1 || tipo_de_sala > 4) {
-            std::cout << "Tipo de sala inválido." << std::endl;
+        std::cin >> tipo_de_sala;
+        if (tipo_de_sala < 1 || tipo_de_sala > 4 || std::cin.fail()) {
+            throw(std::invalid_argument("Valor inválido"));
+        } 
+    } catch (std::invalid_argument &e) {
+            std::cout << "Valor inválido. Tente novamente" << std::endl;        
         }
-    } while (tipo_de_sala < 1 || tipo_de_sala > 4);
+} while (tipo_de_sala < 1 || tipo_de_sala > 4 || std::cin.fail());
 
     if (tipo_de_sala == 1) {
         s = new Sala(num_sala,qtde_fileiras,assentos_por_fileiras);
     }
-
     if (tipo_de_sala == 2) {
         // sala IMAX
         s = new IMAX(num_sala,qtde_fileiras,assentos_por_fileiras);
-
     }
 
     if (tipo_de_sala == 3) {
@@ -117,9 +146,9 @@ Sala cadastrarNovaSala (int num_sala) {
     }
 
     if (tipo_de_sala == 4) {
+        //sala IMAX 3D
         s = new TresD(num_sala,qtde_fileiras,assentos_por_fileiras);
-    }
-    
+    }       
     return *s;
 }
 
@@ -148,6 +177,7 @@ int main() {
     Cinema cinema("Cineart");
     
     while (opcao != -1) {
+
         std::cout << std::endl;
         std::cout << "O que você deseja fazer?" << std::endl; 
         std::cout << "1. Criar uma nova sala do cinema" << std::endl; // OK 
@@ -164,7 +194,18 @@ int main() {
         std::cout << "12. Imprmir mapa de assentos de determinada sessao" << std::endl;
         std::cout << "13. Vender ingressos" << std::endl;
         std::cout << "-1. Sair" << std::endl;
-        std::cin >> opcao;
+
+        try{
+            std::cin >> opcao;
+            if((!std::cin || opcao < -1 || opcao > 13)){
+                throw(std::invalid_argument("Valor inválido"));
+            }
+            } catch(std::invalid_argument &e){
+            std::cout << "Valor inválido. Tente novamente" << std::endl;
+            std::cin.clear();
+            std::cin.ignore(10000,'\n');
+
+        }
 
         if (opcao == 1) {
             // criando uma sala
@@ -180,7 +221,7 @@ int main() {
             cinema.armazenarNovoDistribuidor(criarDistribuidor());
         }
 
-        if (opcao == 4) { // FAZER TRATAMENTO DE EXCEÇAO SE FILME JÁ EXISTIR
+        if (opcao == 4) {
             std::cout << "Código Distribuidor: " << std::endl;
             std::cin >> id_distribuidor;
             if (cinema.isDistribuidorExistente(id_distribuidor)) {
