@@ -9,10 +9,24 @@ bem como a venda de ingressos de acordo com o tipo da sala (IMAX,3D,COMUM) e a d
 * **Andressa Nowasyk** - @andressanowasyk
 * **Henrique Lisboa** - @hlisboasousa
 
+##Requisitos para compilação
+Para compilar é necessario ter:
+
+Compilador g++, versão 11
+
 ## Como compilar
-- Comando *make* para compilar
-- *make run* para compilar e rodar
-- *make tests* para rodar os testes
+- Comando para compilar:
+```
+make
+```
+- Comando para compilar e rodar
+```
+make run
+```
+- Comando para rodar os testes
+```
+make tests
+```
 
 ## User Stories
 
