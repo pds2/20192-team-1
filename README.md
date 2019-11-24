@@ -10,16 +10,27 @@ bem como a venda de ingressos de acordo com o tipo da sala (IMAX,3D,COMUM) e a d
 * **Henrique Lisboa** - @hlisboasousa
 
 ## Requisitos para compilação
-Para compilar é necessario ter:
+- Para compilar é necessario ter:
 
 Compilador g++, versão 11
 
 ## Como compilar
-- Comando para compilar:
+- Primeiro é necessário clonar o repositório com o comando:
+```
+git clone 'https://github.com/pds2/20192-team-1.git'
+```
+- Acessar diretório do projeto:
+```
+cd 20192-team-1/
+```
+- No diretório raiz do projeto execute o Makefile com:
 ```
 make
 ```
-- Comando para compilar e rodar
+
+## Como executar
+
+- Comando para compilar e executar
 ```
 make run
 ```
