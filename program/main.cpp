@@ -36,13 +36,12 @@ Pessoa criarEmpregado(){
 
     std::cin >> id;
 
-    do {
-        std::cout << "Nivel de Acesso: " << std::endl;
-        std::cin >> nivel;
-            if (nivel < ACESSO_MINIMO || nivel > ACESSO_MAXIMO) {
-                std::cout << "Nivel inválido. Tente novamente." << std::endl;
-            }
-        } while (nivel < ACESSO_MINIMO || nivel > ACESSO_MAXIMO);
+    std::cout << "Nivel de Acesso: " << std::endl;
+    while (!(std::cin >> nivel) || nivel <= ACESSO_MINIMO || nivel > ACESSO_MAXIMO) {
+        std::cin.clear();
+        std::cin.ignore(1000,'\n');
+        std::cout << "Valor inválido. Tente novamente." << std::endl;
+    }
 
     p = new Pessoa(nome, id, nivel);
     return(*p);
@@ -72,7 +71,11 @@ Filme criarFilme(unsigned long long int distribuidor) {
     std::cin.ignore();
     std::getline(std::cin,nome_filme);     
     std::cout << "Duração (min): " << std::endl;
-    std::cin >> duracao;
+    while (!(std::cin >> duracao) || duracao < 0) {
+        std::cin.clear();
+        std::cin.ignore(1000,'\n');
+        std::cout << "Valor inválido. Tente novamente." << std::endl;
+    }
     Filme *f = new Filme(nome_filme,distribuidor,duracao);
     return *f;
 
@@ -244,41 +247,41 @@ int main() {
                     std::cout << "Filme não existente. Retornando ao Menu Inicial." << std::endl;
                     sleep(2);
                 } else {
-                    std::cout << "Ano: ";
-                    std::cin >> ano;
-                    do {
-                        std::cout << "Mês: ";
-                        std::cin >> mes;
-                        if (mes > 12 || mes < 1) {
-                            std::cout << "Mês Inválido." << std::endl;
-                        }
-                    } while (mes > 12 || mes < 1);
-                    do {
-                        std::cout << "Dia: ";
-                        std::cin >> dia;
-                        if (dia < 1 || dia > 31) {
-                            std::cout << "Dia Inválido." << std::endl;
-                        }
-                    } while (dia < 1 || dia > 31);
-                    do {
-                        std::cout << "Sala: ";
-                        std::cin >> num_sala;
-                        if (num_sala >= cinema.getProximaSalaASerCriada() || num_sala < 1) {
-                            std::cout << "Sala inválida. Tente novamente." << std::endl;
-                        }
-                    } while (num_sala >= cinema.getProximaSalaASerCriada() || num_sala < 1); // a sala deve existir
-                    do {
-                        std::cout << "Horário: " << std::endl;
-                        std::cout << "1. " + Horarios::getHora(1) << std::endl;
-                        std::cout << "2. " + Horarios::getHora(2) << std::endl;
-                        std::cout << "3. " + Horarios::getHora(3) << std::endl;
-                        std::cout << "4. " + Horarios::getHora(4) << std::endl;
-                        std::cin >> horario_sessao;
-                        if (horario_sessao > 4 || horario_sessao < 1) {
-                            std::cout << "Horário inválido. Tente novamente." << std::endl;
-                        }
-                    } while (horario_sessao > 4 || horario_sessao < 1);
-
+                    std::cout << "Ano: " << std::endl;
+                    while (!(std::cin >> ano) || ano < ANO_ATUAL) {
+                        std::cin.clear();
+                        std::cin.ignore(1000,'\n');
+                        std::cout << "Valor inválido. Tente novamente." << std::endl;
+                    }               
+                    std::cout << "Mês: " << std::endl;
+                    while (!(std::cin >> mes) || mes < 1 || mes > 12) {
+                        std::cin.clear();
+                        std::cin.ignore(1000,'\n');
+                        std::cout << "Valor inválido. Tente novamente." << std::endl;
+                    } 
+                    std::cout << "Dia: " << std::endl;
+                    while (!(std::cin >> dia) || dia < 1 || dia > 31) {
+                        std::cin.clear();
+                        std::cin.ignore(1000,'\n');
+                        std::cout << "Valor inválido. Tente novamente." << std::endl;
+                    }
+                    std::cout << "Sala: " << std::endl; 
+                    while (!(std::cin >> num_sala) || num_sala >= cinema.getProximaSalaASerCriada() || num_sala < 1) {
+                        std::cin.clear();
+                        std::cin.ignore(1000,'\n');
+                        std::cout << "Valor inválido. Tente novamente." << std::endl;
+                    } 
+                    std::cout << "Horário: " << std::endl;
+                    std::cout << "1. " + Horarios::getHora(1) << std::endl;
+                    std::cout << "2. " + Horarios::getHora(2) << std::endl;
+                    std::cout << "3. " + Horarios::getHora(3) << std::endl;
+                    std::cout << "4. " + Horarios::getHora(4) << std::endl;                       
+                    while (!(std::cin >> horario_sessao) || horario_sessao > 4 || horario_sessao < 1) {
+                        std::cin.clear();
+                        std::cin.ignore(1000,'\n');
+                        std::cout << "Valor inválido. Tente novamente." << std::endl;
+                    }
+                        
                     if (mes < 10) {
                         s_mes = "0" + std::to_string(mes);
                     } else {
@@ -357,15 +360,14 @@ int main() {
                 std::cout << "Sessao Inexistente. Retornando ao Menu Inicial..." << std::endl;
                 sleep (2);
             } else {
-                do {
-                    std::cout << "Quantos ingressos deseja vender?" << std::endl;
-                    std::cin >> qtde_vendaIngressos;
-                    if (qtde_vendaIngressos < 1 || qtde_vendaIngressos > cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) {
-                        std::cout << "Quantidade Inválida. Qtde de assentos livres: " + std::to_string(cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) << std::endl;
-                    }
-                } while (qtde_vendaIngressos < 1 || qtde_vendaIngressos > cinema.getSessao(chave_sessao)->getQtdeAssentosLivres());
+                std::cout << "Quantos ingressos deseja vender?" << std::endl;
+                while (!(std::cin >> qtde_vendaIngressos) || qtde_vendaIngressos < 1 || qtde_vendaIngressos > cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) {
+                    std::cin.clear();
+                    std::cin.ignore(1000,'\n');
+                    std::cout << "Valor inválido. Qtde de assentos livres: " + std::to_string(cinema.getSessao(chave_sessao)->getQtdeAssentosLivres()) << std::endl;
+                    std::cout << "Tente novamente." << std::endl;
+                }
                 // imprimir valor total da venda
-
                 valor_total_venda = cinema.getSessao(chave_sessao)->getSala().getValorPorAssento() * qtde_vendaIngressos;
                 std::cout << "Valor total: ";
                 std::cout << std::setprecision(2) << std::fixed << valor_total_venda << std::endl;
