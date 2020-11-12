@@ -182,6 +182,7 @@ int main() {
     while (opcao != -1) {
 
         std::cout << std::endl;
+        std::cout << "OOIIIIII" << std::endl; // OK 
         std::cout << "O que você deseja fazer?" << std::endl; 
         std::cout << "1. Criar uma nova sala do cinema" << std::endl; // OK 
         std::cout << "2. Criar um novo empregado" << std::endl; // OK
